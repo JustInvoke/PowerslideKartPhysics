@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c963b2600e4bb44879fd65d49bf95a, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: 
+  friction: 0.8
+  useColliderFriction: 0
+  speed: 0.7
+  tireMarkMaterial: {fileID: 2100000, guid: c42540edeacc46f42a7992f61854f16d, type: 2}
+  alwaysSlide: 1
+  tireSnd: {fileID: 8300000, guid: 0ca9cb0673bc74148af58d2451b70da2, type: 3}

@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &594524847080706026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033707988441234987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81eb2f6d3f3abcc4192797bf72ae7033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPoint: {fileID: 0}
+  steerAmount: 10
+  maxBrake: 0.2
+  minAccel: 0.5
+  reverseSpeedLimit: 5
+  reverseTimeThreshold: 3
+  reverseDuration: 1
+  driftStartThreshold: 1
+  driftEndThreshold: 0.2
+  driftSpeedMultiplier: 0.02
+  driftSpeedMultiplierCap: 2
+  distanceAdvanceFactor: 0.05
+--- !u!1001 &3630716374143490820
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687594, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687596, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: oneWheelCastPerFrame
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687596, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: oneCornerCastPerFrame
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764003789813687599, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: m_Name
+      value: Kart AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579437956407325114, guid: e3a4b51f834dd8b4bad73af72b704252,
+        type: 3}
+      propertyPath: zeroDoppler
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2972459663597386111, guid: e3a4b51f834dd8b4bad73af72b704252, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: e3a4b51f834dd8b4bad73af72b704252, type: 3}
+--- !u!1 &3033707988441234987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1764003789813687599, guid: e3a4b51f834dd8b4bad73af72b704252,
+    type: 3}
+  m_PrefabInstance: {fileID: 3630716374143490820}
+  m_PrefabAsset: {fileID: 0}

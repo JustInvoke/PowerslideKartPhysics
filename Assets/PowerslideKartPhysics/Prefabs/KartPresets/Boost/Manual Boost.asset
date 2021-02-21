@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62988d9ff5bdfba4f990dc95d2f2c73f, type: 3}
+  m_Name: Manual Boost
+  m_EditorClassIdentifier: 
+  boostType: 2
+  boostSpeedAdd: 10
+  boostAccelAdd: 1
+  boostPower: 1
+  maxBoosts: 3
+  autoBoostInterval: 1.5
+  driftManualBoostLimit: 0.5
+  boostRate: 1.5
+  boostBurnRate: 2
+  boostGroundPush: 10
+  boostAirPush: 5
+  airLandBoost: 5
+  driftBoostAdd: 1
+  boostAmount: 10
+  boostAmountLimit: 10
+  boostReserveLimit: Infinity
+  brakeCancelsBoost: 1
+  wallCollisionCancelsBoost: 0
+  boostWheelie: 0.5

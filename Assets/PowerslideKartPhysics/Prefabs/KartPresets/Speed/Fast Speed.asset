@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b6ac7c52010c34dbe4ba5a9682b35e, type: 3}
+  m_Name: Fast Speed
+  m_EditorClassIdentifier: 
+  maxSpeed: 60
+  maxReverseSpeed: 20
+  acceleration: 1
+  brakeForce: 1.5
+  coastingFriction: 0.2
+  slopeFriction: 0.5
+  autoStopSpeed: 1
+  autoStopForce: 5
+  maxFallSpeed: 40
+  spinDecel: 1

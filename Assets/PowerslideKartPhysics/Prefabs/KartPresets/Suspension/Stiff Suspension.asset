@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da4bd700530fe541adb102875ad32bb, type: 3}
+  m_Name: Stiff Suspension
+  m_EditorClassIdentifier: 
+  springForce: 60
+  springDampening: 0.3
+  springDampVelMin: -2
+  springDampVelMax: 2
+  compressionSpringFactor: 0.4
+  groundStickForce: 100
+  groundStickCompression: 0.5
