@@ -53239,6 +53239,7 @@ GameObject:
   - component: {fileID: 777888531}
   - component: {fileID: 777888532}
   - component: {fileID: 777888533}
+  - component: {fileID: -9169873885827390142}
   m_Layer: 8
   m_Name: 3 Wheeler Drift Auto
   m_TagString: Untagged
@@ -53312,6 +53313,7 @@ MonoBehaviour:
   brakeForce: 1.5
   coastingFriction: 0.2
   slopeFriction: 0.5
+  airDriveFriction: 0
   autoStopSpeed: 1
   autoStopForce: 5
   maxFallSpeed: 40
@@ -53660,6 +53662,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-9169873885827390142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196949148641620721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b52d2623ec67724ea75e31952d0265f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bumpFactor: 1
+  minBumpMagnitude: 2
+  maxBumpMagnitude: 5
 --- !u!1 &1196949149790043253
 GameObject:
   m_ObjectHideFlags: 0
