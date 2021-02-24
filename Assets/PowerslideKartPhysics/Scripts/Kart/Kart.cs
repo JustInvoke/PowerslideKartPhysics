@@ -451,7 +451,7 @@ namespace PowerslideKartPhysics
                 if (drifting && driftDir != 0 && !boostFailed)
                 {
                     boostTime += boostRate * Time.fixedDeltaTime;
-                    boostCount = Mathf.Min(Mathf.FloorToInt(boostTime / autoBoostInterval), maxBoosts);
+                    boostCount = Mathf.Min(Mathf.FloorToInt(boostTime / Mathf.Max(0.0001f, autoBoostInterval)), maxBoosts);
                 }
 
                 // Drift end
