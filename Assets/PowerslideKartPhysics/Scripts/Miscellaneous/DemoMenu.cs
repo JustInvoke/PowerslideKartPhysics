@@ -12,6 +12,7 @@ namespace PowerslideKartPhysics
         public Vector3 spawnDir = Vector3.forward;
         public GameObject uiContainer;
         public KartCamera kartCam;
+        public bool connectToRaceController;
 
         private void Awake()
         {
@@ -47,6 +48,16 @@ namespace PowerslideKartPhysics
             if (kartCam != null)
             {
                 kartCam.Initialize(newKart);
+            }
+
+            // Tells the race controller to spawn karts and start a race
+            if (connectToRaceController && newKart != null)
+            {
+                RaceController rc = FindObjectOfType<RaceController>();
+                if (rc != null)
+                {
+                    rc.SpawnKarts(newKart.transform);
+                }
             }
 
             gameObject.SetActive(false);

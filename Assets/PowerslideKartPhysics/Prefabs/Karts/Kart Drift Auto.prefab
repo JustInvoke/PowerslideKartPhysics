@@ -15026,6 +15026,7 @@ GameObject:
   - component: {fileID: 8579437956407325114}
   - component: {fileID: 1933219073386016506}
   - component: {fileID: 81437491}
+  - component: {fileID: -1756671685938507569}
   m_Layer: 8
   m_Name: Kart Drift Auto
   m_TagString: Untagged
@@ -15448,6 +15449,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-1756671685938507569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764003789813687599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0124f00bb4add484cb4619d1844e9fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPoint: {fileID: 0}
+  lapCompletedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  respawnHeight: 2
 --- !u!1 &1764003790394547630
 GameObject:
   m_ObjectHideFlags: 0

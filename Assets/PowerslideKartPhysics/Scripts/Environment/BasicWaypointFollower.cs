@@ -35,7 +35,7 @@ namespace PowerslideKartPhysics
             Vector3 targetDir = targetPoint.transform.position - tr.position;
             if (targetDir.sqrMagnitude <= targetPoint.radius * targetPoint.radius)
             {
-                targetPoint = targetPoint.nextPoint;
+                targetPoint = targetPoint.GetNextPoint();
             }
 
             float forwardDot = Vector3.Dot(targetDir.normalized, theKart.rotator.forward);

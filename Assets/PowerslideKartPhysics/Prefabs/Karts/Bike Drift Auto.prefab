@@ -24042,6 +24042,7 @@ GameObject:
   - component: {fileID: 5444314938143796822}
   - component: {fileID: 7452113816631832033}
   - component: {fileID: 4113863002305737392}
+  - component: {fileID: 4134834876178738455}
   m_Layer: 8
   m_Name: Bike Drift Auto
   m_TagString: Untagged
@@ -24462,6 +24463,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4134834876178738455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383327082568396878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0124f00bb4add484cb4619d1844e9fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPoint: {fileID: 0}
+  lapCompletedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  respawnHeight: 2
 --- !u!1 &3383327083145185487
 GameObject:
   m_ObjectHideFlags: 0

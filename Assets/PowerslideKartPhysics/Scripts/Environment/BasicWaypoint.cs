@@ -10,8 +10,15 @@ namespace PowerslideKartPhysics
     {
         public BasicWaypoint nextPoint;
         public float radius = 1.0f;
+        public int index = 0;
 
-        private void OnDrawGizmos()
+        // Returns the next waypoint in the path
+        public virtual BasicWaypoint GetNextPoint()
+        {
+            return nextPoint;
+        }
+
+        protected virtual void OnDrawGizmos()
         {
             // Draw radius and line to next point
             Gizmos.color = Color.cyan;
