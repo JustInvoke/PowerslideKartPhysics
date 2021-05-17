@@ -147,6 +147,7 @@ namespace PowerslideKartPhysics
         public float airJumpTimeLimit = 0.1f;
         float airTime = 0.0f;
         public float gravityAdd = -10f;
+        Vector3 gravityDir = Vector3.up;
 
         public float GetJumpedAirTime() { return jumped ? airTime : 0.0f; }
 
@@ -259,7 +260,7 @@ namespace PowerslideKartPhysics
         {
             if (rotator == null || visualHolder == null || rotator == visualHolder || wheels.Length == 0) { return; }
 
-            rb.AddForce(Vector3.up * gravityAdd, ForceMode.Acceleration); // Add fake gravity
+            rb.AddForce(gravityDir * gravityAdd, ForceMode.Acceleration); // Add fake gravity
             velMag = rb.velocity.magnitude;
             localVelPrev = localVel;
             localVel = rotator.InverseTransformDirection(rb.velocity);
@@ -353,7 +354,7 @@ namespace PowerslideKartPhysics
             }
             else
             {
-                rb.AddForce(rightDir * (-localVel.x * airSidewaysFriction * (1.0f - Mathf.Abs(Vector3.Dot(rightDir, Vector3.up))) * brakeSlipFactor - Mathf.Clamp01(driftSwingTime) * driftDir * 100f * driftSwingForce), ForceMode.Acceleration);
+                rb.AddForce(rightDir * (-localVel.x * airSidewaysFriction * (1.0f - Mathf.Abs(Vector3.Dot(rightDir, gravityDir))) * brakeSlipFactor - Mathf.Clamp01(driftSwingTime) * driftDir * 100f * driftSwingForce), ForceMode.Acceleration);
             }
 
             // Grounded state
@@ -381,7 +382,7 @@ namespace PowerslideKartPhysics
 
                     // Ground stick force
                     rb.AddForce(
-                        -groundNormal * groundStickForce * Mathf.Clamp01(compression - groundStickCompression) * Mathf.Clamp01(Vector3.Dot(groundNormal, Vector3.up))
+                        -groundNormal * groundStickForce * Mathf.Clamp01(compression - groundStickCompression) * Mathf.Clamp01(Vector3.Dot(groundNormal, gravityDir))
                         , ForceMode.Acceleration);
                 }
 
@@ -392,7 +393,7 @@ namespace PowerslideKartPhysics
                     // Acceleration and braking force
                     rb.AddForce(forwardDir * (targetSpeed - localVel.z) * (Mathf.Abs(targetSpeed) > Mathf.Abs(localVel.z) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z) ? acceleration + Mathf.Clamp01(boostReserve) * boostAccelAdd : 1.0f) * maxGroundFriction * (Mathf.Sign(targetInput) != Mathf.Sign(localVel.z) ? brakeForce : 1.0f)
                         * (targetInput == 0 && !(Mathf.Abs(localVel.z) > Mathf.Abs(targetSpeed) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z)) ? coastingFriction : 1.0f)
-                        * Mathf.Clamp01(1.0f + slopeFriction - Vector3.Dot(forwardDir * Mathf.Sign(targetSpeed), Vector3.up)), ForceMode.Acceleration);
+                        * Mathf.Clamp01(1.0f + slopeFriction - Vector3.Dot(forwardDir * Mathf.Sign(targetSpeed), gravityDir)), ForceMode.Acceleration);
 
                     // Staying parked at low speed
                     if (Mathf.Abs(targetInput) < 0.001f && velMag < autoStopSpeed)
@@ -411,7 +412,7 @@ namespace PowerslideKartPhysics
             else if (!airGrounded) // Air grounded state indicates wheels are off ground, but kart is still close to ground (example: jumping but not off a ramp)
             {
                 // If completely in air (not air grounded) then rotate kart upright
-                rotator.rotation = Quaternion.Lerp(rotator.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane(forwardDir, Vector3.up).normalized, Vector3.up), airFlattenRate * 100f * Time.fixedDeltaTime);
+                rotator.rotation = Quaternion.Lerp(rotator.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane(forwardDir, gravityDir).normalized, gravityDir), airFlattenRate * 100f * Time.fixedDeltaTime);
                 rotator.localPosition = Vector3.zero;
                 leftGroundJump = true;
             }
@@ -419,7 +420,7 @@ namespace PowerslideKartPhysics
             {
                 // If not grounded but still air grounded, apply ground stick force if not jumping
                 rb.AddForce(
-                    -groundNormal * jumpStickForce * Mathf.Clamp01(Vector3.Dot(groundNormal, Vector3.up))
+                    -groundNormal * jumpStickForce * Mathf.Clamp01(Vector3.Dot(groundNormal, gravityDir))
                     , ForceMode.Acceleration);
             }
 
@@ -431,7 +432,7 @@ namespace PowerslideKartPhysics
                     // Air acceleration and braking force
                     rb.AddForce(forwardDir * airDriveFriction * (targetSpeed - localVel.z) * (Mathf.Abs(targetSpeed) > Mathf.Abs(localVel.z) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z) ? acceleration + Mathf.Clamp01(boostReserve) * boostAccelAdd : 1.0f) * (Mathf.Sign(targetInput) != Mathf.Sign(localVel.z) ? brakeForce : 1.0f)
                         * (targetInput == 0 && !(Mathf.Abs(localVel.z) > Mathf.Abs(targetSpeed) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z)) ? coastingFriction : 1.0f)
-                        * Mathf.Clamp01(1.0f + slopeFriction - Vector3.Dot(forwardDir * Mathf.Sign(targetSpeed), Vector3.up)), ForceMode.Acceleration);
+                        * Mathf.Clamp01(1.0f + slopeFriction - Vector3.Dot(forwardDir * Mathf.Sign(targetSpeed), gravityDir)), ForceMode.Acceleration);
                 }
             }
 
@@ -580,7 +581,7 @@ namespace PowerslideKartPhysics
             // Fall speed limiting
             if (!grounded && localVel.y < -maxFallSpeed)
             {
-                rb.AddForce(Vector3.up * -(maxFallSpeed + localVel.y), ForceMode.Acceleration);
+                rb.AddForce(gravityDir * -(maxFallSpeed + localVel.y), ForceMode.Acceleration);
             }
 
             // Jump force
@@ -939,10 +940,12 @@ namespace PowerslideKartPhysics
             if (grounded || airGrounded)
             {
                 groundNormal = Vector3.Slerp(groundNormal, rawGroundNormal, groundNormalSmoothRate * Time.fixedDeltaTime);
+                gravityDir = groundNormal;
             }
             else
             {
                 groundNormal = upDir;
+                gravityDir = Vector3.up;
             }
         }
 
@@ -1085,7 +1088,7 @@ namespace PowerslideKartPhysics
                 {
                     case SpinAxis.Yaw:
                         spinForward = new Vector3(Mathf.Sin(curSpin), Mathf.Sin(curSpin * 2.0f) * 0.1f, Mathf.Cos(curSpin));
-                        spinUp = Vector3.up;
+                        spinUp = gravityDir;
                         break;
                     case SpinAxis.Roll:
                         spinUp = new Vector3(Mathf.Sin(curSpin), Mathf.Cos(curSpin), 0.0f);
@@ -1098,7 +1101,7 @@ namespace PowerslideKartPhysics
 
                 if (spinType != SpinAxis.Yaw)
                 {
-                    spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / maxSpin) * Mathf.PI);
+                    spinOffset = gravityDir * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / maxSpin) * Mathf.PI);
                 }
                 yield return new WaitForFixedUpdate();
             }
@@ -1107,7 +1110,7 @@ namespace PowerslideKartPhysics
             spinningOut = false;
             spinForward = Vector3.forward;
             spinOffset = Vector3.zero;
-            spinUp = Vector3.up;
+            spinUp = gravityDir;
             boostPadUsed = false;
         }
 
@@ -1195,7 +1198,7 @@ namespace PowerslideKartPhysics
             for (int i = 0; i < col.contacts.Length; i++)
             {
                 // Wall collision detection
-                WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : Vector3.up, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
+                WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : gravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
                 if (!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsKart() && !col.contacts[i].otherCollider.IsSpawnedProjectileItem())
                 {
                     wallHit = true;
@@ -1237,7 +1240,7 @@ namespace PowerslideKartPhysics
                 // Wall collision detection
                 if (wallHitTime == 0 && col.relativeVelocity.magnitude > minWallHitSpeed)
                 {
-                    WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : Vector3.up, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
+                    WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : gravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
                     if ((!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsSpawnedProjectileItem()) || col.contacts[i].otherCollider.IsKart())
                     {
                         // Wall hit event invocation
