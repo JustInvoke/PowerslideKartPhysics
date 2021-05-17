@@ -1088,7 +1088,7 @@ namespace PowerslideKartPhysics
                 {
                     case SpinAxis.Yaw:
                         spinForward = new Vector3(Mathf.Sin(curSpin), Mathf.Sin(curSpin * 2.0f) * 0.1f, Mathf.Cos(curSpin));
-                        spinUp = gravityDir;
+                        spinUp = Vector3.up;
                         break;
                     case SpinAxis.Roll:
                         spinUp = new Vector3(Mathf.Sin(curSpin), Mathf.Cos(curSpin), 0.0f);
@@ -1101,7 +1101,7 @@ namespace PowerslideKartPhysics
 
                 if (spinType != SpinAxis.Yaw)
                 {
-                    spinOffset = gravityDir * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / maxSpin) * Mathf.PI);
+                    spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / maxSpin) * Mathf.PI);
                 }
                 yield return new WaitForFixedUpdate();
             }
@@ -1110,7 +1110,7 @@ namespace PowerslideKartPhysics
             spinningOut = false;
             spinForward = Vector3.forward;
             spinOffset = Vector3.zero;
-            spinUp = gravityDir;
+            spinUp = Vector3.up;
             boostPadUsed = false;
         }
 
