@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/PowerslideKartPhysics/Scenes/Demo Mobile.unity
     guid: 0b0634b837a019742a5d0259ee968cc2
-  - enabled: 1
+  - enabled: 0
     path: Assets/PowerslideKartPhysics/Scenes/Demo.unity
     guid: c11a5098e005ce6429ccac7d3c73f8fe
+  - enabled: 1
+    path: Assets/PowerslideKartPhysics/Scenes/Demo Race Mobile.unity
+    guid: 4aec965d9f87f5c418552fb70e6485f1
   m_configObjects: {}
