@@ -16,6 +16,7 @@ namespace PowerslideKartPhysics
         public float boostPower = 1.0f;
         public int maxBoosts = 3;
         public float autoBoostInterval = 1.0f;
+        public float autoBoostDelay = 0.0f;
         [Range(0.0f, 1.0f)]
         public float driftManualBoostLimit = 0.5f;
         public bool driftManualFailCancel = true;

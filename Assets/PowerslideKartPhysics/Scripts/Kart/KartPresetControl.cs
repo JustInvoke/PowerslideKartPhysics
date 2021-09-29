@@ -304,6 +304,7 @@ namespace PowerslideKartPhysics
             kart.boostPower = preset.boostPower;
             kart.maxBoosts = preset.maxBoosts;
             kart.autoBoostInterval = preset.autoBoostInterval;
+            kart.autoBoostDelay = preset.autoBoostDelay;
             kart.driftManualBoostLimit = preset.driftManualBoostLimit;
             kart.driftManualFailCancel = preset.driftManualFailCancel;
             kart.boostRate = preset.boostRate;
@@ -333,6 +334,7 @@ namespace PowerslideKartPhysics
             preset.boostPower = kart.boostPower;
             preset.maxBoosts = kart.maxBoosts;
             preset.autoBoostInterval = kart.autoBoostInterval;
+            preset.autoBoostDelay = kart.autoBoostDelay;
             preset.driftManualBoostLimit = kart.driftManualBoostLimit;
             preset.driftManualFailCancel = kart.driftManualFailCancel;
             preset.boostRate = kart.boostRate;

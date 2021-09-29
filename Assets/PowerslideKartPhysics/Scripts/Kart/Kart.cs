@@ -184,6 +184,7 @@ namespace PowerslideKartPhysics
         public float boostPower = 1.0f;
         public int maxBoosts = 3;
         public float autoBoostInterval = 1.0f;
+        public float autoBoostDelay = 0.0f;
         [Range(0.0f, 1.0f)]
         public float driftManualBoostLimit = 0.5f;
         public bool driftManualFailCancel = true;
@@ -981,13 +982,30 @@ namespace PowerslideKartPhysics
             CancelDrift();
             if (canBoost)
             {
-                AddBoost(boostCount * boostPower, boostCount);
-                if (boostCount > 0)
+                if (boostType == KartBoostType.DriftAuto && autoBoostDelay > 0)
                 {
-                    boostStartEvent.Invoke();
+                    StartCoroutine(DoAutoBoostDelay(boostCount));
+                }
+                else
+                {
+                    AddBoost(boostCount * boostPower, boostCount);
+                    if (boostCount > 0)
+                    {
+                        boostStartEvent.Invoke();
+                    }
                 }
             }
             CancelDriftBoost(false);
+        }
+
+        IEnumerator DoAutoBoostDelay(int countedBoosts)
+        {
+            yield return new WaitForSeconds(autoBoostDelay);
+            AddBoost(countedBoosts * boostPower, countedBoosts);
+            if (countedBoosts > 0)
+            {
+                boostStartEvent.Invoke();
+            }
         }
 
         // Award boost to kart

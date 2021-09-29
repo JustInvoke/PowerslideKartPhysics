@@ -120,6 +120,7 @@ namespace PowerslideKartPhysics
                 {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("maxBoosts"));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("autoBoostInterval"));
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("autoBoostDelay"));
                 }
                 else if (boostType == KartBoostType.DriftManual)
                 {
