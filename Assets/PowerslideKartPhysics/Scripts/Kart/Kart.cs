@@ -330,7 +330,7 @@ namespace PowerslideKartPhysics
             targetTurnSpeed = Mathf.Lerp(targetTurnSpeed, targetTurn, steerRate * 100f * Time.fixedDeltaTime);
 
             // Visual turn rate
-            float targetVisualSteer = drifting && driftDir != 0 ? -steerInput - driftDir : steerInput * Mathf.Clamp01(visualSteerSpeedLimit / Mathf.Abs(localVel.z));
+            float targetVisualSteer = drifting && driftDir != 0 ? -steerInput - driftDir : steerInput * Mathf.Clamp01(visualSteerSpeedLimit / Mathf.Max(Mathf.Abs(localVel.z), 0.001f));
             visualSteer = Mathf.Lerp(visualSteer, targetVisualSteer, visualSteerRate * 100f * Time.fixedDeltaTime);
 
             // Side friction application
@@ -760,7 +760,7 @@ namespace PowerslideKartPhysics
                         groundAngVel = hit.rigidbody.angularVelocity;
                     }
 
-                    compression += Mathf.Clamp01(hit.distance / curWheel.suspensionDistance);
+                    compression += Mathf.Clamp01(hit.distance / Mathf.Max(curWheel.suspensionDistance, 0.01f));
                     rawGroundNormal += hit.normal;
                 }
                 curWheelCast = (curWheelCast + 1) % wheels.Length;
@@ -790,7 +790,7 @@ namespace PowerslideKartPhysics
                             groundAngVel = hit.rigidbody.angularVelocity;
                         }
 
-                        compression += Mathf.Clamp01(hit.distance / curWheel.suspensionDistance);
+                        compression += Mathf.Clamp01(hit.distance / Mathf.Max(curWheel.suspensionDistance, 0.01f));
                         rawGroundNormal += hit.normal;
                     }
                 }
@@ -977,7 +977,7 @@ namespace PowerslideKartPhysics
                 }
 
                 if (spinType != SpinAxis.Yaw) {
-                    spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / maxSpin) * Mathf.PI);
+                    spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / Mathf.Max(maxSpin, 0.001f)) * Mathf.PI);
                 }
                 yield return new WaitForFixedUpdate();
             }

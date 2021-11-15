@@ -74,7 +74,7 @@ namespace PowerslideKartPhysics
                 rotationRate = driven ? burnoutRotateSpeed * flippedSideFactor : 0.0f;
             }
             else {
-                rotationRate = (localVel.z / (radius * 2.0f * Mathf.PI)) * (Mathf.PI * 100f) * flippedSideFactor;
+                rotationRate = (localVel.z / Mathf.Max(0.001f, radius * 2.0f * Mathf.PI)) * (Mathf.PI * 100f) * flippedSideFactor;
             }
 
             // Calculate rotation angle and suspension distance
@@ -88,7 +88,7 @@ namespace PowerslideKartPhysics
             if (visualWheel != null) {
                 float compression = 1.0f;
                 if (suspensionDistance > 0) {
-                    compression = Mathf.Clamp01(Vector3.Distance(tr.position, groundPoint) / suspensionDistance);
+                    compression = Mathf.Clamp01(Vector3.Distance(tr.position, groundPoint) / Mathf.Max(suspensionDistance, 0.01f));
                 }
                 visualWheel.localPosition = Vector3.down * Mathf.Clamp(compression * suspensionDistance - radius, 0.0f, suspensionDistance) * Mathf.Clamp01(maxExtension);
                 visualWheel.rotation = Quaternion.LookRotation(tr.right * flippedSideFactor + tr.up * (0.5f - compression) * compressionTiltAmount + steerAngle, tr.TransformDirection(0.0f, Mathf.Sin(rotAngle * Mathf.Deg2Rad), Mathf.Cos(rotAngle * Mathf.Deg2Rad)));

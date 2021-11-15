@@ -100,7 +100,7 @@ namespace PowerslideKartPhysics
             // Raycast from the high point to determine how far away the camera should be from the kart
             RaycastHit lineHit = new RaycastHit();
             if (Physics.Linecast(highPoint, tempRot.position, out lineHit, castMask, QueryTriggerInteraction.Ignore)) {
-                castDist = 1.0f - lineHit.distance / Vector3.Distance(highPoint, tempRot.position);
+                castDist = 1.0f - lineHit.distance / Mathf.Max(Vector3.Distance(highPoint, tempRot.position), 0.001f);
             }
             else {
                 castDist = Mathf.Lerp(castDist, 0.0f, smoothRate * Time.fixedDeltaTime);

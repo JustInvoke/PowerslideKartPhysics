@@ -31,7 +31,7 @@ namespace PowerslideKartPhysics
 
         // Returns the dominant surface type at the position on terrain based on the most visible texture (greatest alpha)
         public GroundSurfacePreset GetDominantGroundSurfaceAtPoint(Vector3 pos) {
-            Vector2 coord = new Vector2(Mathf.Clamp01((pos.z - tr.position.z) / terDat.size.z), Mathf.Clamp01((pos.x - tr.position.x) / terDat.size.x));
+            Vector2 coord = new Vector2(Mathf.Clamp01((pos.z - tr.position.z) / Mathf.Max(terDat.size.z, 0.01f)), Mathf.Clamp01((pos.x - tr.position.x) / terDat.size.x));
 
             float maxVal = 0.0f;
             float curVal = 0.0f;

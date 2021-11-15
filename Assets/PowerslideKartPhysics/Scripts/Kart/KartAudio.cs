@@ -98,7 +98,7 @@ namespace PowerslideKartPhysics
 
             // Calculate engine pitch
             airPitchFactor = theKart.grounded ? 1.0f : Mathf.Max(minAirPitch, airPitchFactor - Time.deltaTime * airPitchDecayRate);
-            float targetPitch = Mathf.Clamp01((Mathf.Abs(theKart.localVel.z) / theKart.maxSpeed) * airPitchFactor + theKart.boostReserve * boostReservePitchIncrease + (theKart.burnout ? 1.0f : 0.0f));
+            float targetPitch = Mathf.Clamp01((Mathf.Abs(theKart.localVel.z) / Mathf.Max(theKart.maxSpeed, 0.01f)) * airPitchFactor + theKart.boostReserve * boostReservePitchIncrease + (theKart.burnout ? 1.0f : 0.0f));
 
             // Set engine pitch and volume
             if (engineSnd != null) {
