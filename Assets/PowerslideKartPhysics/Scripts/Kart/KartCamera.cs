@@ -34,12 +34,10 @@ namespace PowerslideKartPhysics
         public float smoothRate = 10f;
         public float inputDeadZone = 0.1f;
 
-        private void Awake()
-        {
+        private void Awake() {
             cam = GetComponent<Camera>();
 
-            if (GetComponent<AudioListener>() != null)
-            {
+            if (GetComponent<AudioListener>() != null) {
                 // Change velocity update mode because the camera moves in FixedUpdate
                 GetComponent<AudioListener>().velocityUpdateMode = AudioVelocityUpdateMode.Fixed;
             }
@@ -48,20 +46,16 @@ namespace PowerslideKartPhysics
         }
 
         // Set up objects to help with movement
-        public void Initialize(Kart kart)
-        {
+        public void Initialize(Kart kart) {
             targetKart = kart;
-            if (targetKart != null)
-            {
-                if (smoothObj == null)
-                {
+            if (targetKart != null) {
+                if (smoothObj == null) {
                     smoothObj = new GameObject("Kart Camera Smoother").transform;
                 }
                 smoothObj.position = targetKart.rotator.position;
                 smoothObj.rotation = targetKart.rotator.rotation;
 
-                if (tempRot == null)
-                {
+                if (tempRot == null) {
                     tempRot = new GameObject("Kart Camera Rotator").transform;
                 }
                 tempRot.parent = smoothObj;
@@ -71,8 +65,7 @@ namespace PowerslideKartPhysics
             }
         }
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() {
             if (cam == null || targetKart == null || targetBody == null) { return; }
 
             // Movement calculations
@@ -97,23 +90,19 @@ namespace PowerslideKartPhysics
             // Raycast upward to determine how high the camera should be placed relative to the kart
             Vector3 targetHighPoint = smoothObj.TransformPoint(Vector3.up * height);
             RaycastHit highHit = new RaycastHit();
-            if (Physics.Linecast(smoothObj.position, targetHighPoint, out highHit, castMask, QueryTriggerInteraction.Ignore))
-            {
+            if (Physics.Linecast(smoothObj.position, targetHighPoint, out highHit, castMask, QueryTriggerInteraction.Ignore)) {
                 highPoint = highHit.point + (smoothObj.position - targetHighPoint).normalized * cam.nearClipPlane;
             }
-            else
-            {
+            else {
                 highPoint = targetHighPoint;
             }
 
             // Raycast from the high point to determine how far away the camera should be from the kart
             RaycastHit lineHit = new RaycastHit();
-            if (Physics.Linecast(highPoint, tempRot.position, out lineHit, castMask, QueryTriggerInteraction.Ignore))
-            {
+            if (Physics.Linecast(highPoint, tempRot.position, out lineHit, castMask, QueryTriggerInteraction.Ignore)) {
                 castDist = 1.0f - lineHit.distance / Vector3.Distance(highPoint, tempRot.position);
             }
-            else
-            {
+            else {
                 castDist = Mathf.Lerp(castDist, 0.0f, smoothRate * Time.fixedDeltaTime);
             }
 
@@ -125,15 +114,12 @@ namespace PowerslideKartPhysics
             transform.rotation = targetRot;
         }
 
-        private void OnDestroy()
-        {
-            if (tempRot != null)
-            {
+        private void OnDestroy() {
+            if (tempRot != null) {
                 Destroy(tempRot);
             }
 
-            if (smoothObj != null)
-            {
+            if (smoothObj != null) {
                 Destroy(smoothObj);
             }
         }

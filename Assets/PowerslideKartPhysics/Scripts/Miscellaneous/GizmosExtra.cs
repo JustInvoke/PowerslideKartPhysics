@@ -9,8 +9,7 @@ namespace PowerslideKartPhysics
     {
         // Draws a wire cylinder like DrawWireCube and DrawWireSphere
         // pos = position, dir = direction of the caps, radius = radius, height = height or length, steps = number of line segments to draw around a cap
-        public static void DrawWireCylinder(Vector3 pos, Vector3 dir, float radius, float height, int steps)
-        {
+        public static void DrawWireCylinder(Vector3 pos, Vector3 dir, float radius, float height, int steps) {
             float halfHeight = height * 0.5f;
             Quaternion quat = Quaternion.LookRotation(dir, new Vector3(-dir.y, dir.x, 0.0f));
 
@@ -26,8 +25,7 @@ namespace PowerslideKartPhysics
 
             steps = Mathf.Max(steps, 3);
             float interval = Mathf.PI * 2.0f / steps;
-            for (float i = 0; i < Mathf.PI * 2.0f; i += interval)
-            {
+            for (float i = 0; i < Mathf.PI * 2.0f; i += interval) {
                 circle0Point0 = pos + quat * new Vector3(Mathf.Sin(i) * radius, Mathf.Cos(i) * radius, halfHeight);
                 circle0Point1 = pos + quat * new Vector3(Mathf.Sin(i + interval) * radius, Mathf.Cos(i + interval) * radius, halfHeight);
                 Gizmos.DrawLine(circle0Point0, circle0Point1);
@@ -39,8 +37,7 @@ namespace PowerslideKartPhysics
         }
 
         // Same as above but with a default of 20 line segments drawn for both caps
-        public static void DrawWireCylinder(Vector3 pos, Vector3 dir, float radius, float height)
-        {
+        public static void DrawWireCylinder(Vector3 pos, Vector3 dir, float radius, float height) {
             DrawWireCylinder(pos, dir, radius, height, 20);
         }
     }

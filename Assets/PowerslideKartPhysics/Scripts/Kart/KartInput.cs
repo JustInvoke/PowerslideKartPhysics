@@ -18,17 +18,14 @@ namespace PowerslideKartPhysics
         protected bool drifting = false;
         protected bool boosting = false;
 
-        public virtual void Awake()
-        {
+        public virtual void Awake() {
             theKart = GetComponent<Kart>();
             caster = GetComponent<ItemCaster>();
         }
 
         // Set kart input based on variables
-        public virtual void Update()
-        {
-            if (theKart != null)
-            {
+        public virtual void Update() {
+            if (theKart != null) {
                 theKart.SetAccel(targetAccel);
                 theKart.SetBrake(targetBrake);
                 theKart.SetSteer(targetSteer);
@@ -38,10 +35,8 @@ namespace PowerslideKartPhysics
         }
 
         // Cast an equipped item upon input press
-        protected void PressItem()
-        {
-            if (caster != null)
-            {
+        protected void PressItem() {
+            if (caster != null) {
                 caster.Cast();
             }
         }

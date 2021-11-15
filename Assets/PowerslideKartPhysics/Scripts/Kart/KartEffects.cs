@@ -21,69 +21,52 @@ namespace PowerslideKartPhysics
         Quaternion[] driftBoostStartRotations;
         public ParticleSystem collisionParticles;
 
-        private void Awake()
-        {
+        private void Awake() {
             theKart = GetComponent<Kart>();
 
             // Set exhaust particle condition
-            if (exhaustParticles != null)
-            {
-                exhaustParticles.condition = () =>
-                {
-                    if (theKart != null)
-                    {
+            if (exhaustParticles != null) {
+                exhaustParticles.condition = () => {
+                    if (theKart != null) {
                         return !theKart.IsBoostReady();
                     }
-                    else
-                    {
+                    else {
                         return false;
                     }
                 };
             }
 
             // Set condition for exhaust particles indicating that the the kart's boost is "ready"
-            if (exhaustBoostReadyParticles != null)
-            {
-                exhaustBoostReadyParticles.condition = () =>
-                {
-                    if (theKart != null)
-                    {
+            if (exhaustBoostReadyParticles != null) {
+                exhaustBoostReadyParticles.condition = () => {
+                    if (theKart != null) {
                         return theKart.IsBoostReady();
                     }
-                    else
-                    {
+                    else {
                         return false;
                     }
                 };
             }
 
             // Set boost particle condition
-            if (boostParticles != null)
-            {
-                boostParticles.condition = () =>
-                {
-                    if (theKart != null)
-                    {
+            if (boostParticles != null) {
+                boostParticles.condition = () => {
+                    if (theKart != null) {
                         return theKart.boostReserve > 0;
                     }
-                    else
-                    {
+                    else {
                         return false;
                     }
                 };
             }
 
             // Positions and rotations of spark particles are tracked in order to swap which side the particles are on based on the drift direction
-            if (driftBoostParticles != null)
-            {
+            if (driftBoostParticles != null) {
                 driftBoostStartPositions = new Vector3[driftBoostParticles.Length];
                 driftBoostStartRotations = new Quaternion[driftBoostParticles.Length];
-                for (int i = 0; i < driftBoostParticles.Length; i++)
-                {
-                    if (driftBoostParticles[i] != null)
-                    {
-                        if (driftBoostParticles[i].particles != null)
-                        {
+                for (int i = 0; i < driftBoostParticles.Length; i++) {
+                    if (driftBoostParticles[i] != null) {
+                        if (driftBoostParticles[i].particles != null) {
                             driftBoostStartPositions[i] = driftBoostParticles[i].particles.transform.localPosition;
                             driftBoostStartRotations[i] = driftBoostParticles[i].particles.transform.localRotation;
                         }
@@ -92,45 +75,35 @@ namespace PowerslideKartPhysics
             }
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (theKart == null) { return; }
 
             // Update exhaust particle condition
-            if (exhaustParticles != null)
-            {
+            if (exhaustParticles != null) {
                 exhaustParticles.Update();
             }
 
             // Update exhaust boost ready particle condition
-            if (exhaustBoostReadyParticles != null)
-            {
+            if (exhaustBoostReadyParticles != null) {
                 exhaustBoostReadyParticles.Update();
             }
 
             // Update boost particle condition
-            if (boostParticles != null)
-            {
+            if (boostParticles != null) {
                 boostParticles.Update();
             }
 
             // Set spark particle conditions for the drift auto boost type
             // These are designed so that each particle represents a different level/tier of boost (see the boostCount variable in the Kart class)
             // The condition must the set every frame to compare the kart boost count to the array index of each particle system
-            if (theKart.boostType == KartBoostType.DriftAuto && driftBoostParticles != null)
-            {
-                for (int i = 0; i < driftBoostParticles.Length; i++)
-                {
-                    if (driftBoostParticles[i] != null)
-                    {
-                        driftBoostParticles[i].condition = () =>
-                        {
-                            if (theKart != null)
-                            {
+            if (theKart.boostType == KartBoostType.DriftAuto && driftBoostParticles != null) {
+                for (int i = 0; i < driftBoostParticles.Length; i++) {
+                    if (driftBoostParticles[i] != null) {
+                        driftBoostParticles[i].condition = () => {
+                            if (theKart != null) {
                                 return theKart.boostType == KartBoostType.DriftAuto && theKart.boostCount == i + 1;
                             }
-                            else
-                            {
+                            else {
                                 return false;
                             }
                         };
@@ -139,8 +112,7 @@ namespace PowerslideKartPhysics
                         driftBoostParticles[i].Update();
 
                         // Position the particles on the correct side based on the drift direction
-                        if (moveParticlesWithDrift &&  driftBoostParticles[i].particles != null && driftBoostParticles[i].condition())
-                        {
+                        if (moveParticlesWithDrift && driftBoostParticles[i].particles != null && driftBoostParticles[i].condition()) {
                             Vector3 localPos = driftBoostStartPositions[i];
                             driftBoostParticles[i].particles.transform.localPosition = new Vector3(Mathf.Abs(localPos.x) * theKart.driftDir, localPos.y, localPos.z);
                             Vector3 localForward = driftBoostStartRotations[i] * Vector3.forward;
@@ -153,19 +125,15 @@ namespace PowerslideKartPhysics
         }
 
         // Play the boost start particles
-        public void PlayBoostStartParticles()
-        {
-            if (boostStartParticles != null)
-            {
+        public void PlayBoostStartParticles() {
+            if (boostStartParticles != null) {
                 boostStartParticles.Play();
             }
         }
 
         // Play the collision particles, moving the particle system to the position and rotating it to face the direction
-        public void PlayCollisionParticles(Vector3 pos, Vector3 dir)
-        {
-            if (collisionParticles != null)
-            {
+        public void PlayCollisionParticles(Vector3 pos, Vector3 dir) {
+            if (collisionParticles != null) {
                 collisionParticles.transform.position = pos;
                 collisionParticles.transform.rotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
                 collisionParticles.Play();

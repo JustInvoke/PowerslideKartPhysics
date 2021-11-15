@@ -30,20 +30,17 @@ namespace PowerslideKartPhysics
         public float driftSpeedMultiplierCap = 2.0f;
         public float distanceAdvanceFactor = 0.05f;
 
-        public override void Awake()
-        {
+        public override void Awake() {
             base.Awake();
             tr = transform;
             rb = GetComponent<Rigidbody>();
             kart = GetComponent<Kart>();
-            if (targetPoint != null)
-            {
+            if (targetPoint != null) {
                 nextPoint = targetPoint.nextPoint;
             }
         }
 
-        public override void Update()
-        {
+        public override void Update() {
             if (targetPoint == null || nextPoint == null || theKart == null) { return; }
             if (theKart.rotator == null) { return; }
 
@@ -51,11 +48,9 @@ namespace PowerslideKartPhysics
 
             // Setting next point upon touching point
             Vector3 targetDir = targetPos - tr.position;
-            if ((targetPoint.transform.position - tr.position).sqrMagnitude <= targetPoint.radius * targetPoint.radius)
-            {
+            if ((targetPoint.transform.position - tr.position).sqrMagnitude <= targetPoint.radius * targetPoint.radius) {
                 targetPoint = targetPoint.nextPoint;
-                if (targetPoint != null)
-                {
+                if (targetPoint != null) {
                     nextPoint = targetPoint.nextPoint;
                 }
             }
@@ -63,21 +58,17 @@ namespace PowerslideKartPhysics
             float forwardDot = Vector3.Dot(targetDir.normalized, theKart.rotator.forward);
             float rightDot = Vector3.Dot(targetDir.normalized, theKart.rotator.right);
 
-            if (!reversing)
-            {
+            if (!reversing) {
                 // Starting reverse process if stuck
-                if (theKart.velMag < reverseSpeedLimit)
-                {
+                if (theKart.velMag < reverseSpeedLimit) {
                     reverseTime += Time.deltaTime;
-                    if (reverseTime > reverseTimeThreshold)
-                    {
+                    if (reverseTime > reverseTimeThreshold) {
                         reversing = true;
                         reverseTime = 0.0f;
                         reverseSteer = -Mathf.Sign(rightDot);
                     }
                 }
-                else
-                {
+                else {
                     reverseTime = 0.0f;
                 }
 
@@ -87,30 +78,24 @@ namespace PowerslideKartPhysics
                 targetSteer = forwardDot > 0 ? rightDot * steerAmount : Mathf.Sign(rightDot);
 
                 // Setting drift input
-                if (rb != null && kart != null && nextPoint != null)
-                {
-                    if (kart.rotator != null)
-                    {
+                if (rb != null && kart != null && nextPoint != null) {
+                    if (kart.rotator != null) {
                         Vector3 localNextDir = kart.rotator.InverseTransformDirection((nextPoint.transform.position - targetPoint.transform.position).normalized);
                         float driftVal = Mathf.Abs(rightDot + localNextDir.x) * Mathf.Min(rb.velocity.magnitude * driftSpeedMultiplier, driftSpeedMultiplierCap);
 
-                        if (!drifting && driftVal > driftStartThreshold)
-                        {
+                        if (!drifting && driftVal > driftStartThreshold) {
                             drifting = true;
                         }
-                        else if (drifting && driftVal < driftEndThreshold)
-                        {
+                        else if (drifting && driftVal < driftEndThreshold) {
                             drifting = false;
                         }
                     }
                 }
             }
-            else
-            {
+            else {
                 // Reverse timing
                 reverseTime += Time.deltaTime;
-                if (reverseTime > reverseDuration)
-                {
+                if (reverseTime > reverseDuration) {
                     reversing = false;
                     reverseTime = 0.0f;
                 }

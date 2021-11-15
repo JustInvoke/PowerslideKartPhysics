@@ -20,42 +20,35 @@ namespace PowerslideKartPhysics
         public float reverseDuration = 1.0f;
         float reverseSteer = 1.0f;
 
-        public override void Awake()
-        {
+        public override void Awake() {
             base.Awake();
             tr = transform;
         }
 
-        public override void Update()
-        {
+        public override void Update() {
             if (targetPoint == null || theKart == null) { return; }
             if (theKart.rotator == null) { return; }
 
             // Setting next point upon touching point
             Vector3 targetDir = targetPoint.transform.position - tr.position;
-            if (targetDir.sqrMagnitude <= targetPoint.radius * targetPoint.radius)
-            {
+            if (targetDir.sqrMagnitude <= targetPoint.radius * targetPoint.radius) {
                 targetPoint = targetPoint.nextPoint;
             }
 
             float forwardDot = Vector3.Dot(targetDir.normalized, theKart.rotator.forward);
             float rightDot = Vector3.Dot(targetDir.normalized, theKart.rotator.right);
 
-            if (!reversing)
-            {
+            if (!reversing) {
                 // Starting reverse process if stuck
-                if (theKart.velMag < reverseSpeedLimit)
-                {
+                if (theKart.velMag < reverseSpeedLimit) {
                     reverseTime += Time.deltaTime;
-                    if (reverseTime > reverseTimeThreshold)
-                    {
+                    if (reverseTime > reverseTimeThreshold) {
                         reversing = true;
                         reverseTime = 0.0f;
                         reverseSteer = -Mathf.Sign(rightDot);
                     }
                 }
-                else
-                {
+                else {
                     reverseTime = 0.0f;
                 }
 
@@ -64,12 +57,10 @@ namespace PowerslideKartPhysics
                 targetBrake = Mathf.Clamp(-forwardDot * theKart.velMag, 0.0f, maxBrake);
                 targetSteer = forwardDot > 0 ? rightDot * steerAmount : Mathf.Sign(rightDot);
             }
-            else
-            {
+            else {
                 // Reverse timing
                 reverseTime += Time.deltaTime;
-                if (reverseTime > reverseDuration)
-                {
+                if (reverseTime > reverseDuration) {
                     reversing = false;
                     reverseTime = 0.0f;
                 }

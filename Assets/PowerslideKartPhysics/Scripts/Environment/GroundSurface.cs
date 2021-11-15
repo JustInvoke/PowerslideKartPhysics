@@ -11,46 +11,37 @@ namespace PowerslideKartPhysics
         public GroundSurfacePreset props;
         protected Collider col;
 
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             col = GetComponent<Collider>();
         }
 
         // Returns the surface properties
-        public GroundSurfacePreset GetProps()
-        {
+        public GroundSurfacePreset GetProps() {
             return props != null ? props : GroundSurfacePreset.CreateInstance<GroundSurfacePreset>();
         }
 
         // Returns the friction of the surface
-        public virtual float GetFriction()
-        {
-            if (props == null)
-            {
+        public virtual float GetFriction() {
+            if (props == null) {
                 props = GroundSurfacePreset.CreateInstance<GroundSurfacePreset>();
             }
 
-            if (props.useColliderFriction && col != null)
-            {
+            if (props.useColliderFriction && col != null) {
                 return col.sharedMaterial != null ? col.sharedMaterial.dynamicFriction : 1.0f;
             }
-            else
-            {
+            else {
                 return props.friction;
             }
         }
 
         // Returns the friction of the surface at the position (for override by TerrainSurface)
-        public virtual float GetFriction(Vector3 pos)
-        {
+        public virtual float GetFriction(Vector3 pos) {
             return GetFriction();
         }
 
         // Returns the speed factor of the surface
-        public virtual float GetSpeed()
-        {
-            if (props == null)
-            {
+        public virtual float GetSpeed() {
+            if (props == null) {
                 props = GroundSurfacePreset.CreateInstance<GroundSurfacePreset>();
             }
 
@@ -58,8 +49,7 @@ namespace PowerslideKartPhysics
         }
 
         // Returns the speed factor of the surface at the position (for override by TerrainSurface)
-        public virtual float GetSpeed(Vector3 pos)
-        {
+        public virtual float GetSpeed(Vector3 pos) {
             return GetSpeed();
         }
     }

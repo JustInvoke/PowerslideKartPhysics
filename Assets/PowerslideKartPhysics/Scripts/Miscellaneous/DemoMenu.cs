@@ -13,30 +13,24 @@ namespace PowerslideKartPhysics
         public GameObject uiContainer;
         public KartCamera kartCam;
 
-        private void Awake()
-        {
+        private void Awake() {
             // Hide UI when showing the menu
-            if (uiContainer != null)
-            {
+            if (uiContainer != null) {
                 uiContainer.SetActive(false);
             }
         }
 
-        public void SpawnKart(GameObject kart)
-        {
+        public void SpawnKart(GameObject kart) {
             // Spawn a given kart at the spawn point
             Kart newKart = null;
-            if (kart != null)
-            {
+            if (kart != null) {
                 newKart = Instantiate(kart, spawnPoint, Quaternion.LookRotation(spawnDir.normalized, Vector3.up)).GetComponent<Kart>();
             }
 
             // Show the UI and connect it to the spawned kart
-            if (uiContainer != null)
-            {
+            if (uiContainer != null) {
                 UIControl uiController = uiContainer.GetComponent<UIControl>();
-                if (uiController != null)
-                {
+                if (uiController != null) {
                     uiController.Initialize(newKart);
                 }
 
@@ -44,8 +38,7 @@ namespace PowerslideKartPhysics
             }
 
             // Connect the camera to the spawned kart
-            if (kartCam != null)
-            {
+            if (kartCam != null) {
                 kartCam.Initialize(newKart);
             }
 
@@ -53,8 +46,7 @@ namespace PowerslideKartPhysics
         }
 
         // Visualize the kart spawn point
-        private void OnDrawGizmos()
-        {
+        private void OnDrawGizmos() {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(spawnPoint, 0.5f);
             Gizmos.DrawRay(spawnPoint + spawnDir.normalized * 0.5f, spawnDir.normalized);

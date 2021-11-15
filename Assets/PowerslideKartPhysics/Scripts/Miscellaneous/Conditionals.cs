@@ -15,25 +15,19 @@ namespace PowerslideKartPhysics
 
         public ConditionalParticle() { }
 
-        public ConditionalParticle(ParticleSystem part)
-        {
+        public ConditionalParticle(ParticleSystem part) {
             particles = part;
         }
 
-        public void Update()
-        {
+        public void Update() {
             // Play or stop particles automatically based on the condition
-            if (particles != null)
-            {
-                if (condition())
-                {
-                    if (!particles.isEmitting)
-                    {
+            if (particles != null) {
+                if (condition()) {
+                    if (!particles.isEmitting) {
                         particles.Play(true);
                     }
                 }
-                else if (particles.isEmitting)
-                {
+                else if (particles.isEmitting) {
                     particles.Stop(true);
                 }
             }
@@ -50,25 +44,19 @@ namespace PowerslideKartPhysics
 
         public ConditionalParticles() { }
 
-        public ConditionalParticles(ParticleSystem[] parts)
-        {
+        public ConditionalParticles(ParticleSystem[] parts) {
             particles = parts;
         }
 
-        public void Update()
-        {
+        public void Update() {
             // Play or stop particles automatically based on the condition
-            for (int i = 0; i < particles.Length; i++)
-            {
-                if (condition())
-                {
-                    if (!particles[i].isEmitting)
-                    {
+            for (int i = 0; i < particles.Length; i++) {
+                if (condition()) {
+                    if (!particles[i].isEmitting) {
                         particles[i].Play();
                     }
                 }
-                else if (particles[i].isEmitting)
-                {
+                else if (particles[i].isEmitting) {
                     particles[i].Stop();
                 }
             }
@@ -95,62 +83,51 @@ namespace PowerslideKartPhysics
 
         public ConditionalSound() { }
 
-        public ConditionalSound(AudioSource source)
-        {
+        public ConditionalSound(AudioSource source) {
             snd = source;
         }
 
-        public ConditionalSound(AudioSource source, float maxV)
-        {
+        public ConditionalSound(AudioSource source, float maxV) {
             snd = source;
             maxVolume = maxV;
         }
 
-        public ConditionalSound(AudioSource source, float on, float off)
-        {
+        public ConditionalSound(AudioSource source, float on, float off) {
             snd = source;
             onRate = on;
             offRate = off;
         }
 
-        public ConditionalSound(AudioSource source, float maxV, float on, float off)
-        {
+        public ConditionalSound(AudioSource source, float maxV, float on, float off) {
             snd = source;
             maxVolume = maxV;
             onRate = on;
             offRate = off;
         }
 
-        public void Update()
-        {
+        public void Update() {
             pitchInverted = onPitch < offPitch;
             // Play or stop sound automatically based on the condition
-            if (snd != null)
-            {
+            if (snd != null) {
                 // Fade volume in or out
                 volume = Mathf.Clamp(condition() ? volume + onRate * Time.deltaTime : volume - offRate * Time.deltaTime, 0.0f, maxVolume);
                 snd.volume = Mathf.Pow(volume, volumePower);
 
                 // Adjust pitch while fading in or out
-                if (!pitchInverted)
-                {
+                if (!pitchInverted) {
                     pitch = Mathf.Clamp(condition() ? pitch + onPitchRate * Time.deltaTime : pitch - offPitchRate * Time.deltaTime, offPitch, onPitch);
                 }
-                else
-                {
+                else {
                     pitch = Mathf.Clamp(condition() ? pitch - onPitchRate * Time.deltaTime : pitch + offPitchRate * Time.deltaTime, onPitch, offPitch);
                 }
 
                 snd.pitch = pitch;
-                if (volume > 0)
-                {
-                    if (!snd.isPlaying)
-                    {
+                if (volume > 0) {
+                    if (!snd.isPlaying) {
                         snd.Play();
                     }
                 }
-                else if (snd.isPlaying)
-                {
+                else if (snd.isPlaying) {
                     snd.Stop();
                 }
             }

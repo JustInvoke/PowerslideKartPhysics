@@ -11,10 +11,8 @@ namespace PowerslideKartPhysics
         public enum CollisionType { Normal, Layer, Tag, Component };
 
         // Create wall collision instance based on the type of collision detection
-        public static WallCollision CreateFromType(CollisionType colType)
-        {
-            switch (colType)
-            {
+        public static WallCollision CreateFromType(CollisionType colType) {
+            switch (colType) {
                 case CollisionType.Normal:
                     return new NormalWallCollision();
                 case CollisionType.Layer:
@@ -34,8 +32,7 @@ namespace PowerslideKartPhysics
     // Normal-based collision
     public class NormalWallCollision : WallCollision
     {
-        public override bool WallTest(WallCollisionProps props)
-        {
+        public override bool WallTest(WallCollisionProps props) {
             return Mathf.Abs(Vector3.Dot(props.contact.normal, props.upDir)) < props.dotLimit;
         }
     }
@@ -43,8 +40,7 @@ namespace PowerslideKartPhysics
     // Layer-based collision
     public class LayerWallCollision : WallCollision
     {
-        public override bool WallTest(WallCollisionProps props)
-        {
+        public override bool WallTest(WallCollisionProps props) {
             return props.mask.Contains(props.contact.otherCollider.gameObject.layer);
         }
     }
@@ -52,14 +48,11 @@ namespace PowerslideKartPhysics
     // Tag-based collision
     public class TagWallCollision : WallCollision
     {
-        public override bool WallTest(WallCollisionProps props)
-        {
-            if (!string.IsNullOrEmpty(props.tag))
-            {
+        public override bool WallTest(WallCollisionProps props) {
+            if (!string.IsNullOrEmpty(props.tag)) {
                 return props.contact.otherCollider.CompareTag(props.tag);
             }
-            else
-            {
+            else {
                 Debug.LogWarning("Wall tag is null or empty.");
                 return false;
             }
@@ -69,8 +62,7 @@ namespace PowerslideKartPhysics
     // Component-based collision
     public class ComponentWallCollision : WallCollision
     {
-        public override bool WallTest(WallCollisionProps props)
-        {
+        public override bool WallTest(WallCollisionProps props) {
             return props.contact.otherCollider.IsWall();
         }
     }
@@ -84,8 +76,7 @@ namespace PowerslideKartPhysics
         public LayerMask mask;
         public string tag;
 
-        public WallCollisionProps(ContactPoint cp, Vector3 up, float dot, LayerMask lm, string t)
-        {
+        public WallCollisionProps(ContactPoint cp, Vector3 up, float dot, LayerMask lm, string t) {
             contact = cp;
             upDir = up;
             dotLimit = dot;
@@ -104,13 +95,11 @@ namespace PowerslideKartPhysics
         public LayerMask wallMask;
         public string wallTag;
 
-        public static WallDetectProps Default
-        {
+        public static WallDetectProps Default {
             get { return new WallDetectProps(WallCollision.CollisionType.Normal, 0.5f, 1, ""); }
         }
 
-        public WallDetectProps(WallCollision.CollisionType detectionType, float dotLimit, LayerMask mask, string tag)
-        {
+        public WallDetectProps(WallCollision.CollisionType detectionType, float dotLimit, LayerMask mask, string tag) {
             wallDetectionType = detectionType;
             wallDotLimit = dotLimit;
             wallMask = mask;

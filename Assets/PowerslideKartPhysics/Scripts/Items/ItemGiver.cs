@@ -17,16 +17,14 @@ namespace PowerslideKartPhysics
         public float cooldown = 1.0f;
         float offTime = 0.0f;
 
-        private void Awake()
-        {
+        private void Awake() {
             manager = FindObjectOfType<ItemManager>();
             trig = GetComponent<Collider>();
             rend = GetComponent<Renderer>();
             offTime = cooldown;
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (trig == null || rend == null) { return; }
 
             offTime += Time.deltaTime;
@@ -35,14 +33,11 @@ namespace PowerslideKartPhysics
             trig.enabled = rend.enabled = offTime >= cooldown;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (manager != null)
-            {
+        private void OnTriggerEnter(Collider other) {
+            if (manager != null) {
                 // Give item to caster
                 ItemCaster caster = other.transform.GetTopmostParentComponent<ItemCaster>();
-                if (caster != null)
-                {
+                if (caster != null) {
                     offTime = 0.0f;
 
                     // Give specific item if named, otherwise random item

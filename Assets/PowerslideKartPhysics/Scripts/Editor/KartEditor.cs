@@ -22,17 +22,14 @@ namespace PowerslideKartPhysics
         static bool showWalls = false;
         static bool showEvents = false;
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             serializedObject.Update();
 
             // Organize variables into foldouts
             bool hiding = false;
             SerializedProperty prop = serializedObject.GetIterator();
-            if (prop.NextVisible(true))
-            {
-                do
-                {
+            if (prop.NextVisible(true)) {
+                do {
                     DrawSection(prop, "Dimensions", "rotationRateFactor", "maxSpeed", ref showDimensions, ref hiding, EditorStyles.foldoutHeader);
                     DrawSection(prop, "Speed", "maxSpeed", "steerRate", ref showSpeed, ref hiding, EditorStyles.foldoutHeader);
                     DrawSection(prop, "Steer", "steerRate", "springForce", ref showSteer, ref hiding, EditorStyles.foldoutHeader);
@@ -42,31 +39,26 @@ namespace PowerslideKartPhysics
                     DrawSection(prop, "Drift", "canDrift", "boostType", ref showDrift, ref hiding, EditorStyles.foldoutHeader);
 
                     // Show certain boost variables based on the boost type
-                    if (prop.name == "boostType" && prop.propertyType == SerializedPropertyType.Enum)
-                    {
+                    if (prop.name == "boostType" && prop.propertyType == SerializedPropertyType.Enum) {
                         showBoost = EditorGUILayout.Foldout(showBoost, "Boost", false, EditorStyles.foldoutHeader);
                         hiding = true;
                         DrawBoostProps((KartBoostType)prop.enumValueIndex);
                     }
 
-                    if (prop.name == "wallFriction")
-                    {
+                    if (prop.name == "wallFriction") {
                         hiding = false;
                     }
 
                     DrawSection(prop, "Walls", "wallFriction", "jumpEvent", ref showWalls, ref hiding, EditorStyles.foldoutHeader);
 
-                    if (prop.name == "jumpEvent")
-                    {
+                    if (prop.name == "jumpEvent") {
                         showEvents = EditorGUILayout.Foldout(showEvents, "Events", false, EditorStyles.foldoutHeader);
-                        if (!showEvents)
-                        {
+                        if (!showEvents) {
                             hiding = true;
                         }
                     }
 
-                    if (!hiding)
-                    {
+                    if (!hiding) {
                         EditorGUILayout.PropertyField(prop, true);
                     }
                 }
@@ -77,28 +69,22 @@ namespace PowerslideKartPhysics
         }
 
         // Draws a foldout category (technically, sets hide/show state based on variable names)
-        void DrawSection(SerializedProperty prop, string header, string startProp, string endProp, ref bool show, ref bool hide, GUIStyle style)
-        {
-            if (prop.name == startProp)
-            {
+        void DrawSection(SerializedProperty prop, string header, string startProp, string endProp, ref bool show, ref bool hide, GUIStyle style) {
+            if (prop.name == startProp) {
                 show = EditorGUILayout.Foldout(show, header, false, style);
-                if (!show)
-                {
+                if (!show) {
                     hide = true;
                 }
             }
 
-            if (!show && prop.name == endProp)
-            {
+            if (!show && prop.name == endProp) {
                 hide = false;
             }
         }
 
         // Certain boost variables are hidden based on the boost type
-        void DrawBoostProps(KartBoostType boostType)
-        {
-            if (showBoost)
-            {
+        void DrawBoostProps(KartBoostType boostType) {
+            if (showBoost) {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("boostType"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("canBoost"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("boostSpeedAdd"));
@@ -116,19 +102,16 @@ namespace PowerslideKartPhysics
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("boostWheelie"));
 
                 EditorGUI.indentLevel++;
-                if (boostType == KartBoostType.DriftAuto)
-                {
+                if (boostType == KartBoostType.DriftAuto) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("maxBoosts"));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("autoBoostInterval"));
                 }
-                else if (boostType == KartBoostType.DriftManual)
-                {
+                else if (boostType == KartBoostType.DriftManual) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("maxBoosts"));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("driftManualBoostLimit"));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("driftManualFailCancel"));
                 }
-                else if (boostType == KartBoostType.Manual)
-                {
+                else if (boostType == KartBoostType.Manual) {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("boostAmount"));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("boostAmountLimit"));
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("driftBoostAdd"));

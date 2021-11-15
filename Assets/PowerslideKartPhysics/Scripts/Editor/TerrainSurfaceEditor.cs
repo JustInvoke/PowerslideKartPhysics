@@ -12,16 +12,13 @@ namespace PowerslideKartPhysics
     {
         TerrainSurface targetTerrain;
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             targetTerrain = (TerrainSurface)target;
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             // Draw default inspector if no terrain surface attached
-            if (targetTerrain == null)
-            {
+            if (targetTerrain == null) {
                 base.OnInspectorGUI();
                 return;
             }
@@ -34,22 +31,18 @@ namespace PowerslideKartPhysics
             // Draw labels for each texture found on the terrain
             EditorGUILayout.LabelField("Terrain Textures:", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
-            for (int i = 0; i < terDat.terrainLayers.Length; i++)
-            {
+            for (int i = 0; i < terDat.terrainLayers.Length; i++) {
                 EditorGUILayout.LabelField(i.ToString() + ": " + terDat.terrainLayers[i].diffuseTexture.name, EditorStyles.label);
             }
             EditorGUI.indentLevel--;
 
             // Adjust the number of surface types in the TerrainSurface to match the number of textures on the terrain
             EditorGUILayout.LabelField("Corresponding Surface Properties:", EditorStyles.boldLabel);
-            while (targetTerrain.groundSurfaces.Count != terDat.terrainLayers.Length)
-            {
-                if (targetTerrain.groundSurfaces.Count > terDat.terrainLayers.Length)
-                {
+            while (targetTerrain.groundSurfaces.Count != terDat.terrainLayers.Length) {
+                if (targetTerrain.groundSurfaces.Count > terDat.terrainLayers.Length) {
                     targetTerrain.groundSurfaces.RemoveAt(targetTerrain.groundSurfaces.Count - 1);
                 }
-                else
-                {
+                else {
                     targetTerrain.groundSurfaces.Add(null);
                 }
             }

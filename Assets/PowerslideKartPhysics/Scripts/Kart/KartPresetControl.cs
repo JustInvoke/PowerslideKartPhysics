@@ -23,11 +23,9 @@ namespace PowerslideKartPhysics
         public KartBoostPreset boostPreset;
         public KartWallsPreset wallsPreset;
 
-        private void Awake()
-        {
+        private void Awake() {
             kart = GetComponent<Kart>();
-            if (loadOnAwake && Application.isPlaying)
-            {
+            if (loadOnAwake && Application.isPlaying) {
                 LoadDimensionsPreset(dimensionsPreset);
                 LoadSpeedPreset(speedPreset);
                 LoadSteerPreset(steerPreset);
@@ -40,8 +38,7 @@ namespace PowerslideKartPhysics
             }
         }
 
-        public void LoadDimensionsPreset(KartDimensionsPreset preset)
-        {
+        public void LoadDimensionsPreset(KartDimensionsPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -61,8 +58,7 @@ namespace PowerslideKartPhysics
             kart.spinHeight = preset.spinHeight;
         }
 
-        public void SaveDimensionsPreset(KartDimensionsPreset preset)
-        {
+        public void SaveDimensionsPreset(KartDimensionsPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -83,8 +79,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadSpeedPreset(KartSpeedPreset preset)
-        {
+        public void LoadSpeedPreset(KartSpeedPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -101,8 +96,7 @@ namespace PowerslideKartPhysics
             kart.spinDecel = preset.spinDecel;
         }
 
-        public void SaveSpeedPreset(KartSpeedPreset preset)
-        {
+        public void SaveSpeedPreset(KartSpeedPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -120,8 +114,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadSteerPreset(KartSteerPreset preset)
-        {
+        public void LoadSteerPreset(KartSteerPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -146,8 +139,7 @@ namespace PowerslideKartPhysics
             kart.brakeSlipAmount = preset.brakeSlipAmount;
         }
 
-        public void SaveSteerPreset(KartSteerPreset preset)
-        {
+        public void SaveSteerPreset(KartSteerPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -173,8 +165,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadSuspensionPreset(KartSuspensionPreset preset)
-        {
+        public void LoadSuspensionPreset(KartSuspensionPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -187,8 +178,7 @@ namespace PowerslideKartPhysics
             kart.groundStickCompression = preset.groundStickCompression;
         }
 
-        public void SaveSuspensionPreset(KartSuspensionPreset preset)
-        {
+        public void SaveSuspensionPreset(KartSuspensionPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -202,8 +192,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadWheelsPreset(KartWheelsPreset preset)
-        {
+        public void LoadWheelsPreset(KartWheelsPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -213,8 +202,7 @@ namespace PowerslideKartPhysics
             kart.groundNormalSmoothRate = preset.groundNormalSmoothRate;
         }
 
-        public void SaveWheelsPreset(KartWheelsPreset preset)
-        {
+        public void SaveWheelsPreset(KartWheelsPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -225,8 +213,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadJumpPreset(KartJumpPreset preset)
-        {
+        public void LoadJumpPreset(KartJumpPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -238,8 +225,7 @@ namespace PowerslideKartPhysics
             kart.gravityAdd = preset.gravityAdd;
         }
 
-        public void SaveJumpPreset(KartJumpPreset preset)
-        {
+        public void SaveJumpPreset(KartJumpPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -252,8 +238,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadDriftPreset(KartDriftPreset preset)
-        {
+        public void LoadDriftPreset(KartDriftPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -271,8 +256,7 @@ namespace PowerslideKartPhysics
             kart.burnoutSpeedLimit = preset.burnoutSpeedLimit;
         }
 
-        public void SaveDriftPreset(KartDriftPreset preset)
-        {
+        public void SaveDriftPreset(KartDriftPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -291,8 +275,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadBoostPreset(KartBoostPreset preset)
-        {
+        public void LoadBoostPreset(KartBoostPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -320,8 +303,7 @@ namespace PowerslideKartPhysics
             kart.boostWheelie = preset.boostWheelie;
         }
 
-        public void SaveBoostPreset(KartBoostPreset preset)
-        {
+        public void SaveBoostPreset(KartBoostPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -350,8 +332,7 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        public void LoadWallsPreset(KartWallsPreset preset)
-        {
+        public void LoadWallsPreset(KartWallsPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -364,8 +345,7 @@ namespace PowerslideKartPhysics
             kart.localUpWallDotComparison = preset.localUpWallDotComparison;
         }
 
-        public void SaveWallsPreset(KartWallsPreset preset)
-        {
+        public void SaveWallsPreset(KartWallsPreset preset) {
             kart = GetComponent<Kart>();
             if (kart == null || preset == null) { return; }
 
@@ -379,11 +359,9 @@ namespace PowerslideKartPhysics
             SaveAssets(preset);
         }
 
-        void SaveAssets(Object modifiedAsset)
-        {
+        void SaveAssets(Object modifiedAsset) {
 #if UNITY_EDITOR
-            if (Application.isEditor)
-            {
+            if (Application.isEditor) {
                 UnityEditor.EditorUtility.SetDirty(modifiedAsset);
                 UnityEditor.AssetDatabase.SaveAssets();
             }

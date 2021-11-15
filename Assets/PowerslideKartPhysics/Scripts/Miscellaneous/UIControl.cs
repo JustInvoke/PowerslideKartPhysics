@@ -22,65 +22,52 @@ namespace PowerslideKartPhysics
         public Text itemText;
         public Text ammoText;
 
-        private void Awake()
-        {
+        private void Awake() {
             Initialize(targetKart);
         }
 
         // Set up references to a kart and its item caster
-        public void Initialize(Kart kart)
-        {
+        public void Initialize(Kart kart) {
             targetKart = kart;
-            if (targetKart != null)
-            {
+            if (targetKart != null) {
                 caster = targetKart.GetComponent<ItemCaster>();
             }
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (targetKart == null) { return; }
 
             // Set the boost meter fill amount and color
-            if (boostMeter != null)
-            {
+            if (boostMeter != null) {
                 boostMeter.value = targetKart.GetBoostValue();
 
-                if (boostMeterFill != null)
-                {
+                if (boostMeterFill != null) {
                     boostMeterFill.color = targetKart.IsBoostReady() ? boostReadyColor : boostNotReadyColor;
                 }
             }
 
             // Set the boost reserve meter fill amount
-            if (boostReserveMeter != null)
-            {
+            if (boostReserveMeter != null) {
                 boostReserveMeter.value = targetKart.boostReserve / Mathf.Max(0.01f, targetKart.boostReserveLimit < Mathf.Infinity ? targetKart.boostReserveLimit : boostReserveCap);
             }
 
             // Set the air time meter fill amount
-            if (airTimeMeter != null)
-            {
+            if (airTimeMeter != null) {
                 airTimeMeter.value = targetKart.GetJumpedAirTime() / Mathf.Max(0.01f, airTimeCap);
             }
 
             // Set the item text to show the name of the equipped item and the ammo count
-            if (caster != null)
-            {
-                if (itemText != null)
-                {
-                    if (caster.item != null)
-                    {
+            if (caster != null) {
+                if (itemText != null) {
+                    if (caster.item != null) {
                         itemText.text = caster.ammo > 0 ? caster.item.itemName : "No Item";
                     }
-                    else
-                    {
+                    else {
                         itemText.text = "No Item";
                     }
                 }
 
-                if (ammoText != null)
-                {
+                if (ammoText != null) {
                     ammoText.text = caster.ammo > 0 ? "x" + caster.ammo : "";
                 }
             }

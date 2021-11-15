@@ -33,15 +33,12 @@ namespace PowerslideKartPhysics
 
         // This is for the sake of maintaining contact point information for staggered raycasting (not every frame)
         Vector3 localContactPoint = Vector3.zero;
-        public Vector3 contactPoint
-        {
-            get
-            {
+        public Vector3 contactPoint {
+            get {
                 return transform.TransformPoint(localContactPoint);
             }
 
-            set
-            {
+            set {
                 localContactPoint = transform.InverseTransformPoint(value);
             }
         }
@@ -63,24 +60,20 @@ namespace PowerslideKartPhysics
         [System.NonSerialized]
         public bool sliding = false;
 
-        void Awake()
-        {
+        void Awake() {
             tr = transform;
             kartParent = tr.root.GetComponent<Kart>();
             flippedSideFactor = tr.localPosition.x > -0.01f ? 1 : -1;
         }
 
-        void Update()
-        {
+        void Update() {
             if (kartParent == null) { return; }
 
             // Set wheel rotation rate
-            if (kartParent.burnout)
-            {
+            if (kartParent.burnout) {
                 rotationRate = driven ? burnoutRotateSpeed * flippedSideFactor : 0.0f;
             }
-            else
-            {
+            else {
                 rotationRate = (localVel.z / (radius * 2.0f * Mathf.PI)) * (Mathf.PI * 100f) * flippedSideFactor;
             }
 
@@ -92,11 +85,9 @@ namespace PowerslideKartPhysics
             Vector3 groundPoint = grounded ? contactPoint : tr.TransformPoint(Vector3.down * extendDistance);
 
             // Set final position and rotation of the wheel
-            if (visualWheel != null)
-            {
+            if (visualWheel != null) {
                 float compression = 1.0f;
-                if (suspensionDistance > 0)
-                {
+                if (suspensionDistance > 0) {
                     compression = Mathf.Clamp01(Vector3.Distance(tr.position, groundPoint) / suspensionDistance);
                 }
                 visualWheel.localPosition = Vector3.down * Mathf.Clamp(compression * suspensionDistance - radius, 0.0f, suspensionDistance) * Mathf.Clamp01(maxExtension);
@@ -105,8 +96,7 @@ namespace PowerslideKartPhysics
 
             bool groundAlwaysSlide = false;
 
-            if (surfaceProps != null)
-            {
+            if (surfaceProps != null) {
                 groundAlwaysSlide = surfaceProps.alwaysSlide;
             }
 
@@ -119,26 +109,21 @@ namespace PowerslideKartPhysics
         }
 
         // Set the surface type of the ground that the wheel is on
-        public void SetSurface(GroundSurface surface)
-        {
-            if (surface != null)
-            {
-                if (surface is TerrainSurface)
-                {
+        public void SetSurface(GroundSurface surface) {
+            if (surface != null) {
+                if (surface is TerrainSurface) {
                     TerrainSurface terSurf = (TerrainSurface)surface;
                     surfaceProps = terSurf.GetDominantGroundSurfaceAtPoint(tr.position);
                     surfaceFriction = terSurf.GetFriction(surfaceProps);
                     surfaceSpeed = terSurf.GetSpeed(surfaceProps);
                 }
-                else
-                {
+                else {
                     surfaceProps = surface.props;
                     surfaceFriction = surface.GetFriction(tr.position);
                     surfaceSpeed = surface.GetSpeed(tr.position);
                 }
             }
-            else
-            {
+            else {
                 surfaceProps = null;
                 surfaceFriction = 1.0f;
                 surfaceSpeed = 1.0f;
@@ -146,16 +131,13 @@ namespace PowerslideKartPhysics
         }
 
         // Visualize the wheel size and suspension distance
-        void OnDrawGizmosSelected()
-        {
+        void OnDrawGizmosSelected() {
             Gizmos.color = Color.cyan;
             Gizmos.DrawRay(transform.position, -transform.up * suspensionDistance);
-            if (visualWheel != null)
-            {
+            if (visualWheel != null) {
                 GizmosExtra.DrawWireCylinder(transform.position, visualWheel.forward, radius, width);
             }
-            else
-            {
+            else {
                 GizmosExtra.DrawWireCylinder(transform.position, transform.right, radius, width);
             }
         }

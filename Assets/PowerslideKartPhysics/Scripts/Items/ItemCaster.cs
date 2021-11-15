@@ -21,46 +21,37 @@ namespace PowerslideKartPhysics
         float timeSinceCast = 0.0f;
         public UnityEvent castEvent;
 
-        private void Awake()
-        {
+        private void Awake() {
             kart = GetComponent<Kart>();
-            if (kart != null)
-            {
+            if (kart != null) {
                 kartTr = kart.transform;
                 kartRb = kart.GetComponent<Rigidbody>();
-                if (kart.rotator != null)
-                {
+                if (kart.rotator != null) {
                     kartCol = kart.rotator.GetComponent<Collider>();
                 }
             }
         }
 
-        private void Update()
-        {
+        private void Update() {
             timeSinceCast += Time.deltaTime;
         }
 
         // Cast currently equipped item
-        public void Cast()
-        {
-            if (item != null && kart != null && ammo > 0 && timeSinceCast >= minCastInterval)
-            {
-                if (kart.active && !kart.spinningOut)
-                {
+        public void Cast() {
+            if (item != null && kart != null && ammo > 0 && timeSinceCast >= minCastInterval) {
+                if (kart.active && !kart.spinningOut) {
                     ammo = Mathf.Max(0, ammo - 1);
                     timeSinceCast = 0.0f;
                     ItemCastProperties props = new ItemCastProperties();
                     props.castKart = kart;
 
-                    if (kartRb != null)
-                    {
+                    if (kartRb != null) {
                         props.castKartVelocity = kartRb.velocity;
                     }
 
                     props.castPoint = kartTr.position;
 
-                    if (kart.rotator != null)
-                    {
+                    if (kart.rotator != null) {
                         props.castRotation = kart.rotator.rotation;
                     }
 
@@ -73,22 +64,18 @@ namespace PowerslideKartPhysics
         }
 
         // Equip the specified single-use item
-        public void GiveItem(Item givenItem)
-        {
+        public void GiveItem(Item givenItem) {
             GiveItem(givenItem, 1, true);
         }
 
         // Equip the specified item with the ammo amount
-        public void GiveItem(Item givenItem, int ammoCount)
-        {
+        public void GiveItem(Item givenItem, int ammoCount) {
             GiveItem(givenItem, ammoCount, true);
         }
 
         // Equip the specified item with the ammo amount, overwriting currently equipped item if bypass is true
-        public void GiveItem(Item givenItem, int ammoCount, bool bypass)
-        {
-            if (bypass || ammo == 0)
-            {
+        public void GiveItem(Item givenItem, int ammoCount, bool bypass) {
+            if (bypass || ammo == 0) {
                 item = givenItem;
                 ammo = ammoCount;
             }

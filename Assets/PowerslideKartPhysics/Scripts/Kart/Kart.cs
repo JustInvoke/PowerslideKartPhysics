@@ -240,23 +240,20 @@ namespace PowerslideKartPhysics
         public Events.DoubleVector3 collisionEvent;
         public UnityEvent spinOutEvent;
 
-        private void Awake()
-        {
+        private void Awake() {
             tr = transform;
             rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.FreezeRotation; // Automatically constrain rotation
             cornerCastPoints = new Vector3[4];
             stableWheelPoints = new Vector3[wheels.Length]; // Stable raycast points not susceptible to tilting
-            for (int i = 0; i < stableWheelPoints.Length; i++)
-            {
+            for (int i = 0; i < stableWheelPoints.Length; i++) {
                 stableWheelPoints[i] = rotator.InverseTransformPoint(wheels[i].transform.position);
             }
 
             wallDetector = WallCollision.CreateFromType(wallCollisionProps.wallDetectionType); // Set up wall collision detection
         }
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() {
             if (rotator == null || visualHolder == null || rotator == visualHolder || wheels.Length == 0) { return; }
 
             rb.AddForce(Vector3.up * gravityAdd, ForceMode.Acceleration); // Add fake gravity
@@ -273,15 +270,12 @@ namespace PowerslideKartPhysics
             float targetSpeed = ((targetInput >= 0 ? maxSpeed : -maxReverseSpeed) * Mathf.Abs(targetInput) + Mathf.Clamp01(boostReserve) * boostSpeedAdd) * maxGroundSpeed;
 
             // Brake canceling
-            if (brakeInput > 0.1f)
-            {
-                if (brakeCancelsBoost)
-                {
+            if (brakeInput > 0.1f) {
+                if (brakeCancelsBoost) {
                     EmptyBoostReserve();
                 }
 
-                if (brakeCancelsDrift)
-                {
+                if (brakeCancelsDrift) {
                     CancelDrift();
                 }
             }
@@ -297,8 +291,7 @@ namespace PowerslideKartPhysics
             GroundCheck(); // Check to see if on ground
 
             // Rotating the kart
-            if (grounded || airGrounded)
-            {
+            if (grounded || airGrounded) {
                 rotator.rotation = Quaternion.Lerp(rotator.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane(forwardDir, groundNormal).normalized, groundNormal),
                     Mathf.Clamp(Vector3.Dot(rb.velocity.normalized, groundNormal) * velMag * rotationRateFactor, minRotationRate, maxRotationRate));
 
@@ -307,30 +300,25 @@ namespace PowerslideKartPhysics
             }
 
             // Burnout logic
-            if (!burnout && grounded && Mathf.Abs(localVel.z) < burnoutSpeedLimit - 0.1f && accelInput > 0.9f && brakeInput > 0.9f)
-            {
+            if (!burnout && grounded && Mathf.Abs(localVel.z) < burnoutSpeedLimit - 0.1f && accelInput > 0.9f && brakeInput > 0.9f) {
                 burnout = true;
             }
-            else if (burnout && !(grounded && Mathf.Abs(localVel.z) < burnoutSpeedLimit + 0.1f && accelInput > 0.9f && brakeInput > 0.9f))
-            {
+            else if (burnout && !(grounded && Mathf.Abs(localVel.z) < burnoutSpeedLimit + 0.1f && accelInput > 0.9f && brakeInput > 0.9f)) {
                 burnout = false;
             }
 
             // Calculating turning rate
             float targetTurn = 0.0f;
-            if (burnout)
-            {
+            if (burnout) {
                 targetSpeed = burnoutSpeed;
                 targetTurn = steerInput;
             }
-            else if (drifting && driftDir != 0)
-            {
+            else if (drifting && driftDir != 0) {
                 targetTurn = Mathf.Lerp(maxSteer, minSteer, Mathf.Abs(localVel.z) / Mathf.Max(steerSpeedLimit, 0.01f))
                     * Mathf.Lerp(minDriftAngle, maxDriftAngle, Mathf.Abs((steerInput + driftDir) * 0.5f)) * driftDir
                     * (Mathf.Sign(targetInput) != Mathf.Sign(localVel.z) && Mathf.Abs(targetInput) > 0.001f ? 1.0f + brakeSteerIncrease : 1.0f);
             }
-            else
-            {
+            else {
                 targetTurn = Mathf.Lerp(maxSteer, minSteer, Mathf.Abs(localVel.z) / Mathf.Max(steerSpeedLimit, 0.01f)) * steerInput
                     * (grounded ? Mathf.Sign(localVel.z)
                         * (steerSlowLimit > 0 ? Mathf.Clamp01(Mathf.Abs(localVel.z) / Mathf.Max(steerSlowLimit, 0.01f)) : 1.0f) : 1.0f)
@@ -347,18 +335,15 @@ namespace PowerslideKartPhysics
 
             // Side friction application
             float brakeSlipFactor = Mathf.Clamp(1.0f - (localVel.z > 0 ? brakeInput : accelInput) * Mathf.Clamp01(velMag * 0.1f) * brakeSlipAmount, 0.0f, 0.9f);
-            if (grounded || (jumped && airGrounded && !leftGroundJump))
-            {
+            if (grounded || (jumped && airGrounded && !leftGroundJump)) {
                 rb.AddForce(rightDir * (-localVel.x * sidewaysFriction * (grounded ? maxGroundFriction : 1.0f) * brakeSlipFactor - Mathf.Clamp01(driftSwingTime) * driftDir * 100f * driftSwingForce), ForceMode.Acceleration);
             }
-            else
-            {
+            else {
                 rb.AddForce(rightDir * (-localVel.x * airSidewaysFriction * (1.0f - Mathf.Abs(Vector3.Dot(rightDir, Vector3.up))) * brakeSlipFactor - Mathf.Clamp01(driftSwingTime) * driftDir * 100f * driftSwingForce), ForceMode.Acceleration);
             }
 
             // Grounded state
-            if (grounded)
-            {
+            if (grounded) {
                 // Local travel velocity for suspension
                 float travelVel = Mathf.Clamp(localVel.y, springDampVelMin, springDampVelMax * (jumpTime == 0 ? 1.0f : 0.0f));
 
@@ -368,11 +353,9 @@ namespace PowerslideKartPhysics
                     , ForceMode.Acceleration);
 
                 // Landing after jumping
-                if (jumpTime == 0)
-                {
+                if (jumpTime == 0) {
                     // Jump landing boost
-                    if (canBoost && jumped && leftGroundJump && airLandBoost > 0 && !spinningOut)
-                    {
+                    if (canBoost && jumped && leftGroundJump && airLandBoost > 0 && !spinningOut) {
                         AddBoost(boostPower * Mathf.Min(airLandBoost, airTime), Mathf.Clamp01(boostReserve) * airLandBoost);
                         boostStartEvent.Invoke();
                     }
@@ -387,23 +370,20 @@ namespace PowerslideKartPhysics
 
                 airTime = 0.0f;
 
-                if (!spinningOut)
-                {
+                if (!spinningOut) {
                     // Acceleration and braking force
                     rb.AddForce(forwardDir * (targetSpeed - localVel.z) * (Mathf.Abs(targetSpeed) > Mathf.Abs(localVel.z) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z) ? acceleration + Mathf.Clamp01(boostReserve) * boostAccelAdd : 1.0f) * maxGroundFriction * (Mathf.Sign(targetInput) != Mathf.Sign(localVel.z) ? brakeForce : 1.0f)
                         * (targetInput == 0 && !(Mathf.Abs(localVel.z) > Mathf.Abs(targetSpeed) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z)) ? coastingFriction : 1.0f)
                         * Mathf.Clamp01(1.0f + slopeFriction - Vector3.Dot(forwardDir * Mathf.Sign(targetSpeed), Vector3.up)), ForceMode.Acceleration);
 
                     // Staying parked at low speed
-                    if (Mathf.Abs(targetInput) < 0.001f && velMag < autoStopSpeed)
-                    {
+                    if (Mathf.Abs(targetInput) < 0.001f && velMag < autoStopSpeed) {
                         rb.AddForce(-rb.velocity * autoStopForce, ForceMode.Acceleration);
                     }
                 }
 
                 // Land event invocation
-                if (!wasGrounded && Time.timeSinceLevelLoad - lastLandTime >= 0.2f)
-                {
+                if (!wasGrounded && Time.timeSinceLevelLoad - lastLandTime >= 0.2f) {
                     lastLandTime = Time.timeSinceLevelLoad;
                     landEvent.Invoke();
                 }
@@ -415,19 +395,16 @@ namespace PowerslideKartPhysics
                 rotator.localPosition = Vector3.zero;
                 leftGroundJump = true;
             }
-            else if (jumped && jumpTime == 0)
-            {
+            else if (jumped && jumpTime == 0) {
                 // If not grounded but still air grounded, apply ground stick force if not jumping
                 rb.AddForce(
                     -groundNormal * jumpStickForce * Mathf.Clamp01(Vector3.Dot(groundNormal, Vector3.up))
                     , ForceMode.Acceleration);
             }
 
-            if (!grounded)
-            {
+            if (!grounded) {
                 airTime += Time.fixedDeltaTime;
-                if (airDriveFriction > 0)
-                {
+                if (airDriveFriction > 0) {
                     // Air acceleration and braking force
                     rb.AddForce(forwardDir * airDriveFriction * (targetSpeed - localVel.z) * (Mathf.Abs(targetSpeed) > Mathf.Abs(localVel.z) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z) ? acceleration + Mathf.Clamp01(boostReserve) * boostAccelAdd : 1.0f) * (Mathf.Sign(targetInput) != Mathf.Sign(localVel.z) ? brakeForce : 1.0f)
                         * (targetInput == 0 && !(Mathf.Abs(localVel.z) > Mathf.Abs(targetSpeed) && System.Math.Sign(targetSpeed) == System.Math.Sign(localVel.z)) ? coastingFriction : 1.0f)
@@ -436,8 +413,7 @@ namespace PowerslideKartPhysics
             }
 
             // Boost reserve decrementing
-            if (boostType == KartBoostType.DriftAuto || boostType == KartBoostType.DriftManual)
-            {
+            if (boostType == KartBoostType.DriftAuto || boostType == KartBoostType.DriftManual) {
                 boostReserve = Mathf.Max(0.0f, boostReserve - boostBurnRate * Time.fixedDeltaTime);
             }
 
@@ -445,24 +421,19 @@ namespace PowerslideKartPhysics
             rb.AddForce(forwardDir * Mathf.Clamp01(boostReserve) * (grounded ? boostGroundPush : boostAirPush), ForceMode.Acceleration);
 
             // Drift auto boost logic
-            if (boostType == KartBoostType.DriftAuto)
-            {
+            if (boostType == KartBoostType.DriftAuto) {
                 // Drift state
-                if (drifting && driftDir != 0 && !boostFailed)
-                {
+                if (drifting && driftDir != 0 && !boostFailed) {
                     boostTime += boostRate * Time.fixedDeltaTime;
                     boostCount = Mathf.Min(Mathf.FloorToInt(boostTime / Mathf.Max(0.0001f, autoBoostInterval)), maxBoosts);
                 }
 
                 // Drift end
-                if (!drifting || driftDir == 0)
-                {
-                    if (boostTime > 0)
-                    {
+                if (!drifting || driftDir == 0) {
+                    if (boostTime > 0) {
                         EndDriftBoost();
                     }
-                    else
-                    {
+                    else {
                         CancelDriftBoost(false);
                     }
                 }
@@ -470,22 +441,18 @@ namespace PowerslideKartPhysics
             else if (boostType == KartBoostType.DriftManual) // Drift manual boost logic
             {
                 // Drift state
-                if (drifting && driftDir != 0 && !boostFailed)
-                {
+                if (drifting && driftDir != 0 && !boostFailed) {
                     boostTime = Mathf.Clamp01(boostTime + boostRate * Time.fixedDeltaTime);
                 }
 
                 // Drift end
-                if (!drifting || driftDir == 0)
-                {
+                if (!drifting || driftDir == 0) {
                     CancelDriftBoost(false);
                 }
 
                 // Premature boost
-                if (boostTime >= 1 || boostCount > maxBoosts - 1)
-                {
-                    if (boostTime >= 1)
-                    {
+                if (boostTime >= 1 || boostCount > maxBoosts - 1) {
+                    if (boostTime >= 1) {
                         boostFailEvent.Invoke();
                     }
 
@@ -496,15 +463,13 @@ namespace PowerslideKartPhysics
             {
                 // Drift state
                 float addedDriftBoost = 0.0f;
-                if (drifting && driftDir != 0)
-                {
+                if (drifting && driftDir != 0) {
                     AddBoost(driftBoostAdd * Time.fixedDeltaTime);
                     addedDriftBoost = driftBoostAdd * Time.fixedDeltaTime * 2.0f;
                 }
 
                 // Boost button on state
-                if (boostButton && boostAmount > addedDriftBoost && validBoost && !spinningOut)
-                {
+                if (boostButton && boostAmount > addedDriftBoost && validBoost && !spinningOut) {
                     boostAmount = Mathf.Max(0.0f, boostAmount - boostBurnRate * Time.fixedDeltaTime);
                     boostReserve = Mathf.Min(boostReserve + boostRate * Time.fixedDeltaTime, boostReserveLimit);
                 }
@@ -516,18 +481,15 @@ namespace PowerslideKartPhysics
             }
 
             // Drift visual rotation logic
-            if (drifting && driftDir != 0)
-            {
+            if (drifting && driftDir != 0) {
                 float angle = Mathf.Lerp(minDriftAngle, maxDriftAngle, Mathf.Abs((steerInput + driftDir) * 0.5f)) * driftDir * visualDriftFactor;
                 targetForward = new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
             }
-            else if (!grounded && canDrift && driftButton && localVel.z >= minDriftSpeed)
-            {
+            else if (!grounded && canDrift && driftButton && localVel.z >= minDriftSpeed) {
                 float angle = minDriftAngle * steerInput * visualDriftAirFactor;
                 targetForward = new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
             }
-            else
-            {
+            else {
                 targetForward = Vector3.forward;
             }
 
@@ -545,15 +507,13 @@ namespace PowerslideKartPhysics
             targetUp = new Vector3(sideTilt * (1.0f - Mathf.Abs(targetForward.x)), 1.0f - Mathf.Abs(sideTilt), sideTilt * (1.0f - Mathf.Abs(targetForward.z)));
             targetForward = new Vector3(targetForward.x, targetForward.y + forwardTilt, targetForward.z);
 
-            if (spinningOut)
-            {
+            if (spinningOut) {
                 // Visual rotation while spinning out
                 visualHolder.localRotation = Quaternion.Lerp(visualHolder.localRotation, Quaternion.LookRotation(spinForward, spinUp), 20f * Time.fixedDeltaTime);
                 visualHolder.localPosition = Vector3.Lerp(visualHolder.localPosition, Vector3.zero + spinOffset, 20f * Time.fixedDeltaTime);
                 rb.AddForce(new Vector3(-rb.velocity.x, 0.0f, -rb.velocity.z) * spinDecel, ForceMode.Acceleration); // Slow down while spinning out
             }
-            else
-            {
+            else {
                 // Visual rotation while driving
                 visualHolder.localRotation = Quaternion.Lerp(visualHolder.localRotation, Quaternion.LookRotation(targetForward, Vector3.up) * Quaternion.AngleAxis(-sideTilt, Vector3.forward), visualRotationRate * 100f * Time.fixedDeltaTime);
 
@@ -578,23 +538,19 @@ namespace PowerslideKartPhysics
             }
 
             // Fall speed limiting
-            if (!grounded && localVel.y < -maxFallSpeed)
-            {
+            if (!grounded && localVel.y < -maxFallSpeed) {
                 rb.AddForce(Vector3.up * -(maxFallSpeed + localVel.y), ForceMode.Acceleration);
             }
 
             // Jump force
-            if (jumpTime > 0)
-            {
+            if (jumpTime > 0) {
                 rb.AddForce(upDir * jumpForce * jumpTime, ForceMode.Acceleration);
             }
         }
 
-        private void Update()
-        {
+        private void Update() {
             // Jump starting
-            if (canJump && driftButtonDown && !jumped && !spinningOut && (grounded || airGrounded || airTime <= airJumpTimeLimit))
-            {
+            if (canJump && driftButtonDown && !jumped && !spinningOut && (grounded || airGrounded || airTime <= airJumpTimeLimit)) {
                 jumped = true;
                 jumpTime = jumpDuration;
                 leftGroundJump = false;
@@ -603,14 +559,11 @@ namespace PowerslideKartPhysics
             }
 
             // Drift starting
-            if (canDrift && driftButton && driftReleased && !spinningOut)
-            {
+            if (canDrift && driftButton && driftReleased && !spinningOut) {
                 drifting = true;
 
-                if (grounded && jumpTime == 0 && driftDir == 0)
-                {
-                    if (System.Math.Sign(steerInput) != 0)
-                    {
+                if (grounded && jumpTime == 0 && driftDir == 0) {
+                    if (System.Math.Sign(steerInput) != 0) {
                         driftDir = (int)Mathf.Sign(steerInput);
                         driftSwingTime = driftSwingDuration;
                     }
@@ -619,37 +572,30 @@ namespace PowerslideKartPhysics
             }
 
             // Drift auto boost input
-            if (boostType == KartBoostType.DriftAuto)
-            {
+            if (boostType == KartBoostType.DriftAuto) {
                 // Ending drift
-                if (!driftButton)
-                {
+                if (!driftButton) {
                     driftReleased = true;
                     EndDriftBoost();
                 }
-                else if (burnout || localVel.z < minDriftSpeed)
-                {
+                else if (burnout || localVel.z < minDriftSpeed) {
                     CancelDrift();
                 }
             }
             else if (boostType == KartBoostType.DriftManual) // Drift manual boost input
             {
                 // Ending drift
-                if (!driftButton || burnout || localVel.z < minDriftSpeed)
-                {
+                if (!driftButton || burnout || localVel.z < minDriftSpeed) {
                     CancelDrift();
                 }
 
-                if (!driftButton)
-                {
+                if (!driftButton) {
                     driftReleased = true;
                 }
 
-                if (canBoost && boostButtonDown)
-                {
+                if (canBoost && boostButtonDown) {
                     // Boost success
-                    if (boostTime >= driftManualBoostLimit)
-                    {
+                    if (boostTime >= driftManualBoostLimit) {
                         boostCount++;
                         AddBoost(boostTime * boostCount * boostPower, boostCount);
                         boostTime = 0.0f;
@@ -657,17 +603,14 @@ namespace PowerslideKartPhysics
                     }
                     else // Boost fail
                     {
-                        if (drifting && driftDir != 0 && boostTime > 0)
-                        {
+                        if (drifting && driftDir != 0 && boostTime > 0) {
                             boostFailEvent.Invoke();
                         }
 
-                        if (driftManualFailCancel)
-                        {
+                        if (driftManualFailCancel) {
                             CancelDriftBoost(true);
                         }
-                        else
-                        {
+                        else {
                             boostCount++;
                             boostTime = 0.0f;
                         }
@@ -677,19 +620,16 @@ namespace PowerslideKartPhysics
             else if (boostType == KartBoostType.Manual) // Manual boost input
             {
                 // Ending drift
-                if (!driftButton || burnout || localVel.z < minDriftSpeed)
-                {
+                if (!driftButton || burnout || localVel.z < minDriftSpeed) {
                     CancelDrift();
                 }
 
-                if (!driftButton)
-                {
+                if (!driftButton) {
                     driftReleased = true;
                 }
 
                 // Boost starting
-                if (canBoost && boostButtonDown && boostAmount > 0 && !spinningOut)
-                {
+                if (canBoost && boostButtonDown && boostAmount > 0 && !spinningOut) {
                     validBoost = true;
                     boostStartEvent.Invoke();
                 }
@@ -697,8 +637,7 @@ namespace PowerslideKartPhysics
         }
 
         // Checking to see if kart is on ground
-        void GroundCheck()
-        {
+        void GroundCheck() {
             rawGroundNormal = Vector3.zero;
             compression = 0.0f;
             maxGroundFriction = 1.0f;
@@ -709,13 +648,11 @@ namespace PowerslideKartPhysics
             cornerCastPoints[3] = rotator.TransformPoint(cornerCastOffset + new Vector3(cornerCastSize.x * 0.5f, cornerCastSize.y, cornerCastSize.z * -0.5f));
 
             // Logic for asynchronous wheel raycasts and maintaining previous ground hit info
-            if (!oneWheelCastPerFrame || (oneWheelCastPerFrame && curWheelCast == lastGroundedWheel))
-            {
+            if (!oneWheelCastPerFrame || (oneWheelCastPerFrame && curWheelCast == lastGroundedWheel)) {
                 grounded = false;
             }
 
-            if (!oneCornerCastPerFrame || (oneCornerCastPerFrame && curCornerCast == lastGroundedCorner))
-            {
+            if (!oneCornerCastPerFrame || (oneCornerCastPerFrame && curCornerCast == lastGroundedCorner)) {
                 airGrounded = false;
             }
 
@@ -723,19 +660,16 @@ namespace PowerslideKartPhysics
             RaycastHit[] hits = new RaycastHit[maxWheelCastHits];
 
             // Asynchronous wheel raycasting (visual)
-            if (oneWheelCastPerFrame)
-            {
+            if (oneWheelCastPerFrame) {
                 KartWheel curWheel = wheels[curWheelCast];
                 bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
-                if (wheelHit)
-                {
+                if (wheelHit) {
                     wheelHit = EvaluateGroundHits(hits, out hit);
                 }
 
                 // Setting ground hit info for visual wheel
-                if (wheelHit)
-                {
+                if (wheelHit) {
                     curWheel.grounded = true;
                     curWheel.localVel = curWheel.transform.InverseTransformDirection(rb.velocity);
                     curWheel.contactPoint = hit.point;
@@ -743,43 +677,36 @@ namespace PowerslideKartPhysics
                     curWheel.contactTr = hit.transform;
                     curWheel.contactDistance = hit.distance;
 
-                    if (hit.rigidbody != null)
-                    {
+                    if (hit.rigidbody != null) {
                         curWheel.localVel -= curWheel.transform.InverseTransformDirection(hit.rigidbody.GetPointVelocity(curWheel.transform.position));
                     }
 
                     GroundSurface surface = hit.collider.GetComponent<GroundSurface>();
 
-                    if (surface != null)
-                    {
+                    if (surface != null) {
                         curWheel.SetSurface(surface);
                     }
-                    else
-                    {
+                    else {
                         curWheel.SetSurface(null);
                     }
                 }
-                else
-                {
+                else {
                     curWheel.grounded = false;
                     curWheel.SetSurface(null);
                 }
             }
             else // Simultaneous wheel raycasting (visual)
             {
-                for (int i = 0; i < wheels.Length; i++)
-                {
+                for (int i = 0; i < wheels.Length; i++) {
                     KartWheel curWheel = wheels[i];
                     bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
-                    if (wheelHit)
-                    {
+                    if (wheelHit) {
                         wheelHit = EvaluateGroundHits(hits, out hit);
                     }
 
                     // Setting ground hit info for visual wheel
-                    if (wheelHit)
-                    {
+                    if (wheelHit) {
                         curWheel.grounded = true;
                         curWheel.localVel = curWheel.transform.InverseTransformDirection(rb.velocity);
                         curWheel.contactPoint = hit.point;
@@ -787,24 +714,20 @@ namespace PowerslideKartPhysics
                         curWheel.contactTr = hit.transform;
                         curWheel.contactDistance = hit.distance;
 
-                        if (hit.rigidbody != null)
-                        {
+                        if (hit.rigidbody != null) {
                             curWheel.localVel -= curWheel.transform.InverseTransformDirection(hit.rigidbody.GetPointVelocity(curWheel.transform.position));
                         }
 
                         GroundSurface surface = hit.collider.GetComponent<GroundSurface>();
 
-                        if (surface != null)
-                        {
+                        if (surface != null) {
                             curWheel.SetSurface(surface);
                         }
-                        else
-                        {
+                        else {
                             curWheel.SetSurface(null);
                         }
                     }
-                    else
-                    {
+                    else {
                         curWheel.grounded = false;
                         curWheel.SetSurface(null);
                     }
@@ -817,26 +740,22 @@ namespace PowerslideKartPhysics
             int groundedWheels = 0;
 
             // Asynchronous wheel raycasting (physics/stable points)
-            if (oneWheelCastPerFrame)
-            {
+            if (oneWheelCastPerFrame) {
                 KartWheel curWheel = wheels[curWheelCast];
                 bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[curWheelCast]), -upDir, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
-                if (wheelHit)
-                {
+                if (wheelHit) {
                     wheelHit = EvaluateGroundHits(hits, out hit);
                 }
 
                 // Physical ground hit info
-                if (wheelHit)
-                {
+                if (wheelHit) {
                     grounded = true;
                     lastGroundedWheel = curWheelCast;
                     groundedWheels++;
                     maxGroundFriction = curWheel.surfaceFriction;
                     maxGroundSpeed = curWheel.surfaceSpeed;
-                    if (hit.rigidbody != null)
-                    {
+                    if (hit.rigidbody != null) {
                         groundVel = hit.rigidbody.GetPointVelocity(rotator.position);
                         groundAngVel = hit.rigidbody.angularVelocity;
                     }
@@ -848,30 +767,25 @@ namespace PowerslideKartPhysics
             }
             else // Simultaneous wheel raycasting (physics/stable points)
             {
-                for (int i = 0; i < wheels.Length; i++)
-                {
+                for (int i = 0; i < wheels.Length; i++) {
                     KartWheel curWheel = wheels[i];
                     bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[i]), -upDir, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
-                    if (wheelHit)
-                    {
+                    if (wheelHit) {
                         wheelHit = EvaluateGroundHits(hits, out hit);
                     }
 
                     // Physical ground hit info
-                    if (wheelHit)
-                    {
+                    if (wheelHit) {
                         grounded = true;
                         groundedWheels++;
-                        if (i == 0)
-                        {
+                        if (i == 0) {
                             maxGroundFriction = 0.0f;
                             maxGroundSpeed = 0.0f;
                         }
                         maxGroundFriction = Mathf.Max(maxGroundFriction, curWheel.surfaceFriction);
                         maxGroundSpeed = Mathf.Max(maxGroundSpeed, curWheel.surfaceSpeed);
-                        if (hit.rigidbody != null)
-                        {
+                        if (hit.rigidbody != null) {
                             groundVel = hit.rigidbody.GetPointVelocity(rotator.position);
                             groundAngVel = hit.rigidbody.angularVelocity;
                         }
@@ -884,29 +798,24 @@ namespace PowerslideKartPhysics
 
             localVel -= rotator.InverseTransformDirection(groundVel); // Applying velocity of ground (if driving on rigidbody)
 
-            if (groundedWheels > 1)
-            {
+            if (groundedWheels > 1) {
                 compression = Mathf.Clamp01(compression / groundedWheels);
             }
 
             // If not grounded, check for air grounded state with corner raycasts
-            if (!grounded)
-            {
+            if (!grounded) {
                 hits = new RaycastHit[maxWheelCastHits];
 
                 // Asynchronous corner raycasting
-                if (oneCornerCastPerFrame)
-                {
+                if (oneCornerCastPerFrame) {
                     bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[curCornerCast], -upDir, hits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
-                    if (cornerHit)
-                    {
+                    if (cornerHit) {
                         cornerHit = EvaluateGroundHits(hits, out hit);
                     }
 
                     // Corner hit info
-                    if (cornerHit)
-                    {
+                    if (cornerHit) {
                         airGrounded = true;
                         lastGroundedCorner = curCornerCast;
                         rawGroundNormal += hit.normal;
@@ -915,18 +824,15 @@ namespace PowerslideKartPhysics
                 }
                 else // Simultaneous corner raycasting
                 {
-                    for (int i = 0; i < cornerCastPoints.Length; i++)
-                    {
+                    for (int i = 0; i < cornerCastPoints.Length; i++) {
                         bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[i], -upDir, hits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
-                        if (cornerHit)
-                        {
+                        if (cornerHit) {
                             cornerHit = EvaluateGroundHits(hits, out hit);
                         }
 
                         // Corner hit info
-                        if (cornerHit)
-                        {
+                        if (cornerHit) {
                             airGrounded = true;
                             rawGroundNormal += hit.normal;
                         }
@@ -936,28 +842,22 @@ namespace PowerslideKartPhysics
 
             // Smoothing the ground normal
             rawGroundNormal.Normalize();
-            if (grounded || airGrounded)
-            {
+            if (grounded || airGrounded) {
                 groundNormal = Vector3.Slerp(groundNormal, rawGroundNormal, groundNormalSmoothRate * Time.fixedDeltaTime);
             }
-            else
-            {
+            else {
                 groundNormal = upDir;
             }
         }
 
         // Determines if a raycast hit is valid, basically excluding colliders that are children of the kart
-        bool EvaluateGroundHits(RaycastHit[] hits, out RaycastHit hit)
-        {
+        bool EvaluateGroundHits(RaycastHit[] hits, out RaycastHit hit) {
             hit = new RaycastHit();
             if (hits == null) { return false; }
 
-            for (int i = 0; i < hits.Length; i++)
-            {
-                if (hits[i].collider != null)
-                {
-                    if (!hits[i].collider.transform.IsChildOf(tr))
-                    {
+            for (int i = 0; i < hits.Length; i++) {
+                if (hits[i].collider != null) {
+                    if (!hits[i].collider.transform.IsChildOf(tr)) {
                         hit = hits[i];
                         return true;
                     }
@@ -968,22 +868,18 @@ namespace PowerslideKartPhysics
         }
 
         // End drift state
-        void CancelDrift()
-        {
+        void CancelDrift() {
             drifting = false;
             driftDir = 0;
             driftSwingTime = 0.0f;
         }
 
         // End drift state and award boost for the drift auto boost type
-        void EndDriftBoost()
-        {
+        void EndDriftBoost() {
             CancelDrift();
-            if (canBoost)
-            {
+            if (canBoost) {
                 AddBoost(boostCount * boostPower, boostCount);
-                if (boostCount > 0)
-                {
+                if (boostCount > 0) {
                     boostStartEvent.Invoke();
                 }
             }
@@ -991,50 +887,40 @@ namespace PowerslideKartPhysics
         }
 
         // Award boost to kart
-        public void AddBoost(float boostToAdd)
-        {
-            if (canBoost)
-            {
-                if (boostType == KartBoostType.DriftAuto || boostType == KartBoostType.DriftManual)
-                {
+        public void AddBoost(float boostToAdd) {
+            if (canBoost) {
+                if (boostType == KartBoostType.DriftAuto || boostType == KartBoostType.DriftManual) {
                     boostReserve = Mathf.Min(boostReserve + boostToAdd, boostReserveLimit);
                 }
-                else if (boostType == KartBoostType.Manual)
-                {
+                else if (boostType == KartBoostType.Manual) {
                     boostAmount = Mathf.Min(boostAmount + boostToAdd, boostAmountLimit);
                 }
             }
         }
 
         // Award boost to kart and push forward with force
-        public void AddBoost(float boostToAdd, float pushForce)
-        {
-            if (canBoost)
-            {
+        public void AddBoost(float boostToAdd, float pushForce) {
+            if (canBoost) {
                 AddBoost(boostToAdd);
                 rb.AddForce(forwardDir * pushForce, ForceMode.VelocityChange);
             }
         }
 
         // Ending drift auto boost
-        void CancelDriftBoost(bool failed)
-        {
+        void CancelDriftBoost(bool failed) {
             boostTime = 0.0f;
             boostFailed = failed;
             boostCount = 0;
         }
 
         // Remove current boost amount being used
-        void EmptyBoostReserve()
-        {
+        void EmptyBoostReserve() {
             boostReserve = 0.0f;
         }
 
         // Return current boost value based on the boost type
-        public float GetBoostValue()
-        {
-            switch (boostType)
-            {
+        public float GetBoostValue() {
+            switch (boostType) {
                 case KartBoostType.DriftAuto:
                     return boostCount < maxBoosts ? Mathf.Repeat(boostTime, autoBoostInterval) / Mathf.Max(0.01f, autoBoostInterval) : 1.0f;
                 case KartBoostType.DriftManual:
@@ -1046,8 +932,7 @@ namespace PowerslideKartPhysics
         }
 
         // Return whether the boost is ready based on the boost type
-        public bool IsBoostReady()
-        {
+        public bool IsBoostReady() {
             return (boostType == KartBoostType.DriftAuto && boostCount > 0)
                 || (boostType == KartBoostType.DriftManual && boostTime >= driftManualBoostLimit)
                 || (boostType == KartBoostType.Manual && boostAmount > 0);
@@ -1056,10 +941,8 @@ namespace PowerslideKartPhysics
         public enum SpinAxis { Yaw, Pitch, Roll }
 
         // Start spinning out around the given axis for the number of rotations
-        public void SpinOut(SpinAxis spinType, int spinCount)
-        {
-            if (!spinningOut)
-            {
+        public void SpinOut(SpinAxis spinType, int spinCount) {
+            if (!spinningOut) {
                 CancelDrift();
                 CancelDriftBoost(true);
                 EmptyBoostReserve();
@@ -1069,8 +952,7 @@ namespace PowerslideKartPhysics
         }
 
         // Spin cycle that calculates the current spin angle
-        IEnumerator SpinCycle(SpinAxis spinType, float spinAmount)
-        {
+        IEnumerator SpinCycle(SpinAxis spinType, float spinAmount) {
             // Spin start
             spinningOut = true;
             float spinDir = Mathf.Sign(0.5f - Random.value);
@@ -1078,11 +960,9 @@ namespace PowerslideKartPhysics
             float maxSpin = spinAmount * Mathf.PI * 2.0f;
 
             // Actual spin cycle
-            while (Mathf.Abs(curSpin) < maxSpin)
-            {
+            while (Mathf.Abs(curSpin) < maxSpin) {
                 curSpin += spinDir * spinRate * Mathf.Clamp((maxSpin - Mathf.Abs(curSpin)), 0.1f, 1.0f) * Time.fixedDeltaTime;
-                switch (spinType)
-                {
+                switch (spinType) {
                     case SpinAxis.Yaw:
                         spinForward = new Vector3(Mathf.Sin(curSpin), Mathf.Sin(curSpin * 2.0f) * 0.1f, Mathf.Cos(curSpin));
                         spinUp = Vector3.up;
@@ -1096,8 +976,7 @@ namespace PowerslideKartPhysics
                         break;
                 }
 
-                if (spinType != SpinAxis.Yaw)
-                {
+                if (spinType != SpinAxis.Yaw) {
                     spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / maxSpin) * Mathf.PI);
                 }
                 yield return new WaitForFixedUpdate();
@@ -1112,12 +991,9 @@ namespace PowerslideKartPhysics
         }
 
         // Return whether at least one wheel is sliding
-        public bool IsWheelSliding()
-        {
-            for (int i = 0; i < wheels.Length; i++)
-            {
-                if (wheels[i].sliding)
-                {
+        public bool IsWheelSliding() {
+            for (int i = 0; i < wheels.Length; i++) {
+                if (wheels[i].sliding) {
                     return true;
                 }
             }
@@ -1125,50 +1001,40 @@ namespace PowerslideKartPhysics
         }
 
         // Get the surface type from any wheel
-        public GroundSurfacePreset GetWheelSurface()
-        {
+        public GroundSurfacePreset GetWheelSurface() {
             return GetWheelSurface(false);
         }
 
         // Get the surface type from any wheel, excluding ones that are not sliding based on the argument
-        public GroundSurfacePreset GetWheelSurface(bool onlySliding)
-        {
-            for (int i = 0; i < wheels.Length; i++)
-            {
-                if (wheels[i].grounded && (wheels[i].sliding || !onlySliding))
-                {
+        public GroundSurfacePreset GetWheelSurface(bool onlySliding) {
+            for (int i = 0; i < wheels.Length; i++) {
+                if (wheels[i].grounded && (wheels[i].sliding || !onlySliding)) {
                     return wheels[i].surfaceProps;
                 }
             }
             return null;
         }
 
-        void OnTriggerEnter(Collider trig)
-        {
+        void OnTriggerEnter(Collider trig) {
             // Spin out when touching hazard
             Hazard haz = trig.GetComponent<Hazard>();
-            if (!spinningOut && haz != null)
-            {
+            if (!spinningOut && haz != null) {
                 SpinOut(haz.spinAxis, haz.spinCount);
             }
         }
 
-        void OnTriggerStay(Collider trig)
-        {
+        void OnTriggerStay(Collider trig) {
             // Boost pad detection
             BoostPad bPad = trig.GetComponent<BoostPad>();
-            if (canBoost && grounded && bPad != null && !spinningOut && ((!boostPadUsed && boostPadTimer == 0) || bPad.continuous))
-            {
+            if (canBoost && grounded && bPad != null && !spinningOut && ((!boostPadUsed && boostPadTimer == 0) || bPad.continuous)) {
                 // Single hit boost pad (award boost upon initial touch
-                if (!boostPadUsed && boostPadTimer == 0 && !bPad.continuous)
-                {
+                if (!boostPadUsed && boostPadTimer == 0 && !bPad.continuous) {
                     AddBoost(bPad.boostAmount, bPad.boostForce);
                     boostStartEvent.Invoke();
                 }
                 else if (bPad.continuous) // Continuous boost pad (always boost while touching)
                 {
-                    if (!boostPadUsed)
-                    {
+                    if (!boostPadUsed) {
                         boostStartEvent.Invoke();
                     }
                     AddBoost(bPad.boostAmount * Time.fixedDeltaTime);
@@ -1178,35 +1044,28 @@ namespace PowerslideKartPhysics
             }
         }
 
-        void OnTriggerExit(Collider trig)
-        {
+        void OnTriggerExit(Collider trig) {
             // Exiting boost pad
-            if (trig.GetComponent<BoostPad>())
-            {
+            if (trig.GetComponent<BoostPad>()) {
                 boostPadUsed = false;
             }
         }
 
-        void OnCollisionStay(Collision col)
-        {
+        void OnCollisionStay(Collision col) {
             if (rotator == null) { return; }
 
             bool wallHit = false;
-            for (int i = 0; i < col.contacts.Length; i++)
-            {
+            for (int i = 0; i < col.contacts.Length; i++) {
                 // Wall collision detection
                 WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : Vector3.up, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
-                if (!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsKart() && !col.contacts[i].otherCollider.IsSpawnedProjectileItem())
-                {
+                if (!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsKart() && !col.contacts[i].otherCollider.IsSpawnedProjectileItem()) {
                     wallHit = true;
-                    if (wallCollisionCancelsDrift)
-                    {
+                    if (wallCollisionCancelsDrift) {
                         CancelDrift();
                         CancelDriftBoost(true);
                     }
 
-                    if (wallCollisionCancelsBoost)
-                    {
+                    if (wallCollisionCancelsBoost) {
                         EmptyBoostReserve();
                     }
 
@@ -1214,32 +1073,26 @@ namespace PowerslideKartPhysics
                     wallBounceTurn = F.MaxAbs(wallBounceTurn, col.relativeVelocity.magnitude * Vector3.Dot(-forwardDir, col.contacts[i].normal) * (localContact.x > 0 ? -1.0f : 1.0f) * wallBounceTurnAmount);
 
                     // Wall friction application
-                    if (grounded && !spinningOut)
-                    {
+                    if (grounded && !spinningOut) {
                         rb.AddForce(-new Vector3(rb.velocity.x, 0.0f, rb.velocity.z) * wallFriction, ForceMode.Acceleration);
                     }
                 }
             }
         }
 
-        void OnCollisionEnter(Collision col)
-        {
+        void OnCollisionEnter(Collision col) {
             bool wallHit = false;
-            for (int i = 0; i < col.contacts.Length; i++)
-            {
+            for (int i = 0; i < col.contacts.Length; i++) {
                 // Spin out upon hazard collision
                 Hazard haz = col.contacts[i].otherCollider.GetComponent<Hazard>();
-                if (!spinningOut && haz != null)
-                {
+                if (!spinningOut && haz != null) {
                     SpinOut(haz.spinAxis, haz.spinCount);
                 }
 
                 // Wall collision detection
-                if (wallHitTime == 0 && col.relativeVelocity.magnitude > minWallHitSpeed)
-                {
+                if (wallHitTime == 0 && col.relativeVelocity.magnitude > minWallHitSpeed) {
                     WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : Vector3.up, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
-                    if ((!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsSpawnedProjectileItem()) || col.contacts[i].otherCollider.IsKart())
-                    {
+                    if ((!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsSpawnedProjectileItem()) || col.contacts[i].otherCollider.IsKart()) {
                         // Wall hit event invocation
                         wallHit = true;
                         wallHitTime = wallHitDuration;
@@ -1250,43 +1103,35 @@ namespace PowerslideKartPhysics
         }
 
         // Set accel input
-        public void SetAccel(float accel)
-        {
+        public void SetAccel(float accel) {
             accelInput = active ? Mathf.Clamp01(accel) : 0.0f;
         }
 
         // Set brake input
-        public void SetBrake(float brake)
-        {
+        public void SetBrake(float brake) {
             brakeInput = active ? Mathf.Clamp01(brake) : 0.0f;
         }
 
         // Set steer input
-        public void SetSteer(float steer)
-        {
+        public void SetSteer(float steer) {
             steerInput = active ? Mathf.Clamp(steer, -1.0f, 1.0f) : 0.0f;
         }
 
         // Set drift input
-        public void SetDrift(bool drift)
-        {
+        public void SetDrift(bool drift) {
             driftButtonDown = active && !driftButton && drift;
             driftButton = active && drift;
         }
 
         // Set boost input
-        public void SetBoost(bool boostIn)
-        {
+        public void SetBoost(bool boostIn) {
             boostButtonDown = active && !boostButton && boostIn;
             boostButton = active && boostIn;
         }
 
-        void OnDrawGizmosSelected()
-        {
-            if (rotator != null)
-            {
-                if (visualHolder != null)
-                {
+        void OnDrawGizmosSelected() {
+            if (rotator != null) {
+                if (visualHolder != null) {
                     // Draw dimensions
                     Gizmos.color = Color.blue;
                     Gizmos.DrawRay(visualHolder.position, visualHolder.forward * frontLength * 0.5f);
@@ -1316,10 +1161,8 @@ namespace PowerslideKartPhysics
 
                 // Draw stable wheel points
                 Gizmos.color = Color.magenta;
-                if (stableWheelPoints != null)
-                {
-                    for (int i = 0; i < stableWheelPoints.Length; i++)
-                    {
+                if (stableWheelPoints != null) {
+                    for (int i = 0; i < stableWheelPoints.Length; i++) {
                         Gizmos.DrawRay(rotator.TransformPoint(stableWheelPoints[i]), -rotator.up * wheels[i].suspensionDistance);
                     }
                 }

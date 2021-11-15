@@ -7,8 +7,7 @@ namespace PowerslideKartPhysics
     // This class controls a kart with UI buttons for mobile input
     public class KartInputMobile : KartInput
     {
-        public override void Update()
-        {
+        public override void Update() {
             // Set input based on static input values
             targetAccel = InputManager.MobileInput.accelInput;
             targetBrake = InputManager.MobileInput.brakeInput;
@@ -16,8 +15,7 @@ namespace PowerslideKartPhysics
             drifting = InputManager.MobileInput.driftButton;
             boosting = InputManager.MobileInput.boostButton;
 
-            if (InputManager.MobileInput.itemButtonDown)
-            {
+            if (InputManager.MobileInput.itemButtonDown) {
                 PressItem();
             }
 

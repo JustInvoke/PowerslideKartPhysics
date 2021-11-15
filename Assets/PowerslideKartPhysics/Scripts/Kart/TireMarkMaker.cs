@@ -50,8 +50,7 @@ namespace PowerslideKartPhysics
         public UnityEngine.Rendering.LightProbeUsage markLightProbeMode = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
         public UnityEngine.Rendering.ReflectionProbeUsage markReflectionProbeMode = UnityEngine.Rendering.ReflectionProbeUsage.BlendProbes;
 
-        void Awake()
-        {
+        void Awake() {
             tr = transform;
             wheel = GetComponent<KartWheel>();
             defaultSurface = GroundSurfacePreset.CreateInstance<GroundSurfacePreset>();
@@ -59,71 +58,58 @@ namespace PowerslideKartPhysics
             prevSurface = GroundSurfacePreset.CreateInstance<GroundSurfacePreset>();
         }
 
-        void Update()
-        {
+        void Update() {
             if (wheel == null) { return; }
 
             // Check for continuous marking
-            if (wheel.grounded)
-            {
-                if (wheel.surfaceProps != null)
-                {
+            if (wheel.grounded) {
+                if (wheel.surfaceProps != null) {
                     continuousSlide = wheel.surfaceProps.alwaysSlide ? Mathf.Min(0.9f, Mathf.Abs(wheel.rotationRate * 0.01f)) : 0.0f;
                 }
-                else
-                {
+                else {
                     continuousSlide = 0.0f;
                 }
             }
-            else
-            {
+            else {
                 continuousSlide = 0.0f;
             }
 
             // Create mark
-            if (wheel.grounded && (wheel.sliding || continuousSlide > 0))
-            {
+            if (wheel.grounded && (wheel.sliding || continuousSlide > 0)) {
                 prevSurface = curSurface;
                 curSurface = wheel.grounded ? wheel.surfaceProps : defaultSurface;
 
-                if (!creatingMark)
-                {
+                if (!creatingMark) {
                     prevSurface = curSurface;
                     StartMark();
                 }
-                else if (curSurface != prevSurface)
-                {
+                else if (curSurface != prevSurface) {
                     EndMark();
                 }
 
                 // Calculate segment points for mesh
-                if (curMark != null)
-                {
+                if (curMark != null) {
                     Vector3 pointDir = Vector3.ProjectOnPlane(Quaternion.AngleAxis(90f, wheel.contactNormal) * tr.forward, wheel.contactNormal).normalized * wheel.width * -0.5f;
                     leftPoint = curMarkTr.InverseTransformPoint(wheel.contactPoint + pointDir * (wheel.flippedSideFactor * Mathf.Sign(wheel.rotationRate) - markOffset * wheel.flippedSideFactor) + wheel.contactNormal * markHeight);
                     rightPoint = curMarkTr.InverseTransformPoint(wheel.contactPoint - pointDir * (wheel.flippedSideFactor * Mathf.Sign(wheel.rotationRate) + markOffset * wheel.flippedSideFactor) + wheel.contactNormal * markHeight);
                 }
             }
-            else if (creatingMark)
-            {
+            else if (creatingMark) {
                 EndMark();
                 continueMark = false;
             }
 
             // Update mark if it's short enough, otherwise end it
-            if (curEdge < markLength && creatingMark)
-            {
+            if (curEdge < markLength && creatingMark) {
                 UpdateMark();
             }
-            else if (creatingMark)
-            {
+            else if (creatingMark) {
                 EndMark();
             }
         }
 
         // Start creating a tire mark
-        void StartMark()
-        {
+        void StartMark() {
             creatingMark = true;
             curMark = new GameObject("Tire Mark");
             curMarkTr = curMark.transform;
@@ -132,19 +118,15 @@ namespace PowerslideKartPhysics
             MeshRenderer tempRend = curMark.AddComponent<MeshRenderer>();
 
             // Set renderer material based on ground surface type
-            if (curSurface != null)
-            {
-                if (curSurface.tireMarkMaterial != null)
-                {
+            if (curSurface != null) {
+                if (curSurface.tireMarkMaterial != null) {
                     tempRend.sharedMaterial = curSurface.tireMarkMaterial;
                 }
-                else
-                {
+                else {
                     tempRend.sharedMaterial = defaultMarkMaterial;
                 }
             }
-            else
-            {
+            else {
                 tempRend.sharedMaterial = defaultMarkMaterial;
             }
 
@@ -158,8 +140,7 @@ namespace PowerslideKartPhysics
             verts = new Vector3[markLength * 2];
             tris = new int[markLength * 3];
 
-            if (continueMark)
-            {
+            if (continueMark) {
                 verts[0] = leftPointPrev;
                 verts[1] = rightPointPrev;
 
@@ -186,11 +167,9 @@ namespace PowerslideKartPhysics
         }
 
         // Add to a mark that is being created
-        void UpdateMark()
-        {
+        void UpdateMark() {
             // Add new vertices to a mark to extend it
-            if (gapDelay == 0)
-            {
+            if (gapDelay == 0) {
                 float maxSlide = Mathf.Clamp01(Mathf.Abs(F.MaxAbs(wheel.sliding ? 1.0f : 0.0f, continuousSlide)));
                 float alpha = (curEdge < markLength - 2 && curEdge > 5 ? 1.0f : 0.0f) * Random.Range(maxSlide * 0.7f, maxSlide);
                 gapDelay = markGap;
@@ -199,8 +178,7 @@ namespace PowerslideKartPhysics
                 verts[curEdge] = leftPoint;
                 verts[curEdge + 1] = rightPoint;
 
-                for (int i = curEdge + 2; i < verts.Length; i++)
-                {
+                for (int i = curEdge + 2; i < verts.Length; i++) {
                     verts[i] = Mathf.Approximately(i * 0.5f, Mathf.Round(i * 0.5f)) ? leftPoint : rightPoint;
                     colors[i].a = 0.0f;
                 }
@@ -229,8 +207,7 @@ namespace PowerslideKartPhysics
                 verts[curEdge] = leftPoint;
                 verts[curEdge + 1] = rightPoint;
 
-                for (int i = curEdge + 2; i < verts.Length; i++)
-                {
+                for (int i = curEdge + 2; i < verts.Length; i++) {
                     verts[i] = Mathf.Approximately(i * 0.5f, Mathf.Round(i * 0.5f)) ? leftPoint : rightPoint;
                     colors[i].a = 0.0f;
                 }
@@ -241,20 +218,17 @@ namespace PowerslideKartPhysics
             // Renderer recalculations
             mesh.RecalculateBounds();
 
-            if (calculateNormals || calculateTangents)
-            {
+            if (calculateNormals || calculateTangents) {
                 mesh.RecalculateNormals();
             }
 
-            if (calculateTangents)
-            {
+            if (calculateTangents) {
                 mesh.RecalculateTangents();
             }
         }
 
         // Stop creating a mark
-        void EndMark()
-        {
+        void EndMark() {
             creatingMark = false;
             leftPointPrev = verts[Mathf.RoundToInt(verts.Length * 0.5f)];
             rightPointPrev = verts[Mathf.RoundToInt(verts.Length * 0.5f + 1)];
@@ -270,10 +244,8 @@ namespace PowerslideKartPhysics
             mesh = null;
         }
 
-        void OnDestroy()
-        {
-            if (creatingMark && curMark != null)
-            {
+        void OnDestroy() {
+            if (creatingMark && curMark != null) {
                 EndMark();
             }
         }
@@ -294,34 +266,26 @@ namespace PowerslideKartPhysics
         public Color[] colors;
 
         // Fade the tire mark and then destroy it
-        void Update()
-        {
-            if (fading)
-            {
-                if (alpha <= 0)
-                {
+        void Update() {
+            if (fading) {
+                if (alpha <= 0) {
                     Destroy(gameObject);
                 }
-                else
-                {
+                else {
                     alpha -= fadeRate * Time.deltaTime;
 
-                    for (int i = 0; i < colors.Length; i++)
-                    {
+                    for (int i = 0; i < colors.Length; i++) {
                         colors[i].a -= fadeRate * Time.deltaTime;
                     }
 
                     mesh.colors = colors;
                 }
             }
-            else
-            {
-                if (lifeTime > 0)
-                {
+            else {
+                if (lifeTime > 0) {
                     lifeTime = Mathf.Max(0.0f, lifeTime - Time.deltaTime);
                 }
-                else if (lifeTime == 0)
-                {
+                else if (lifeTime == 0) {
                     fading = true;
                 }
             }

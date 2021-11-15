@@ -14,15 +14,12 @@ namespace PowerslideKartPhysics
         static bool showButtons = false;
         KartPresetControl presetControl;
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             presetControl = (KartPresetControl)target;
         }
 
-        public override void OnInspectorGUI()
-        {
-            if (presetControl == null)
-            {
+        public override void OnInspectorGUI() {
+            if (presetControl == null) {
                 base.OnInspectorGUI();
                 return;
             }
@@ -35,20 +32,17 @@ namespace PowerslideKartPhysics
 
             SerializedProperty prop = serializedObject.GetIterator();
 
-            if (prop.NextVisible(true))
-            {
+            if (prop.NextVisible(true)) {
                 EditorGUILayout.PropertyField(prop);
             }
 
-            if (prop.NextVisible(false))
-            {
+            if (prop.NextVisible(false)) {
                 EditorGUILayout.PropertyField(prop);
             }
 
             // Draw save and load buttons
             showButtons = EditorGUILayout.Foldout(showButtons, "Save/Load Buttons", false, EditorStyles.foldoutHeader);
-            if (showButtons)
-            {
+            if (showButtons) {
                 DrawSection(presetControl, "dimensionsPreset", "Dimensions", buttonStyle);
                 DrawSection(presetControl, "speedPreset", "Speed", buttonStyle);
                 DrawSection(presetControl, "steerPreset", "Steer", buttonStyle);
@@ -64,15 +58,12 @@ namespace PowerslideKartPhysics
         }
 
         // Draw buttons for saving and loading each preset type
-        void DrawSection(KartPresetControl kpc, string prop, string buttonName, GUIStyle style)
-        {
+        void DrawSection(KartPresetControl kpc, string prop, string buttonName, GUIStyle style) {
             EditorGUILayout.Space();
             EditorGUILayout.PropertyField(serializedObject.FindProperty(prop));
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Save " + buttonName, style))
-            {
-                switch (buttonName)
-                {
+            if (GUILayout.Button("Save " + buttonName, style)) {
+                switch (buttonName) {
                     case "Dimensions":
                         presetControl.SaveDimensionsPreset(presetControl.dimensionsPreset);
                         break;
@@ -103,10 +94,8 @@ namespace PowerslideKartPhysics
                 }
             }
 
-            if (GUILayout.Button("Load " + buttonName, style))
-            {
-                switch (buttonName)
-                {
+            if (GUILayout.Button("Load " + buttonName, style)) {
+                switch (buttonName) {
                     case "Dimensions":
                         presetControl.LoadDimensionsPreset(presetControl.dimensionsPreset);
                         break;

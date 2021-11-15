@@ -11,21 +11,18 @@ namespace PowerslideKartPhysics
         protected ItemCastProperties castProps;
         protected Kart[] allKarts = new Kart[0];
 
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             allKarts = FindObjectsOfType<Kart>();
         }
 
         // Called upon activation
-        public virtual void Activate(ItemCastProperties props)
-        {
+        public virtual void Activate(ItemCastProperties props) {
             props.allKarts = allKarts;
             castProps = props;
         }
 
         // Called upon deactivation
-        public virtual void Deactivate()
-        {
+        public virtual void Deactivate() {
         }
     }
 }

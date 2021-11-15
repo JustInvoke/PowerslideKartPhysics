@@ -50,16 +50,13 @@ namespace PowerslideKartPhysics
         MobileInputStruct MobileInputTarget = new MobileInputStruct();
         float lastMobileSteer = 0.0f;
 
-        void Update()
-        {
+        void Update() {
             // Try/catch is used for fetching input in case the axes named do not exist
 #if UNITY_EDITOR
-            try
-            {
+            try {
 #endif
                 // Fetch standard input
-                if (enableStandardInput)
-                {
+                if (enableStandardInput) {
                     accelInput = Input.GetAxis(accelAxisName);
                     brakeInput = Input.GetAxis(brakeAxisName);
                     steerInput = Input.GetAxis(steerAxisName);
@@ -70,29 +67,24 @@ namespace PowerslideKartPhysics
                     camRotInput = new Vector2(Input.GetAxis(cameraXAxisName), Input.GetAxis(cameraYAxisName));
                     lookBackButton = Input.GetButton(lookBackButtonName);
 
-                    if (!string.IsNullOrEmpty(restartButtonName))
-                    {
-                        if (Input.GetButtonDown(restartButtonName))
-                        {
+                    if (!string.IsNullOrEmpty(restartButtonName)) {
+                        if (Input.GetButtonDown(restartButtonName)) {
                             RestartLevel();
                         }
                     }
                 }
 
                 // Fetch mobile input
-                if (enableMobileInput)
-                {
+                if (enableMobileInput) {
                     MobileInput.brakeInput = MobileInputTarget.brakeInput;
                     MobileInput.steerInput = MobileInputTarget.steerInput;
-                    if (Mathf.Abs(MobileInput.steerInput) > 0)
-                    {
+                    if (Mathf.Abs(MobileInput.steerInput) > 0) {
                         lastMobileSteer = MobileInput.steerInput;
                     }
 
                     MobileInput.driftButton = MobileInputTarget.driftButton;
                     // Auto steer holding for drift
-                    if (MobileInput.driftButton && mobileDriftHoldSteer > 0 && Mathf.Abs(lastMobileSteer) > Mathf.Abs(MobileInput.steerInput))
-                    {
+                    if (MobileInput.driftButton && mobileDriftHoldSteer > 0 && Mathf.Abs(lastMobileSteer) > Mathf.Abs(MobileInput.steerInput)) {
                         MobileInput.steerInput = mobileDriftHoldSteer * lastMobileSteer;
                     }
 
@@ -109,58 +101,49 @@ namespace PowerslideKartPhysics
                 }
 #if UNITY_EDITOR
             }
-            catch (System.Exception e)
-            {
+            catch (System.Exception e) {
                 Debug.LogWarning(e.Message);
             }
 #endif
         }
 
         // Reloads the active scene
-        public void RestartLevel()
-        {
+        public void RestartLevel() {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         // Set mobile accel input
-        public void SetAccelMobile(float accel)
-        {
+        public void SetAccelMobile(float accel) {
             MobileInputTarget.accelInput = accel;
         }
 
         // Set mobile brake input
-        public void SetBrakeMobile(float brake)
-        {
+        public void SetBrakeMobile(float brake) {
             MobileInputTarget.brakeInput = brake;
         }
 
         // Set mobile steer input
-        public void SetSteerMobile(float steer)
-        {
+        public void SetSteerMobile(float steer) {
             MobileInputTarget.steerInput = steer;
         }
 
         // Set mobile drift input
-        public void SetDriftMobile(bool drift)
-        {
+        public void SetDriftMobile(bool drift) {
             MobileInputTarget.driftButton = drift;
         }
 
         // Set mobile boost input
-        public void SetBoostMobile(bool boostIn)
-        {
+        public void SetBoostMobile(bool boostIn) {
             MobileInputTarget.boostButton = boostIn;
         }
 
         // Set the mobile item input to true for one frame
-        public void PressItemMobile()
-        {
+        public void PressItemMobile() {
             StartCoroutine(MobileItemPress());
         }
 
         // Mobile item press process
-        IEnumerator MobileItemPress()
-        {
+        IEnumerator MobileItemPress() {
             MobileInputTarget.itemButtonDown = true;
             yield return null;
             MobileInputTarget.itemButtonDown = false;
