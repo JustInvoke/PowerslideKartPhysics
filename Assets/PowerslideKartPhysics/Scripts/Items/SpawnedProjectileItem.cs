@@ -32,6 +32,11 @@ namespace PowerslideKartPhysics
         Vector3 moveDir = Vector3.forward;
         public bool moveInAir = false;
         public float gravityAdd = -10f;
+        public Vector3 gravityDir = Vector3.up;
+        Vector3 currentGravityDir = Vector3.up;
+        public bool inheritKartGravity = false;
+        public bool gravityIsGroundNormal = false;
+        public bool resetGravityDirInAir = true;
         public float forwardFriction = 0.0f;
         public float sideFriction = 10f;
         public float maxFallSpeed = 20f;
@@ -96,6 +101,10 @@ namespace PowerslideKartPhysics
                 rb.velocity = moveDir * (props.castSpeed + startSpeed);
             }
 
+            if (inheritKartGravity) {
+                currentGravityDir = props.castGravity;
+            }
+
             if (targetSpeed > 0 && maintainKartSpeed) {
                 targetSpeed += props.castKartVelocity.magnitude;
             }
@@ -154,7 +163,7 @@ namespace PowerslideKartPhysics
             if (rb == null || col == null) { return; }
 
             lifeTime += Time.fixedDeltaTime;
-            rb.AddForce(Vector3.up * gravityAdd, ForceMode.Acceleration); // Apply fake gravity
+            rb.AddForce(currentGravityDir * gravityAdd, ForceMode.Acceleration); // Apply fake gravity
 
             // Ignore collision with casting kart
             if (col != null && casterCol != null) {
@@ -163,14 +172,22 @@ namespace PowerslideKartPhysics
 
             // Check to see if grounded
             RaycastHit hit = new RaycastHit();
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundMask, QueryTriggerInteraction.Ignore)) {
+            if (Physics.Raycast(transform.position, -currentGravityDir, out hit, groundCheckDistance, groundMask, QueryTriggerInteraction.Ignore)) {
                 grounded = true;
                 groundNormal = hit.normal;
                 groundPoint = hit.point;
+
+                if (gravityIsGroundNormal) {
+                    currentGravityDir = groundNormal;
+                }
             }
             else {
                 grounded = false;
                 groundNormal = Vector3.up;
+
+                if (resetGravityDirInAir) {
+                    currentGravityDir = gravityDir;
+                }
             }
 
             // Limit falling speed
@@ -251,7 +268,7 @@ namespace PowerslideKartPhysics
 
         private void OnDrawGizmosSelected() {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, Vector3.down * groundCheckDistance);
+            Gizmos.DrawRay(transform.position, -gravityDir * groundCheckDistance);
         }
     }
 }

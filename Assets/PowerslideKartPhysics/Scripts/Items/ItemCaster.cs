@@ -49,6 +49,7 @@ namespace PowerslideKartPhysics
                         props.castKartVelocity = kartRb.velocity;
                     }
 
+                    props.castGravity = kart.currentGravityDir;
                     props.castPoint = kartTr.position;
 
                     if (kart.rotator != null) {
@@ -92,6 +93,7 @@ namespace PowerslideKartPhysics
         public Quaternion castRotation;
         public Vector3 castDirection;
         public float castSpeed;
+        public Vector3 castGravity;
         public Collider castCollider;
     }
 }
