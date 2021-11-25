@@ -125,6 +125,7 @@ namespace PowerslideKartPhysics
             kart.steerSpeedLimit = preset.steerSpeedLimit;
             kart.steerSlowLimit = preset.steerSlowLimit;
             kart.brakeSteerIncrease = preset.brakeSteerIncrease;
+            kart.dontInvertSteerReverseAccel = preset.dontInvertSteerReverseAccel;
             kart.visualSteerRate = preset.visualSteerRate;
             kart.visualSteerSpeedLimit = preset.visualSteerSpeedLimit;
             kart.turnTiltAmount = preset.turnTiltAmount;
@@ -150,6 +151,7 @@ namespace PowerslideKartPhysics
             preset.steerSpeedLimit = kart.steerSpeedLimit;
             preset.steerSlowLimit = kart.steerSlowLimit;
             preset.brakeSteerIncrease = kart.brakeSteerIncrease;
+            preset.dontInvertSteerReverseAccel = kart.dontInvertSteerReverseAccel;
             preset.visualSteerRate = kart.visualSteerRate;
             preset.visualSteerSpeedLimit = kart.visualSteerSpeedLimit;
             preset.turnTiltAmount = kart.turnTiltAmount;

@@ -79,6 +79,7 @@ namespace PowerslideKartPhysics
         public float steerSlowLimit = 5.0f;
         float targetTurnSpeed = 0.0f;
         public float brakeSteerIncrease = 0.5f;
+        public bool dontInvertSteerReverseAccel = true;
         float visualSteer = 0.0f;
         [Range(0.0f, 1.0f)]
         public float visualSteerRate = 0.1f;
@@ -326,7 +327,7 @@ namespace PowerslideKartPhysics
             }
             else {
                 targetTurn = Mathf.Lerp(maxSteer, minSteer, Mathf.Abs(localVel.z) / Mathf.Max(steerSpeedLimit, 0.01f)) * steerInput
-                    * (grounded ? Mathf.Sign(localVel.z)
+                    * (grounded ? (dontInvertSteerReverseAccel && accelInput > 0 ? 1.0f : Mathf.Sign(localVel.z))
                         * (steerSlowLimit > 0 ? Mathf.Clamp01(Mathf.Abs(localVel.z) / Mathf.Max(steerSlowLimit, 0.01f)) : 1.0f) : 1.0f)
                     * (grounded || (jumped && airGrounded && !leftGroundJump) ? 1.0f : airSteer)
                     * (Mathf.Sign(targetInput) != Mathf.Sign(localVel.z) && Mathf.Abs(targetInput) > 0.001f ? 1.0f + brakeSteerIncrease : 1.0f);

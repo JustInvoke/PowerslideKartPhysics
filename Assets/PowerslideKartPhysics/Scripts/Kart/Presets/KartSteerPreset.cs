@@ -16,6 +16,7 @@ namespace PowerslideKartPhysics
         public float steerSpeedLimit = 30.0f;
         public float steerSlowLimit = 5.0f;
         public float brakeSteerIncrease = 0.5f;
+        public bool dontInvertSteerReverseAccel = true;
         [Range(0.0f, 1.0f)]
         public float visualSteerRate = 0.1f;
         public float visualSteerSpeedLimit = 10f;
