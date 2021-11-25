@@ -32,6 +32,9 @@ namespace PowerslideKartPhysics
         float castDist = 0.0f;
         Vector3 smoothVel = Vector3.zero;
         public float smoothRate = 10f;
+        public bool rollWithKart = true;
+        public float rollSmoothRate = 2.0f;
+        float upDirBlend = 1.0f;
         public float inputDeadZone = 0.1f;
 
         private void Awake() {
@@ -85,7 +88,15 @@ namespace PowerslideKartPhysics
             float targetAngle = camInput.magnitude < inputDeadZone ? 0.0f : Mathf.Atan2(camInputNormalized.x, camInputNormalized.y);
             localDir = lookBack ? Vector3.back : Vector3.Slerp(localDir, new Vector3(-Mathf.Sin(targetAngle), 0.0f, -Mathf.Cos(targetAngle)), 0.1f);
             tempRot.localPosition = new Vector3(localDir.x, 0.0f, localDir.z * (lookBack ? -1.0f : 1.0f)) * distance + Vector3.up * height;
-            tempRot.rotation = Quaternion.LookRotation(smoothObj.TransformDirection(-localDir), Vector3.up);
+
+            // Calculate target rotation
+            if (rollWithKart) {
+                upDirBlend = Mathf.Lerp(upDirBlend, Mathf.Clamp01(Vector3.Dot(targetKart.rotator.up, Vector3.up)), rollSmoothRate * Time.fixedDeltaTime);
+            }
+            else {
+                upDirBlend = 1.0f;
+            }
+            tempRot.rotation = Quaternion.LookRotation(smoothObj.TransformDirection(-localDir), Vector3.Lerp(targetKart.rotator.up, Vector3.up, upDirBlend));
 
             // Raycast upward to determine how high the camera should be placed relative to the kart
             Vector3 targetHighPoint = smoothObj.TransformPoint(Vector3.up * height);

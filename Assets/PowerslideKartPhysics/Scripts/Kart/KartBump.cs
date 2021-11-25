@@ -33,7 +33,7 @@ namespace PowerslideKartPhysics
             }
         }
 
-        // Applies the force vector, clamped and projected onto the kart's ground plane to avoid flying up in the air
+        // Applies the force vector, clamped and projected onto the kart's ground normal plane to avoid flying up in the air
         public void Bump(Vector3 force) {
             rb.AddForce(Vector3.ProjectOnPlane(force.normalized * Mathf.Clamp(force.magnitude * bumpFactor, minBumpMagnitude, maxBumpMagnitude), kart.upDir), ForceMode.VelocityChange);
         }
