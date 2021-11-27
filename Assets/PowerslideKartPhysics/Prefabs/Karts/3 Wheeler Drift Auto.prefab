@@ -53312,6 +53312,7 @@ MonoBehaviour:
   brakeForce: 1.5
   coastingFriction: 0.2
   slopeFriction: 0.5
+  airDriveFriction: 0
   autoStopSpeed: 1
   autoStopForce: 5
   maxFallSpeed: 40
@@ -53323,6 +53324,7 @@ MonoBehaviour:
   steerSpeedLimit: 30
   steerSlowLimit: 5
   brakeSteerIncrease: 0.5
+  dontInvertSteerReverseAccel: 1
   visualSteerRate: 0.1
   visualSteerSpeedLimit: 10
   turnTiltAmount: 0
@@ -53358,6 +53360,15 @@ MonoBehaviour:
   jumpStickForce: 10
   airJumpTimeLimit: 0.1
   gravityAdd: -10
+  gravityDir: {x: 0, y: 1, z: 0}
+  gravityIsGroundNormal: 0
+  airGravityMode: 0
+  gravityCastLayers: 8
+  gravityCastSegments: 8
+  gravityCastRadius: 1
+  gravityCastDistance: 1000
+  drawGravityCastGizmos: 0
+  gravityCastsPerFrame: 10
   canDrift: 1
   minDriftAngle: 0.4
   maxDriftAngle: 1.5

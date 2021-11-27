@@ -147,12 +147,22 @@ namespace PowerslideKartPhysics
         bool leftGroundJump;
         public float airJumpTimeLimit = 0.1f;
         float airTime = 0.0f;
+
+        // Gravity
         public float gravityAdd = -10f;
         public Vector3 gravityDir = Vector3.up;
         [System.NonSerialized]
         public Vector3 currentGravityDir = Vector3.up;
         public bool gravityIsGroundNormal = false;
-        public bool resetGravityDirInAir = true;
+        public enum GravityMode { Initial, NearestSurface, LastSetDirection }
+        public GravityMode airGravityMode = GravityMode.Initial;
+        public int gravityCastLayers = 8;
+        public int gravityCastSegments = 8;
+        public float gravityCastRadius = 2.0f;
+        public float gravityCastDistance = 1000f;
+        public int gravityCastsPerFrame = 10;
+        public bool drawGravityCastGizmos = false;
+        bool isGravityCasting = false;
 
         public float GetJumpedAirTime() { return jumped ? airTime : 0.0f; }
 
@@ -257,11 +267,27 @@ namespace PowerslideKartPhysics
             }
 
             wallDetector = WallCollision.CreateFromType(wallCollisionProps.wallDetectionType); // Set up wall collision detection
+
             currentGravityDir = gravityDir;
+            if (airGravityMode == GravityMode.NearestSurface && gravityCastsPerFrame > 0) {
+                isGravityCasting = true;
+                StartCoroutine(EvaluateNearestSurfacePoint()); // Start coroutine for finding nearest surface to gravitate towards
+            }
         }
 
         private void FixedUpdate() {
             if (rotator == null || visualHolder == null || rotator == visualHolder || wheels.Length == 0) { return; }
+
+            // Check for change in gravity mode to start gravity casts
+            if (!isGravityCasting) {
+                if (airGravityMode == GravityMode.NearestSurface && gravityCastsPerFrame > 0) {
+                    isGravityCasting = true;
+                    StartCoroutine(EvaluateNearestSurfacePoint()); // Start corouting for finding nearest surface to gravitate towards
+                }
+            }
+            else if (airGravityMode != GravityMode.NearestSurface || gravityCastsPerFrame == 0) {
+                isGravityCasting = false;
+            }
 
             rb.AddForce(currentGravityDir * gravityAdd, ForceMode.Acceleration); // Add fake gravity
             velMag = rb.velocity.magnitude;
@@ -851,14 +877,27 @@ namespace PowerslideKartPhysics
             if (grounded || airGrounded) {
                 // Smoothing the ground normal
                 groundNormal = Vector3.Slerp(groundNormal, rawGroundNormal, groundNormalSmoothRate * Time.fixedDeltaTime);
+
+                // Updating gravity while grounded
                 if (gravityIsGroundNormal) {
                     currentGravityDir = groundNormal;
                 }
+                else {
+                    currentGravityDir = gravityDir;
+                }
             }
             else {
+                // Updating gravity direction while airborne
                 groundNormal = upDir;
-                if (resetGravityDirInAir) {
-                    currentGravityDir = gravityDir;
+                switch (airGravityMode) {
+                    case GravityMode.Initial:
+                        currentGravityDir = gravityDir;
+                        break;
+                    case GravityMode.NearestSurface:
+                        currentGravityDir = (rotator.position - nearestSurfacePoint).normalized;
+                        break;
+                    case GravityMode.LastSetDirection:
+                        break;
                 }
             }
         }
@@ -878,6 +917,67 @@ namespace PowerslideKartPhysics
             }
 
             return false;
+        }
+
+        Vector3 nearestSurfacePoint = Vector3.zero;
+        int curGravityCasts = 0;
+
+        // Repeating coroutine to find nearest surface point while airborne, stored in nearestSurfacePoint
+        IEnumerator EvaluateNearestSurfacePoint() {
+            if (rotator == null || !isGravityCasting) { yield break; }
+
+            // Only check for nearest surface when airborne
+            while (grounded || airGrounded) {
+                yield return null;
+            }
+
+            Vector3 tempNearPoint = rotator.position;
+            float closeDist = Mathf.Infinity;
+            float segAngle = Mathf.PI * 2.0f / gravityCastSegments; // Angle between segments
+            float curSegAngle = 0.0f;
+            float layerAngle = Mathf.PI / gravityCastLayers; // Angle between layers
+            float curLayerAngle = -Mathf.PI * 0.5f + layerAngle;
+
+            // Cast point directly below kart
+            RaycastHit hit = new RaycastHit();
+            if (Physics.SphereCast(rotator.position, gravityCastRadius, -rotator.up, out hit, gravityCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore)) {
+                if (hit.distance < closeDist) {
+                    closeDist = hit.distance;
+                    tempNearPoint = hit.point;
+                }
+            }
+
+            // Loop through all layers and segments to cast points around the kart
+            for (int i = 0; i < gravityCastLayers - 1; i++) {
+                for (float j = 0; j < gravityCastSegments; j++) {
+                    Vector3 castDir = rotator.TransformDirection(Mathf.Sin(curSegAngle) * Mathf.Cos(curLayerAngle), Mathf.Sin(curLayerAngle), Mathf.Cos(curSegAngle) * Mathf.Cos(curLayerAngle));
+                    if (Physics.SphereCast(rotator.position, gravityCastRadius, castDir, out hit, gravityCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore)) {
+                        if (hit.distance < closeDist) {
+                            closeDist = hit.distance;
+                            tempNearPoint = hit.point;
+                        }
+                    }
+                    curSegAngle += segAngle;
+
+                    // Count number of casts this frame and wait until next frame if limit has been reached
+                    curGravityCasts++;
+                    if (curGravityCasts >= gravityCastsPerFrame) {
+                        curGravityCasts = 0;
+                        yield return new WaitForFixedUpdate();
+                    }
+                }
+                curLayerAngle += layerAngle;
+            }
+
+            // Cast point directly above kart
+            if (Physics.SphereCast(rotator.position, gravityCastRadius, rotator.up, out hit, gravityCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore)) {
+                if (hit.distance < closeDist) {
+                    tempNearPoint = hit.point;
+                }
+            }
+
+            nearestSurfacePoint = tempNearPoint;
+            StartCoroutine(EvaluateNearestSurfacePoint()); // Restart gravity cast check
         }
 
         // End drift state
@@ -1178,6 +1278,37 @@ namespace PowerslideKartPhysics
                     for (int i = 0; i < stableWheelPoints.Length; i++) {
                         Gizmos.DrawRay(rotator.TransformPoint(stableWheelPoints[i]), -rotator.up * wheels[i].suspensionDistance);
                     }
+                }
+
+                // Visualize gravity sphere casts for finding nearest surface
+                if (drawGravityCastGizmos) {
+                    float segAngle = Mathf.PI * 2.0f / gravityCastSegments; // Angle between segments
+                    float curSegAngle = 0.0f;
+                    float layerAngle = Mathf.PI / gravityCastLayers; // Angle between layers
+                    float curLayerAngle = -Mathf.PI * 0.5f + layerAngle;
+
+                    Gizmos.color = Color.blue;
+                    Vector3 point = rotator.TransformPoint(Vector3.down * gravityCastDistance); // Cast point directly below kart
+                    Vector3 diff = point - rotator.position;
+                    Gizmos.DrawWireSphere(point, gravityCastRadius);
+                    GizmosExtra.DrawWireCylinder(rotator.position + diff * 0.5f, diff.normalized, gravityCastRadius, diff.magnitude);
+
+                    // Loop through all layers and segments to draw cast points
+                    for (int i = 0; i < gravityCastLayers - 1; i++) {
+                        for (float j = 0; j < gravityCastSegments; j++) {
+                            point = rotator.TransformPoint(new Vector3(Mathf.Sin(curSegAngle) * Mathf.Cos(curLayerAngle), Mathf.Sin(curLayerAngle), Mathf.Cos(curSegAngle) * Mathf.Cos(curLayerAngle)) * gravityCastDistance);
+                            diff = point - rotator.position;
+                            Gizmos.DrawWireSphere(point, gravityCastRadius);
+                            GizmosExtra.DrawWireCylinder(rotator.position + diff * 0.5f, diff.normalized, gravityCastRadius, diff.magnitude);
+                            curSegAngle += segAngle;
+                        }
+                        curLayerAngle += layerAngle;
+                    }
+
+                    point = rotator.TransformPoint(Vector3.up * gravityCastDistance); // Cast point directly above kart
+                    diff = point - rotator.position;
+                    Gizmos.DrawWireSphere(point, gravityCastRadius);
+                    GizmosExtra.DrawWireCylinder(rotator.position + diff * 0.5f, diff.normalized, gravityCastRadius, diff.magnitude);
                 }
             }
         }

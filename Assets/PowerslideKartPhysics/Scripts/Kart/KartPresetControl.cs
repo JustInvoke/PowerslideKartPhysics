@@ -224,10 +224,6 @@ namespace PowerslideKartPhysics
             kart.jumpDuration = preset.jumpDuration;
             kart.jumpStickForce = preset.jumpStickForce;
             kart.airJumpTimeLimit = preset.airJumpTimeLimit;
-            kart.gravityAdd = preset.gravityAdd;
-            kart.gravityDir = preset.gravityDir;
-            kart.gravityIsGroundNormal = preset.gravityIsGroundNormal;
-            kart.resetGravityDirInAir = preset.resetGravityDirInAir;
         }
 
         public void SaveJumpPreset(KartJumpPreset preset) {
@@ -239,10 +235,6 @@ namespace PowerslideKartPhysics
             preset.jumpDuration = kart.jumpDuration;
             preset.jumpStickForce = kart.jumpStickForce;
             preset.airJumpTimeLimit = kart.airJumpTimeLimit;
-            preset.gravityAdd = kart.gravityAdd;
-            preset.gravityDir = kart.gravityDir;
-            preset.gravityIsGroundNormal = kart.gravityIsGroundNormal;
-            preset.resetGravityDirInAir = kart.resetGravityDirInAir;
             SaveAssets(preset);
         }
 
