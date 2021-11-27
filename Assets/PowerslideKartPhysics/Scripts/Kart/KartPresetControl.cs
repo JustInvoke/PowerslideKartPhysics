@@ -19,6 +19,7 @@ namespace PowerslideKartPhysics
         public KartSuspensionPreset suspensionPreset;
         public KartWheelsPreset wheelsPreset;
         public KartJumpPreset jumpPreset;
+        public KartGravityPreset gravityPreset;
         public KartDriftPreset driftPreset;
         public KartBoostPreset boostPreset;
         public KartWallsPreset wallsPreset;
@@ -32,6 +33,7 @@ namespace PowerslideKartPhysics
                 LoadSuspensionPreset(suspensionPreset);
                 LoadWheelsPreset(wheelsPreset);
                 LoadJumpPreset(jumpPreset);
+                LoadGravityPreset(gravityPreset);
                 LoadDriftPreset(driftPreset);
                 LoadBoostPreset(boostPreset);
                 LoadWallsPreset(wallsPreset);
@@ -235,6 +237,39 @@ namespace PowerslideKartPhysics
             preset.jumpDuration = kart.jumpDuration;
             preset.jumpStickForce = kart.jumpStickForce;
             preset.airJumpTimeLimit = kart.airJumpTimeLimit;
+            SaveAssets(preset);
+        }
+
+        public void LoadGravityPreset(KartGravityPreset preset) {
+            kart = GetComponent<Kart>();
+            if (kart == null || preset == null) { return; }
+
+            kart.gravityAdd = preset.gravityAdd;
+            kart.gravityDir = preset.gravityDir;
+            kart.gravityIsGroundNormal = preset.gravityIsGroundNormal;
+            kart.airGravityMode = preset.airGravityMode;
+            kart.gravityCastLayers = preset.gravityCastLayers;
+            kart.gravityCastSegments = preset.gravityCastSegments;
+            kart.gravityCastRadius = preset.gravityCastRadius;
+            kart.gravityCastDistance = preset.gravityCastDistance;
+            kart.gravityCastsPerFrame = preset.gravityCastsPerFrame;
+            kart.drawGravityCastGizmos = preset.drawGravityCastGizmos;
+        }
+
+        public void SaveGravityPreset(KartGravityPreset preset) {
+            kart = GetComponent<Kart>();
+            if (kart == null || preset == null) { return; }
+
+            preset.gravityAdd = kart.gravityAdd;
+            preset.gravityDir = kart.gravityDir;
+            preset.gravityIsGroundNormal = kart.gravityIsGroundNormal;
+            preset.airGravityMode = kart.airGravityMode;
+            preset.gravityCastLayers = kart.gravityCastLayers;
+            preset.gravityCastSegments = kart.gravityCastSegments;
+            preset.gravityCastRadius = kart.gravityCastRadius;
+            preset.gravityCastDistance = kart.gravityCastDistance;
+            preset.gravityCastsPerFrame = kart.gravityCastsPerFrame;
+            preset.drawGravityCastGizmos = kart.drawGravityCastGizmos;
             SaveAssets(preset);
         }
 

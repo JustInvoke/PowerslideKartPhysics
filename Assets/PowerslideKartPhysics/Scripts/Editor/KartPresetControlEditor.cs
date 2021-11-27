@@ -49,6 +49,7 @@ namespace PowerslideKartPhysics
                 DrawSection(presetControl, "suspensionPreset", "Suspension", buttonStyle);
                 DrawSection(presetControl, "wheelsPreset", "Wheels", buttonStyle);
                 DrawSection(presetControl, "jumpPreset", "Jump", buttonStyle);
+                DrawSection(presetControl, "gravityPreset", "Gravity", buttonStyle);
                 DrawSection(presetControl, "driftPreset", "Drift", buttonStyle);
                 DrawSection(presetControl, "boostPreset", "Boost", buttonStyle);
                 DrawSection(presetControl, "wallsPreset", "Walls", buttonStyle);
@@ -82,6 +83,9 @@ namespace PowerslideKartPhysics
                     case "Jump":
                         presetControl.SaveJumpPreset(presetControl.jumpPreset);
                         break;
+                    case "Gravity":
+                        presetControl.SaveGravityPreset(presetControl.gravityPreset);
+                        break;
                     case "Drift":
                         presetControl.SaveDriftPreset(presetControl.driftPreset);
                         break;
@@ -113,6 +117,9 @@ namespace PowerslideKartPhysics
                         break;
                     case "Jump":
                         presetControl.LoadJumpPreset(presetControl.jumpPreset);
+                        break;
+                    case "Gravity":
+                        presetControl.LoadGravityPreset(presetControl.gravityPreset);
                         break;
                     case "Drift":
                         presetControl.LoadDriftPreset(presetControl.driftPreset);

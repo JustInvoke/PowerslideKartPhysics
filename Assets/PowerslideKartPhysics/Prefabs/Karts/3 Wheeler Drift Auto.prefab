@@ -53367,8 +53367,8 @@ MonoBehaviour:
   gravityCastSegments: 8
   gravityCastRadius: 1
   gravityCastDistance: 1000
-  drawGravityCastGizmos: 0
   gravityCastsPerFrame: 10
+  drawGravityCastGizmos: 0
   canDrift: 1
   minDriftAngle: 0.4
   maxDriftAngle: 1.5
@@ -53541,6 +53541,7 @@ MonoBehaviour:
   suspensionPreset: {fileID: 11400000, guid: 8fa4ebd88b6b5154c8a29eb29cd901be, type: 2}
   wheelsPreset: {fileID: 11400000, guid: df3586d4207f0b649ac5cc7f5a1799f2, type: 2}
   jumpPreset: {fileID: 11400000, guid: a1b094e9a59224842956856046f8b77a, type: 2}
+  gravityPreset: {fileID: 11400000, guid: f0288897b460b584d8d31bd6d1454ce9, type: 2}
   driftPreset: {fileID: 11400000, guid: 7ce534d485a4e2f4aa18d27d6f03fc46, type: 2}
   boostPreset: {fileID: 11400000, guid: 67b09e052aa978347a761fe811331c8c, type: 2}
   wallsPreset: {fileID: 11400000, guid: 80d72ec3268a59149918ce61a0b7933e, type: 2}

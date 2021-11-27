@@ -17,6 +17,7 @@ namespace PowerslideKartPhysics
         static bool showSuspension = false;
         static bool showWheels = false;
         static bool showJump = false;
+        static bool showGravity = false;
         static bool showDrift = false;
         static bool showBoost = false;
         static bool showWalls = false;
@@ -35,7 +36,8 @@ namespace PowerslideKartPhysics
                     DrawSection(prop, "Steer", "steerRate", "springForce", ref showSteer, ref hiding, EditorStyles.foldoutHeader);
                     DrawSection(prop, "Suspension", "springForce", "wheels", ref showSuspension, ref hiding, EditorStyles.foldoutHeader);
                     DrawSection(prop, "Wheels", "wheels", "canJump", ref showWheels, ref hiding, EditorStyles.foldoutHeader);
-                    DrawSection(prop, "Jump", "canJump", "canDrift", ref showJump, ref hiding, EditorStyles.foldoutHeader);
+                    DrawSection(prop, "Jump", "canJump", "gravityAdd", ref showJump, ref hiding, EditorStyles.foldoutHeader);
+                    DrawSection(prop, "Gravity", "gravityAdd", "canDrift", ref showGravity, ref hiding, EditorStyles.foldoutHeader);
                     DrawSection(prop, "Drift", "canDrift", "boostType", ref showDrift, ref hiding, EditorStyles.foldoutHeader);
 
                     // Show certain boost variables based on the boost type
@@ -58,7 +60,13 @@ namespace PowerslideKartPhysics
                         }
                     }
 
+
                     if (!hiding) {
+                        if (prop.name == "gravityAdd") {
+                            GUIStyle noticeLabel = new GUIStyle(GUI.skin.label);
+                            noticeLabel.fontStyle = FontStyle.BoldAndItalic;
+                            EditorGUILayout.HelpBox("Custom gravity stacks on top of global physics gravity. Consider disabling rigidbody 'use gravity' and adjusting 'gravity add' to compensate.", MessageType.Info, true);
+                        }
                         EditorGUILayout.PropertyField(prop, true);
                     }
                 }

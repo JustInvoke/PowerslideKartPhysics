@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace PowerslideKartPhysics
 {
-    [CreateAssetMenu(fileName = "Kart Drift Preset", menuName = "Powerslide Kart Physics/Kart Preset/Kart Drift Preset", order = 6)]
+    [CreateAssetMenu(fileName = "Kart Drift Preset", menuName = "Powerslide Kart Physics/Kart Preset/Kart Drift Preset", order = 7)]
     // Class for kart drift presets
     public class KartDriftPreset : ScriptableObject
     {
