@@ -173,7 +173,6 @@ namespace PowerslideKartPhysics
 
             // Check to see if grounded
             RaycastHit hit = new RaycastHit();
-            Debug.DrawRay(tr.position, -currentGravityDir * groundCheckDistance, Color.green);
             if (Physics.Raycast(tr.position, -currentGravityDir, out hit, groundCheckDistance, groundMask, QueryTriggerInteraction.Ignore)) {
                 grounded = true;
                 groundNormal = hit.normal;
@@ -274,7 +273,7 @@ namespace PowerslideKartPhysics
 
         private void OnDrawGizmosSelected() {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, -gravityDir * groundCheckDistance);
+            Gizmos.DrawRay(transform.position, -gravityDir.normalized * groundCheckDistance);
         }
     }
 }

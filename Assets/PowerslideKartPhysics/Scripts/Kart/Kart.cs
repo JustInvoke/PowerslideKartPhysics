@@ -268,7 +268,7 @@ namespace PowerslideKartPhysics
 
             wallDetector = WallCollision.CreateFromType(wallCollisionProps.wallDetectionType); // Set up wall collision detection
 
-            currentGravityDir = gravityDir;
+            currentGravityDir = gravityDir.normalized;
             if (airGravityMode == GravityMode.NearestSurface && gravityCastsPerFrame > 0) {
                 isGravityCasting = true;
                 StartCoroutine(EvaluateNearestSurfacePoint()); // Start coroutine for finding nearest surface to gravitate towards
@@ -883,7 +883,7 @@ namespace PowerslideKartPhysics
                     currentGravityDir = groundNormal;
                 }
                 else {
-                    currentGravityDir = gravityDir;
+                    currentGravityDir = gravityDir.normalized;
                 }
             }
             else {
@@ -891,7 +891,7 @@ namespace PowerslideKartPhysics
                 groundNormal = upDir;
                 switch (airGravityMode) {
                     case GravityMode.Initial:
-                        currentGravityDir = gravityDir;
+                        currentGravityDir = gravityDir.normalized;
                         break;
                     case GravityMode.NearestSurface:
                         currentGravityDir = (rotator.position - nearestSurfacePoint).normalized;
