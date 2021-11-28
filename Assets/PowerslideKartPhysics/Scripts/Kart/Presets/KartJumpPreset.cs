@@ -13,9 +13,5 @@ namespace PowerslideKartPhysics
         public float jumpDuration = 0.1f;
         public float jumpStickForce = 10f;
         public float airJumpTimeLimit = 0.1f;
-        public float gravityAdd = -10f;
-        public Vector3 gravityDir = Vector3.up;
-        public bool gravityIsGroundNormal = false;
-        public bool resetGravityDirInAir = true;
     }
 }
