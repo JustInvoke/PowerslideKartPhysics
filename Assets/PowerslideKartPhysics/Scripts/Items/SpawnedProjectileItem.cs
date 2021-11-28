@@ -40,6 +40,7 @@ namespace PowerslideKartPhysics
         public float forwardFriction = 0.0f;
         public float sideFriction = 10f;
         public float maxFallSpeed = 20f;
+        public float fallSpeedDecel = 10f;
 
         [Header("Walls")]
         public bool wallBounceReflect = true;
@@ -91,7 +92,7 @@ namespace PowerslideKartPhysics
         public virtual void Initialize(ItemCastProperties props) {
             castProps = props;
             casterCol = props.castCollider;
-            moveDir = (props.castDirection + Vector3.up * launchHeight).normalized;
+            moveDir = (props.castDirection + props.castRotation * Vector3.up * launchHeight).normalized;
 
             // Match casting kart speed
             if (inheritKartSpeed) {
@@ -172,7 +173,8 @@ namespace PowerslideKartPhysics
 
             // Check to see if grounded
             RaycastHit hit = new RaycastHit();
-            if (Physics.Raycast(transform.position, -currentGravityDir, out hit, groundCheckDistance, groundMask, QueryTriggerInteraction.Ignore)) {
+            Debug.DrawRay(tr.position, -currentGravityDir * groundCheckDistance, Color.green);
+            if (Physics.Raycast(tr.position, -currentGravityDir, out hit, groundCheckDistance, groundMask, QueryTriggerInteraction.Ignore)) {
                 grounded = true;
                 groundNormal = hit.normal;
                 groundPoint = hit.point;
@@ -186,13 +188,14 @@ namespace PowerslideKartPhysics
                 groundNormal = Vector3.up;
 
                 if (resetGravityDirInAir) {
-                    currentGravityDir = gravityDir;
+                    currentGravityDir = gravityDir.normalized;
                 }
             }
 
             // Limit falling speed
-            if (!grounded && rb.velocity.y < -maxFallSpeed) {
-                rb.AddForce(Vector3.up * -(maxFallSpeed + rb.velocity.y), ForceMode.Acceleration);
+            float velGravDot = -Vector3.Dot(rb.velocity, currentGravityDir);
+            if (!grounded && velGravDot > maxFallSpeed) {
+                rb.AddForce(currentGravityDir * (velGravDot - maxFallSpeed) * fallSpeedDecel, ForceMode.Acceleration);
             }
 
             // Look for homing target
@@ -205,8 +208,11 @@ namespace PowerslideKartPhysics
                 Vector3 targetDir = targetKart.transform.position - tr.position;
                 moveDir = Vector3.Slerp(moveDir, targetDir.normalized, homingAccuracy * Time.fixedDeltaTime);
             }
+            else {
+                moveDir = Vector3.ProjectOnPlane(moveDir, currentGravityDir).normalized;
+            }
 
-            Quaternion moveRot = Quaternion.LookRotation(moveDir, groundNormal);
+            Quaternion moveRot = Quaternion.LookRotation(moveDir, currentGravityDir);
             Vector3 forwardDir = moveRot * Vector3.forward;
             Vector3 rightDir = moveRot * Vector3.right;
             Vector3 localVel = Vector3.forward * Vector3.Dot(forwardDir, rb.velocity) + Vector3.right * Vector3.Dot(rightDir, rb.velocity);
@@ -228,7 +234,7 @@ namespace PowerslideKartPhysics
         protected virtual void OnCollisionEnter(Collision colHit) {
             for (int i = 0; i < colHit.contacts.Length; i++) {
                 ContactPoint curCol = colHit.contacts[i];
-                WallCollisionProps wallProps = new WallCollisionProps(colHit.contacts[i], Vector3.up, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
+                WallCollisionProps wallProps = new WallCollisionProps(colHit.contacts[i], currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
                 bool wallHit = wallDetector.WallTest(wallProps);
                 bool itemHit = curCol.otherCollider.IsSpawnedProjectileItem();
 
@@ -246,7 +252,7 @@ namespace PowerslideKartPhysics
                 else {
                     // Bounce collision logic
                     if ((wallBounceReflect && wallHit) || (itemBounceReflect && itemHit)) {
-                        moveDir = Vector3.ProjectOnPlane(Vector3.Reflect(moveDir, curCol.normal), Vector3.up).normalized;
+                        moveDir = Vector3.ProjectOnPlane(Vector3.Reflect(moveDir, curCol.normal), currentGravityDir).normalized;
                         rb.velocity = Vector3.Reflect(rb.velocity, curCol.normal) * bounceReflectForce;
                         targetSpeed *= bounceReflectForce;
 

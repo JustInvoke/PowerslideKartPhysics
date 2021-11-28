@@ -149,6 +149,10 @@ MonoBehaviour:
   accel: 10
   moveInAir: 0
   gravityAdd: -10
+  gravityDir: {x: 0, y: 1, z: 0}
+  inheritKartGravity: 1
+  gravityIsGroundNormal: 1
+  resetGravityDirInAir: 1
   forwardFriction: 0
   sideFriction: 10
   maxFallSpeed: 30
@@ -182,13 +186,9 @@ MonoBehaviour:
   collideEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   destroyEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!54 &4567911620038884197
 Rigidbody:
   m_ObjectHideFlags: 0

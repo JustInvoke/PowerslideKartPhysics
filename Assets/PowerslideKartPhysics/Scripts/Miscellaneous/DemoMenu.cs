@@ -12,6 +12,8 @@ namespace PowerslideKartPhysics
         public Vector3 spawnDir = Vector3.forward;
         public GameObject uiContainer;
         public KartCamera kartCam;
+        public KartGravityPreset antiGravPreset;
+        bool useAntiGrav = false;
 
         private void Awake() {
             // Hide UI when showing the menu
@@ -25,6 +27,12 @@ namespace PowerslideKartPhysics
             Kart newKart = null;
             if (kart != null) {
                 newKart = Instantiate(kart, spawnPoint, Quaternion.LookRotation(spawnDir.normalized, Vector3.up)).GetComponent<Kart>();
+
+                // Set anti-gravity mode
+                if (useAntiGrav && newKart.GetComponent<KartPresetControl>() != null) {
+                    newKart.GetComponent<KartPresetControl>().LoadGravityPreset(antiGravPreset);
+                    newKart.GetComponent<Rigidbody>().useGravity = false;
+                }
             }
 
             // Show the UI and connect it to the spawned kart
@@ -43,6 +51,11 @@ namespace PowerslideKartPhysics
             }
 
             gameObject.SetActive(false);
+        }
+
+        // Set whether to use anti-gravity preset for the spawned kart
+        public void SetAntiGrav(bool grav) {
+            useAntiGrav = grav;
         }
 
         // Visualize the kart spawn point
