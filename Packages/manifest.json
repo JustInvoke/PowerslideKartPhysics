@@ -5,6 +5,7 @@
     "com.unity.analytics": "3.3.5",
     "com.unity.ext.nunit": "1.0.6",
     "com.unity.ide.vscode": "1.1.4",
+    "com.unity.memoryprofiler": "0.2.10-preview.1",
     "com.unity.package-manager-ui": "2.2.0",
     "com.unity.test-framework": "1.0.18",
     "com.unity.ugui": "1.0.0",

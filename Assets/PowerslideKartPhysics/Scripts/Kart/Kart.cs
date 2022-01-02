@@ -120,6 +120,7 @@ namespace PowerslideKartPhysics
         public KartWheel[] wheels;
         public LayerMask wheelCastMask = 1;
         public int maxWheelCastHits = 2;
+        RaycastHit[] groundHits;
         public bool oneWheelCastPerFrame = false;
         int curWheelCast = 0;
         int lastGroundedWheel = 0;
@@ -260,6 +261,7 @@ namespace PowerslideKartPhysics
             tr = transform;
             rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.FreezeRotation; // Automatically constrain rotation
+            groundHits = new RaycastHit[maxWheelCastHits];
             cornerCastPoints = new Vector3[4];
             stableWheelPoints = new Vector3[wheels.Length]; // Stable raycast points not susceptible to tilting
             for (int i = 0; i < stableWheelPoints.Length; i++) {
@@ -689,16 +691,19 @@ namespace PowerslideKartPhysics
                 airGrounded = false;
             }
 
+            // Clear ground hits
+            for (int i = 0; i < groundHits.Length; i++) {
+                groundHits[i] = new RaycastHit();
+            }
             RaycastHit hit = new RaycastHit();
-            RaycastHit[] hits = new RaycastHit[maxWheelCastHits];
 
             // Asynchronous wheel raycasting (visual)
             if (oneWheelCastPerFrame) {
                 KartWheel curWheel = wheels[curWheelCast];
-                bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                 if (wheelHit) {
-                    wheelHit = EvaluateGroundHits(hits, out hit);
+                    wheelHit = EvaluateGroundHits(groundHits, out hit);
                 }
 
                 // Setting ground hit info for visual wheel
@@ -732,10 +737,10 @@ namespace PowerslideKartPhysics
             {
                 for (int i = 0; i < wheels.Length; i++) {
                     KartWheel curWheel = wheels[i];
-                    bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                    bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                     if (wheelHit) {
-                        wheelHit = EvaluateGroundHits(hits, out hit);
+                        wheelHit = EvaluateGroundHits(groundHits, out hit);
                     }
 
                     // Setting ground hit info for visual wheel
@@ -767,7 +772,10 @@ namespace PowerslideKartPhysics
                 }
             }
 
-            hits = new RaycastHit[maxWheelCastHits];
+            // Clear ground hits
+            for (int i = 0; i < groundHits.Length; i++) {
+                groundHits[i] = new RaycastHit();
+            }
             groundVel = Vector3.zero;
             groundAngVel = Vector3.zero;
             int groundedWheels = 0;
@@ -775,10 +783,10 @@ namespace PowerslideKartPhysics
             // Asynchronous wheel raycasting (physics/stable points)
             if (oneWheelCastPerFrame) {
                 KartWheel curWheel = wheels[curWheelCast];
-                bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[curWheelCast]), -upDir, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[curWheelCast]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                 if (wheelHit) {
-                    wheelHit = EvaluateGroundHits(hits, out hit);
+                    wheelHit = EvaluateGroundHits(groundHits, out hit);
                 }
 
                 // Physical ground hit info
@@ -802,10 +810,10 @@ namespace PowerslideKartPhysics
             {
                 for (int i = 0; i < wheels.Length; i++) {
                     KartWheel curWheel = wheels[i];
-                    bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[i]), -upDir, hits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                    bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[i]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                     if (wheelHit) {
-                        wheelHit = EvaluateGroundHits(hits, out hit);
+                        wheelHit = EvaluateGroundHits(groundHits, out hit);
                     }
 
                     // Physical ground hit info
@@ -837,14 +845,17 @@ namespace PowerslideKartPhysics
 
             // If not grounded, check for air grounded state with corner raycasts
             if (!grounded) {
-                hits = new RaycastHit[maxWheelCastHits];
+                // Clear ground hits
+                for (int i = 0; i < groundHits.Length; i++) {
+                    groundHits[i] = new RaycastHit();
+                }
 
                 // Asynchronous corner raycasting
                 if (oneCornerCastPerFrame) {
-                    bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[curCornerCast], -upDir, hits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                    bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[curCornerCast], -upDir, groundHits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                     if (cornerHit) {
-                        cornerHit = EvaluateGroundHits(hits, out hit);
+                        cornerHit = EvaluateGroundHits(groundHits, out hit);
                     }
 
                     // Corner hit info
@@ -858,10 +869,10 @@ namespace PowerslideKartPhysics
                 else // Simultaneous corner raycasting
                 {
                     for (int i = 0; i < cornerCastPoints.Length; i++) {
-                        bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[i], -upDir, hits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                        bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[i], -upDir, groundHits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                         if (cornerHit) {
-                            cornerHit = EvaluateGroundHits(hits, out hit);
+                            cornerHit = EvaluateGroundHits(groundHits, out hit);
                         }
 
                         // Corner hit info
