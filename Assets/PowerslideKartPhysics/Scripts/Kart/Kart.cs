@@ -174,6 +174,7 @@ namespace PowerslideKartPhysics
         public int driftDir = 0;
         bool driftReleased;
         public bool canDrift = true;
+        public bool canDriftInAir = true;
         public float minDriftAngle = 0.5f;
         public float maxDriftAngle = 1.5f;
         public float visualDriftFactor = 0.5f;
@@ -324,6 +325,10 @@ namespace PowerslideKartPhysics
 
             bool wasGrounded = grounded;
             GroundCheck(); // Check to see if on ground
+
+            if (drifting && !grounded && !canDriftInAir) {
+                CancelDrift();
+            }
 
             // Rotating the kart
             if (grounded || airGrounded) {
@@ -594,7 +599,7 @@ namespace PowerslideKartPhysics
             }
 
             // Drift starting
-            if (canDrift && driftButton && driftReleased && !spinningOut) {
+            if (canDrift && (grounded || canDriftInAir) && driftButton && driftReleased && !spinningOut) {
                 drifting = true;
 
                 if (grounded && jumpTime == 0 && driftDir == 0) {

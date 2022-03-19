@@ -278,6 +278,7 @@ namespace PowerslideKartPhysics
             if (kart == null || preset == null) { return; }
 
             kart.canDrift = preset.canDrift;
+            kart.canDriftInAir = preset.canDriftInAir;
             kart.minDriftAngle = preset.minDriftAngle;
             kart.maxDriftAngle = preset.maxDriftAngle;
             kart.visualDriftFactor = preset.visualDriftFactor;
@@ -296,6 +297,7 @@ namespace PowerslideKartPhysics
             if (kart == null || preset == null) { return; }
 
             preset.canDrift = kart.canDrift;
+            preset.canDriftInAir = kart.canDriftInAir;
             preset.minDriftAngle = kart.minDriftAngle;
             preset.maxDriftAngle = kart.maxDriftAngle;
             preset.visualDriftFactor = kart.visualDriftFactor;

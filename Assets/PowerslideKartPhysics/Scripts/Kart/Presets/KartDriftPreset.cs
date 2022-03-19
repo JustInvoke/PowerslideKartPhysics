@@ -9,6 +9,7 @@ namespace PowerslideKartPhysics
     public class KartDriftPreset : ScriptableObject
     {
         public bool canDrift = true;
+        public bool canDriftInAir = true;
         public float minDriftAngle = 0.5f;
         public float maxDriftAngle = 1.5f;
         public float visualDriftFactor = 0.5f;
