@@ -10,7 +10,7 @@ namespace PowerslideKartPhysics
     // This class manages static input values, fetched either from Unity's Input Manager or mobile input functions
     public class InputManager : MonoBehaviour
     {
-        // Standard input manager axis names
+        // Standard input manager axis names (legacy)
         [Header("Standard Input")]
         public bool enableStandardInput = true;
         public string accelAxisName = "Accel";

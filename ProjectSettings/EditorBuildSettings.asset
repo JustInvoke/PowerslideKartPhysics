@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PowerslideKartPhysics/Scenes/Demo.unity
     guid: c11a5098e005ce6429ccac7d3c73f8fe
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 6007b359603e35b40a07db0a4c1fb562,
+      type: 2}

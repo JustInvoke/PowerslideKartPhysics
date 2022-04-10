@@ -1,6 +1,9 @@
 ﻿// Copyright (c) 2022 Justin Couch / JustInvoke
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.InputSystem.Controls;
 
 namespace PowerslideKartPhysics
 {
@@ -9,6 +12,7 @@ namespace PowerslideKartPhysics
     // Class for controlling the camera to follow a kart
     public class KartCamera : MonoBehaviour
     {
+        public bool useLegacyInput = true;
         Camera cam;
         public Kart targetKart;
         Rigidbody targetBody;
@@ -36,6 +40,8 @@ namespace PowerslideKartPhysics
         public float rollSmoothRate = 2.0f;
         float upDirBlend = 1.0f;
         public float inputDeadZone = 0.1f;
+        Vector2 rotateInput = Vector2.zero;
+        bool lookBack;
 
         private void Awake() {
             cam = GetComponent<Camera>();
@@ -68,6 +74,30 @@ namespace PowerslideKartPhysics
             }
         }
 
+        // Rotation input for hooking up to the Input System
+        public void OnRotate(CallbackContext context) {
+            rotateInput = context.ReadValue<Vector2>();
+        }
+
+        // Look back input for hooking up to the Input System
+        public void OnLookBack(CallbackContext context) {
+            ButtonControl button = context.control as ButtonControl;
+            if (button != null) {
+                lookBack = button.isPressed;
+            }
+            else {
+                lookBack = false;
+            }
+        }
+
+        // Restart input for hooking up to the Input System
+        public void OnRestartPress(CallbackContext context) {
+            ButtonControl button = context.control as ButtonControl;
+            if (button != null && button.wasPressedThisFrame) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+
         private void FixedUpdate() {
             if (cam == null || targetKart == null || targetBody == null) { return; }
 
@@ -79,13 +109,15 @@ namespace PowerslideKartPhysics
             smoothObj.position = targetKart.rotator.position - targetKart.rotator.right * Mathf.Clamp(smoothVel.x * 0.1f, -maxVelDist, maxVelDist);
             smoothObj.rotation = Quaternion.Lerp(smoothObj.rotation, targetKart.rotator.rotation, smoothRate * Time.fixedDeltaTime);
 
-            // Getting input
-            Vector2 camInput = InputManager.camRotInput;
-            Vector2 camInputNormalized = InputManager.camRotInput.normalized;
-            bool lookBack = InputManager.lookBackButton;
+            // Getting legacy input
+            if (useLegacyInput) {
+                rotateInput = InputManager.camRotInput;
+                lookBack = InputManager.lookBackButton;
+            }
+            Vector2 rotateInputNormalized = rotateInput.normalized;
 
             // Apply input to movement
-            float targetAngle = camInput.magnitude < inputDeadZone ? 0.0f : Mathf.Atan2(camInputNormalized.x, camInputNormalized.y);
+            float targetAngle = rotateInput.magnitude < inputDeadZone ? 0.0f : Mathf.Atan2(rotateInputNormalized.x, rotateInputNormalized.y);
             localDir = lookBack ? Vector3.back : Vector3.Slerp(localDir, new Vector3(-Mathf.Sin(targetAngle), 0.0f, -Mathf.Cos(targetAngle)), 0.1f);
             tempRot.localPosition = new Vector3(localDir.x, 0.0f, localDir.z * (lookBack ? -1.0f : 1.0f)) * distance + Vector3.up * height;
 

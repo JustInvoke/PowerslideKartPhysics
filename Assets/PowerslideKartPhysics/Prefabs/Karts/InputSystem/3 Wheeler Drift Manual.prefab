@@ -1,0 +1,223 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8205497040819152312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478833659591742318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a31df10f91e9e4da3073ede4e54bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1564426011049142131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478833659591742318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c63d8d886ad23414b906a5aed1b52c24,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8205497040819152312}
+        m_MethodName: OnAccel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: be3583f2-aec4-4881-999f-6099dd626280
+    m_ActionName: Kart/Accel[/XInputControllerWindows/buttonSouth,/XInputControllerWindows/rightTrigger,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8205497040819152312}
+        m_MethodName: OnBrake
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c291321b-e49b-405e-8774-53d0f6fa266f
+    m_ActionName: Kart/Brake[/Keyboard/downArrow,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8205497040819152312}
+        m_MethodName: OnSteer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 960e62ff-2fb0-40ed-9d9b-617c905c8862
+    m_ActionName: Kart/Steer[/XInputControllerWindows/leftStick/x,/XInputControllerWindows/dpad/x,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8205497040819152312}
+        m_MethodName: OnDrift
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b4013bf3-d128-44e3-b281-08a1e5591bbc
+    m_ActionName: Kart/Drift[/XInputControllerWindows/rightShoulder,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8205497040819152312}
+        m_MethodName: OnBoost
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 235cdd2c-0004-4b7c-a584-71719387e68c
+    m_ActionName: Kart/Boost[/XInputControllerWindows/leftShoulder,/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8205497040819152312}
+        m_MethodName: OnItemPress
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ecb7f530-c570-493f-bbba-88024cbaf407
+    m_ActionName: Kart/Item[/Keyboard/z,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2af2818c-f7a3-4d0b-bd9a-7ec605b197ad
+    m_ActionName: Camera/Rotate[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 37a37f97-2c50-4067-a61d-c21b6d33583e
+    m_ActionName: Camera/Look Back[/Keyboard/x,/XInputControllerWindows/rightStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc500e01-d169-4ad5-9fd8-64c2e737427e
+    m_ActionName: Camera/Restart[/Keyboard/r,/XInputControllerWindows/start]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Kart
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!1001 &2232478420349793066
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642241, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756187109214642244, guid: 20e3503b04035fc448db51cb2c3c834f,
+        type: 3}
+      propertyPath: m_Name
+      value: 3 Wheeler Drift Manual
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4271040145464523796, guid: 20e3503b04035fc448db51cb2c3c834f, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 20e3503b04035fc448db51cb2c3c834f, type: 3}
+--- !u!1 &1478833659591742318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 756187109214642244, guid: 20e3503b04035fc448db51cb2c3c834f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2232478420349793066}
+  m_PrefabAsset: {fileID: 0}
