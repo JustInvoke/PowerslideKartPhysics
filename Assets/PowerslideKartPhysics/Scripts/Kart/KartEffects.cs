@@ -70,6 +70,18 @@ namespace PowerslideKartPhysics
                             driftBoostStartPositions[i] = driftBoostParticles[i].particles.transform.localPosition;
                             driftBoostStartRotations[i] = driftBoostParticles[i].particles.transform.localRotation;
                         }
+
+                        // Set spark particle conditions for the drift auto boost type
+                        // These are designed so that each particle represents a different level/tier of boost (see the boostCount variable in the Kart class)
+                        ConditionalParticle curParticle = driftBoostParticles[i];
+                        driftBoostParticles[i].condition = () => {
+                            if (theKart != null) {
+                                return theKart.boostType == KartBoostType.DriftAuto && theKart.boostCount == FindDriftBoostParticleIndex(curParticle) + 1;
+                            }
+                            else {
+                                return false;
+                            }
+                        };
                     }
                 }
             }
@@ -93,22 +105,11 @@ namespace PowerslideKartPhysics
                 boostParticles.Update();
             }
 
-            // Set spark particle conditions for the drift auto boost type
-            // These are designed so that each particle represents a different level/tier of boost (see the boostCount variable in the Kart class)
-            // The condition must the set every frame to compare the kart boost count to the array index of each particle system
+            // Update drift boost particle conditions and transforms
             if (theKart.boostType == KartBoostType.DriftAuto && driftBoostParticles != null) {
                 for (int i = 0; i < driftBoostParticles.Length; i++) {
                     if (driftBoostParticles[i] != null) {
-                        driftBoostParticles[i].condition = () => {
-                            if (theKart != null) {
-                                return theKart.boostType == KartBoostType.DriftAuto && theKart.boostCount == i + 1;
-                            }
-                            else {
-                                return false;
-                            }
-                        };
-
-                        // Test the particle condition
+                        // Update drift boost particle condition
                         driftBoostParticles[i].Update();
 
                         // Position the particles on the correct side based on the drift direction
@@ -137,6 +138,22 @@ namespace PowerslideKartPhysics
                 collisionParticles.transform.position = pos;
                 collisionParticles.transform.rotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
                 collisionParticles.Play();
+            }
+        }
+
+        // Returns the index of the given ConditionalParticle in driftBoostParticles if it exists, or -1 if it doesn't
+        // This is necessary for the conditions in driftBoostParticles
+        public int FindDriftBoostParticleIndex(ConditionalParticle particle) {
+            if (driftBoostParticles != null && particle != null) {
+                for (int i = 0; i < driftBoostParticles.Length; i++) {
+                    if (driftBoostParticles[i] == particle) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            else {
+                return -1;
             }
         }
     }
