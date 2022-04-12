@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
+    path: Assets/PowerslideKartPhysics/Scenes/Demo.unity
+    guid: c11a5098e005ce6429ccac7d3c73f8fe
+  - enabled: 0
     path: Assets/PowerslideKartPhysics/Scenes/Demo Mobile.unity
     guid: 0b0634b837a019742a5d0259ee968cc2
   - enabled: 1
-    path: Assets/PowerslideKartPhysics/Scenes/Demo.unity
-    guid: c11a5098e005ce6429ccac7d3c73f8fe
+    path: Assets/PowerslideKartPhysics/Scenes/Demo (Input System).unity
+    guid: 32c637b22776af142af7ff0ee34d32d1
+  - enabled: 0
+    path: Assets/PowerslideKartPhysics/Scenes/Demo Mobile (Input System).unity
+    guid: ded03efb29374e34ab881cd79debff97
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 6007b359603e35b40a07db0a4c1fb562,
       type: 2}
