@@ -23,6 +23,7 @@ namespace PowerslideKartPhysics
         public Vector3 cornerCastOffset = Vector3.zero;
         public bool oneCornerCastPerFrame = false;
         public float cornerCastDistance = 1.0f;
+        public int maxCollisionContactPoints = 8;
         public float spinRate = 10f;
         public float spinHeight = 1.0f;
     }

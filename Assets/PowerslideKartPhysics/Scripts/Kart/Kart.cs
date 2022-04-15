@@ -44,6 +44,8 @@ namespace PowerslideKartPhysics
         int curCornerCast = 0;
         int lastGroundedCorner = 0;
         Vector3[] cornerCastPoints;
+        public int maxCollisionContactPoints = 8;
+        ContactPoint[] collisionContacts;
         public float spinRate = 10f;
         public float spinHeight = 1.0f;
 
@@ -263,6 +265,7 @@ namespace PowerslideKartPhysics
             rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.FreezeRotation; // Automatically constrain rotation
             groundHits = new RaycastHit[maxWheelCastHits];
+            collisionContacts = new ContactPoint[maxCollisionContactPoints];
             cornerCastPoints = new Vector3[4];
             stableWheelPoints = new Vector3[wheels.Length]; // Stable raycast points not susceptible to tilting
             for (int i = 0; i < stableWheelPoints.Length; i++) {
@@ -1184,10 +1187,13 @@ namespace PowerslideKartPhysics
             if (rotator == null) { return; }
 
             bool wallHit = false;
-            for (int i = 0; i < col.contacts.Length; i++) {
+            int contactCount = col.GetContacts(collisionContacts);
+            for (int i = 0; i < contactCount; i++) {
+                ContactPoint curCol = collisionContacts[i];
+
                 // Wall collision detection
-                WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
-                if (!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsKart() && !col.contacts[i].otherCollider.IsSpawnedProjectileItem()) {
+                WallCollisionProps wallProps = new WallCollisionProps(curCol, localUpWallDotComparison ? upDir : currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
+                if (!wallHit && wallDetector.WallTest(wallProps) && !curCol.otherCollider.IsKart() && !curCol.otherCollider.IsSpawnedProjectileItem()) {
                     wallHit = true;
                     if (wallCollisionCancelsDrift) {
                         CancelDrift();
@@ -1198,8 +1204,8 @@ namespace PowerslideKartPhysics
                         EmptyBoostReserve();
                     }
 
-                    Vector3 localContact = rotator.InverseTransformPoint(col.contacts[i].point);
-                    wallBounceTurn = F.MaxAbs(wallBounceTurn, col.relativeVelocity.magnitude * Vector3.Dot(-forwardDir, col.contacts[i].normal) * (localContact.x > 0 ? -1.0f : 1.0f) * wallBounceTurnAmount);
+                    Vector3 localContact = rotator.InverseTransformPoint(curCol.point);
+                    wallBounceTurn = F.MaxAbs(wallBounceTurn, col.relativeVelocity.magnitude * Vector3.Dot(-forwardDir, curCol.normal) * (localContact.x > 0 ? -1.0f : 1.0f) * wallBounceTurnAmount);
 
                     // Wall friction application
                     if (grounded && !spinningOut) {
@@ -1211,21 +1217,24 @@ namespace PowerslideKartPhysics
 
         void OnCollisionEnter(Collision col) {
             bool wallHit = false;
-            for (int i = 0; i < col.contacts.Length; i++) {
+            int contactCount = col.GetContacts(collisionContacts);
+            for (int i = 0; i < contactCount; i++) {
+                ContactPoint curCol = collisionContacts[i];
+
                 // Spin out upon hazard collision
-                Hazard haz = col.contacts[i].otherCollider.GetComponent<Hazard>();
+                Hazard haz = curCol.otherCollider.GetComponent<Hazard>();
                 if (!spinningOut && haz != null) {
                     SpinOut(haz.spinAxis, haz.spinCount);
                 }
 
                 // Wall collision detection
                 if (wallHitTime == 0 && col.relativeVelocity.magnitude > minWallHitSpeed) {
-                    WallCollisionProps wallProps = new WallCollisionProps(col.contacts[i], localUpWallDotComparison ? upDir : currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
-                    if ((!wallHit && wallDetector.WallTest(wallProps) && !col.contacts[i].otherCollider.IsSpawnedProjectileItem()) || col.contacts[i].otherCollider.IsKart()) {
+                    WallCollisionProps wallProps = new WallCollisionProps(curCol, localUpWallDotComparison ? upDir : currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
+                    if ((!wallHit && wallDetector.WallTest(wallProps) && !curCol.otherCollider.IsSpawnedProjectileItem()) || curCol.otherCollider.IsKart()) {
                         // Wall hit event invocation
                         wallHit = true;
                         wallHitTime = wallHitDuration;
-                        collisionEvent.Invoke(col.contacts[i].point, col.relativeVelocity);
+                        collisionEvent.Invoke(curCol.point, col.relativeVelocity);
                     }
                 }
             }

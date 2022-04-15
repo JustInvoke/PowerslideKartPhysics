@@ -56,6 +56,7 @@ namespace PowerslideKartPhysics
             kart.cornerCastOffset = preset.cornerCastOffset;
             kart.oneCornerCastPerFrame = preset.oneCornerCastPerFrame;
             kart.cornerCastDistance = preset.cornerCastDistance;
+            kart.maxCollisionContactPoints = preset.maxCollisionContactPoints;
             kart.spinRate = preset.spinRate;
             kart.spinHeight = preset.spinHeight;
         }
@@ -72,12 +73,13 @@ namespace PowerslideKartPhysics
             preset.frontLength = kart.frontLength;
             preset.backLength = kart.backLength;
             preset.sideWidth = kart.sideWidth;
-            preset.spinRate = kart.spinRate;
-            preset.spinHeight = kart.spinHeight;
             preset.cornerCastSize = kart.cornerCastSize;
             preset.cornerCastOffset = kart.cornerCastOffset;
             preset.oneCornerCastPerFrame = kart.oneCornerCastPerFrame;
             preset.cornerCastDistance = kart.cornerCastDistance;
+            preset.maxCollisionContactPoints = kart.maxCollisionContactPoints;
+            preset.spinRate = kart.spinRate;
+            preset.spinHeight = kart.spinHeight;
             SaveAssets(preset);
         }
 

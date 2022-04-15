@@ -230,10 +230,12 @@ namespace PowerslideKartPhysics
             }
         }
 
+        ContactPoint[] collisionContacts = new ContactPoint[2];
         protected virtual void OnCollisionEnter(Collision colHit) {
-            for (int i = 0; i < colHit.contacts.Length; i++) {
-                ContactPoint curCol = colHit.contacts[i];
-                WallCollisionProps wallProps = new WallCollisionProps(colHit.contacts[i], currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
+            int contactCount = colHit.GetContacts(collisionContacts);
+            for (int i = 0; i < contactCount; i++) {
+                ContactPoint curCol = collisionContacts[i];
+                WallCollisionProps wallProps = new WallCollisionProps(curCol, currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
                 bool wallHit = wallDetector.WallTest(wallProps);
                 bool itemHit = curCol.otherCollider.IsSpawnedProjectileItem();
 

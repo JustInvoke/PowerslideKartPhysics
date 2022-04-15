@@ -15,19 +15,22 @@ namespace PowerslideKartPhysics
         public float bumpFactor = 1.0f; // Multiplier for bump force magnitude
         public float minBumpMagnitude = 2.0f; // Minimum bump force
         public float maxBumpMagnitude = 5.0f; // Maximum bump force
+        ContactPoint[] collisionContacts;
 
         private void Awake() {
             tr = transform;
             rb = GetComponent<Rigidbody>();
             kart = GetComponent<Kart>();
+            collisionContacts = new ContactPoint[kart.maxCollisionContactPoints];
         }
 
         // Check for collisions with other karts
         private void OnCollisionEnter(Collision collision) {
-            foreach (ContactPoint contact in collision.contacts) {
-                if (contact.otherCollider.GetComponentInParent<Kart>() != null) {
+            int contactCount = collision.GetContacts(collisionContacts);
+            for (int i = 0; i < contactCount; i++) {
+                if (collisionContacts[i].otherCollider.GetComponentInParent<Kart>() != null) {
                     // Bump force is collision magnitude in direction between the karts' origins
-                    Bump((tr.position - contact.otherCollider.transform.position).normalized * collision.relativeVelocity.magnitude);
+                    Bump((tr.position - collisionContacts[i].otherCollider.transform.position).normalized * collision.relativeVelocity.magnitude);
                     break;
                 }
             }
