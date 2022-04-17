@@ -196,10 +196,10 @@ namespace PowerslideKartPhysics
                 colors[curEdge] = new Color(1.0f, 1.0f, 1.0f, alpha);
                 colors[curEdge + 1] = colors[curEdge];
 
-                mesh.vertices = verts;
-                mesh.triangles = tris;
-                mesh.uv = uvs;
-                mesh.colors = colors;
+                mesh.SetVertices(verts);
+                mesh.SetTriangles(tris, 0, false);
+                mesh.SetUVs(0, uvs);
+                mesh.SetColors(colors);
             }
             else // If not adding vertices, reposition last created vertices to keep up with the wheel
             {
@@ -212,7 +212,7 @@ namespace PowerslideKartPhysics
                     colors[i].a = 0.0f;
                 }
 
-                mesh.vertices = verts;
+                mesh.SetVertices(verts);
             }
 
             // Renderer recalculations
@@ -278,7 +278,7 @@ namespace PowerslideKartPhysics
                         colors[i].a -= fadeRate * Time.deltaTime;
                     }
 
-                    mesh.colors = colors;
+                    mesh.SetColors(colors);
                 }
             }
             else {
