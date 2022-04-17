@@ -230,7 +230,7 @@ namespace PowerslideKartPhysics
             }
         }
 
-        ContactPoint[] collisionContacts = new ContactPoint[2];
+        ContactPoint[] collisionContacts = new ContactPoint[2]; // More than two contact points to check is probably unnecessary, but you are free to increase this
         protected virtual void OnCollisionEnter(Collision colHit) {
             int contactCount = colHit.GetContacts(collisionContacts);
             for (int i = 0; i < contactCount; i++) {
