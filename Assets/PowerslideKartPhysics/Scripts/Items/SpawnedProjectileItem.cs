@@ -111,7 +111,7 @@ namespace PowerslideKartPhysics
             }
 
             if (fetchKartsDuringSpawn) {
-                allKarts = FindObjectsOfType<Kart>();
+                allKarts = GlobalManager.AllKarts;
             }
             else {
                 allKarts = props.allKarts;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Justin Couch / JustInvoke
+﻿// Copyright (c) 2022 Justin Couch / JustInvoke
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,6 +95,7 @@ namespace PowerslideKartPhysics
                 }
             }
 
+            GlobalManager.FetchAllKarts();
             FetchAllKarts();
             StartCoroutine(StartCountdown()); // Start the race countdown
         }

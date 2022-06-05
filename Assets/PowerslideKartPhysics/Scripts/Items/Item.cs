@@ -17,6 +17,7 @@ namespace PowerslideKartPhysics
 
         // Called upon activation
         public virtual void Activate(ItemCastProperties props) {
+            allKarts = GlobalManager.AllKarts;
             props.allKarts = allKarts;
             castProps = props;
         }
