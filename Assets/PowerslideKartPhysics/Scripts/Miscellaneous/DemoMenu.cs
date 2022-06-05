@@ -14,6 +14,7 @@ namespace PowerslideKartPhysics
         public KartCamera kartCam;
         public KartGravityPreset antiGravPreset;
         bool useAntiGrav = false;
+        public bool connectToRaceController;
 
         private void Awake() {
             // Hide UI when showing the menu
@@ -48,6 +49,16 @@ namespace PowerslideKartPhysics
             // Connect the camera to the spawned kart
             if (kartCam != null) {
                 kartCam.Initialize(newKart);
+            }
+
+            // Tells the race controller to spawn karts and start a race
+            if (connectToRaceController && newKart != null)
+            {
+                RaceController rc = FindObjectOfType<RaceController>();
+                if (rc != null)
+                {
+                    rc.SpawnKarts(newKart.transform);
+                }
             }
 
             gameObject.SetActive(false);

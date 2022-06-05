@@ -22,5 +22,11 @@ namespace PowerslideKartPhysics
         public class SingleVector3 : UnityEvent<Vector3> { }
         [Serializable]
         public class DoubleVector3 : UnityEvent<Vector3, Vector3> { }
+        [Serializable]
+        public class SingleInt : UnityEvent<int> { }
+        [Serializable]
+        public class SingleString : UnityEvent<string> { }
+        [Serializable]
+        public class IntRaceAgent : UnityEvent<int, RaceAgent> { }
     }
 }

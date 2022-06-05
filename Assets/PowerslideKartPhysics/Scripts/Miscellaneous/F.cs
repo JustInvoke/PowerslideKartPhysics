@@ -59,5 +59,11 @@ namespace PowerslideKartPhysics
         public static bool Contains(this LayerMask mask, int layer) {
             return mask == (mask | (1 << layer));
         }
+
+        // Returns a string of the time formatted to show the minutes, seconds, and centiseconds
+        public static string TimeFormat(float time)
+        {
+            return Mathf.Floor(time / 60).ToString("00") + ":" + Mathf.Floor(time % 60).ToString("00") + "." + (time * 100 % 100).ToString("00");
+        }
     }
 }

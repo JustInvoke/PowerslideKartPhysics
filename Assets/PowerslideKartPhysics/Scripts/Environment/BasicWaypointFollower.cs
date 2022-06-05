@@ -31,8 +31,9 @@ namespace PowerslideKartPhysics
 
             // Setting next point upon touching point
             Vector3 targetDir = targetPoint.transform.position - tr.position;
-            if (targetDir.sqrMagnitude <= targetPoint.radius * targetPoint.radius) {
-                targetPoint = targetPoint.nextPoint;
+            if (targetDir.sqrMagnitude <= targetPoint.radius * targetPoint.radius)
+            {
+                targetPoint = targetPoint.GetNextPoint();
             }
 
             float forwardDot = Vector3.Dot(targetDir.normalized, theKart.rotator.forward);

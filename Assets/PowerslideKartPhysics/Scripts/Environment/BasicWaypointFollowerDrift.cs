@@ -35,8 +35,14 @@ namespace PowerslideKartPhysics
             tr = transform;
             rb = GetComponent<Rigidbody>();
             kart = GetComponent<Kart>();
-            if (targetPoint != null) {
-                nextPoint = targetPoint.nextPoint;
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            if (targetPoint != null)
+            {
+                nextPoint = targetPoint.GetNextPoint();
             }
         }
 
@@ -48,10 +54,12 @@ namespace PowerslideKartPhysics
 
             // Setting next point upon touching point
             Vector3 targetDir = targetPos - tr.position;
-            if ((targetPoint.transform.position - tr.position).sqrMagnitude <= targetPoint.radius * targetPoint.radius) {
-                targetPoint = targetPoint.nextPoint;
-                if (targetPoint != null) {
-                    nextPoint = targetPoint.nextPoint;
+            if ((targetPoint.transform.position - tr.position).sqrMagnitude <= targetPoint.radius * targetPoint.radius)
+            {
+                targetPoint = targetPoint.GetNextPoint();
+                if (targetPoint != null)
+                {
+                    nextPoint = targetPoint.GetNextPoint();
                 }
             }
 
