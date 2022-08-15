@@ -10,13 +10,10 @@ namespace PowerslideKartPhysics
     public class OutOfBounds : MonoBehaviour
     {
         // A kart will respawn if it touches this trigger
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Karts"))
-            {
+        private void OnTriggerEnter(Collider other) {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Karts")) {
                 RaceAgent kart = F.GetTopmostParentComponent<RaceAgent>(other.transform);
-                if (kart != null)
-                {
+                if (kart != null) {
                     kart.Respawn();
                 }
             }

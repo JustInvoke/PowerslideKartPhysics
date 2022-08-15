@@ -25,8 +25,7 @@ namespace PowerslideKartPhysics
         public bool finishedRace = false; // True if the kart has crossed the finish line after completing all laps
         public float respawnHeight = 1.0f; // Height above waypoints to respawn at
 
-        private void Awake()
-        {
+        private void Awake() {
             tr = transform;
             rb = GetComponent<Rigidbody>();
             kart = GetComponent<Kart>();
@@ -34,39 +33,30 @@ namespace PowerslideKartPhysics
             rc = FindObjectOfType<RaceController>();
         }
 
-        private void Start()
-        {
-            if (rc != null)
-            {
+        private void Start() {
+            if (rc != null) {
                 rc.FetchAllKarts(); // Find all active karts
             }
         }
 
-        private void FixedUpdate()
-        {
-            if (currentPoint != null)
-            {
+        private void FixedUpdate() {
+            if (currentPoint != null) {
                 // Check to see if the kart is overlapping a succeeding valid waypoint
-                if (currentPoint is BasicWaypointMulti)
-                {
+                if (currentPoint is BasicWaypointMulti) {
                     BasicWaypointMulti multiPoint = (BasicWaypointMulti)currentPoint;
-                    for (int i = 0; i < multiPoint.validPoints.Length; i++)
-                    {
-                        if (CheckWaypointOverlap(multiPoint.validPoints[i]))
-                        {
+                    for (int i = 0; i < multiPoint.validPoints.Length; i++) {
+                        if (CheckWaypointOverlap(multiPoint.validPoints[i])) {
                             currentPoint = multiPoint.validPoints[i];
                         }
                     }
                 }
-                else if (CheckWaypointOverlap(currentPoint.nextPoint))
-                {
+                else if (CheckWaypointOverlap(currentPoint.nextPoint)) {
                     currentPoint = currentPoint.nextPoint;
                 }
 
                 // Lines for visualizing position between waypoints
                 Debug.DrawLine(tr.position, currentPoint.transform.position);
-                if (currentPoint.nextPoint != null)
-                {
+                if (currentPoint.nextPoint != null) {
                     Vector3 line = currentPoint.nextPoint.transform.position - currentPoint.transform.position;
                     Vector3 lineDir = line.normalized;
                     Vector3 linePoint = currentPoint.transform.position + lineDir * Mathf.Clamp(Vector3.Dot(tr.position - currentPoint.transform.position, lineDir), 0.0f, line.magnitude);
@@ -76,15 +66,13 @@ namespace PowerslideKartPhysics
         }
 
         // Checks to see if the kart is within the range of the given waypoint
-        bool CheckWaypointOverlap(BasicWaypoint point)
-        {
+        bool CheckWaypointOverlap(BasicWaypoint point) {
             if (point == null || tr == null) { return false; }
             return (tr.position - point.transform.position).sqrMagnitude <= point.radius * point.radius;
         }
 
         // Returns the progress between the current point and the next point (0 to 1)
-        public float GetPointProgress()
-        {
+        public float GetPointProgress() {
             if (currentPoint == null) { return 0.0f; }
             if (currentPoint.nextPoint == null) { return 0.0f; }
             Vector3 line = currentPoint.nextPoint.transform.position - currentPoint.transform.position;
@@ -92,49 +80,38 @@ namespace PowerslideKartPhysics
         }
 
         // Returns the progress of the current lap (0 to 1)
-        public float GetLapProgress()
-        {
+        public float GetLapProgress() {
             if (currentPoint == null || track == null) { return 0.0f; }
             return Mathf.Clamp01((currentPoint.index + GetPointProgress()) / (track.maxIndex + 1.0f));
         }
 
         // Increments the current lap the kart is on and sets the current waypoint to the first one in the lap
-        public void IncrementLap(BasicWaypoint startPoint)
-        {
-            if (!finishedRace)
-            {
+        public void IncrementLap(BasicWaypoint startPoint) {
+            if (!finishedRace) {
                 lapCompletedEvent.Invoke(lap, this);
                 currentPoint = startPoint;
                 lap++;
-                if (!finishedRace)
-                {
+                if (!finishedRace) {
                     lapsCompleted++;
                 }
             }
         }
 
         // Returns the current position of the kart
-        public int GetRacePosition()
-        {
-            if (rc != null)
-            {
+        public int GetRacePosition() {
+            if (rc != null) {
                 return rc.GetPositionOfKart(this);
             }
             return -1;
         }
 
         // Respawns the kart by moving it to the last touched waypoint
-        public void Respawn()
-        {
-            if (currentPoint != null)
-            {
+        public void Respawn() {
+            if (currentPoint != null) {
                 tr.position = currentPoint.transform.position + Vector3.up * respawnHeight;
-                if (currentPoint.nextPoint != null)
-                {
-                    if (kart != null)
-                    {
-                        if (kart.rotator != null)
-                        {
+                if (currentPoint.nextPoint != null) {
+                    if (kart != null) {
+                        if (kart.rotator != null) {
                             kart.rotator.rotation = Quaternion.LookRotation(currentPoint.nextPoint.transform.position - currentPoint.transform.position, Vector3.up);
                             kart.CancelDrift();
                             kart.EmptyBoostReserve();
@@ -143,8 +120,7 @@ namespace PowerslideKartPhysics
                         }
                     }
 
-                    if (rb != null)
-                    {
+                    if (rb != null) {
                         rb.velocity = Vector3.zero;
                     }
                 }
@@ -154,8 +130,7 @@ namespace PowerslideKartPhysics
         // Comparer for sorting karts by their position in the race
         public class RaceAgentComparer : IComparer<RaceAgent>
         {
-            public int Compare(RaceAgent x, RaceAgent y)
-            {
+            public int Compare(RaceAgent x, RaceAgent y) {
                 if (x == null || y == null) { return 0; }
                 int compareVal = 0;
 

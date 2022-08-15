@@ -14,15 +14,11 @@ namespace PowerslideKartPhysics
         public Track track; // The track associated with the finish line trigger
 
         // When a kart touches the trigger, this class evaluates whether it has completed a valid lap
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Karts"))
-            {
+        private void OnTriggerEnter(Collider other) {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Karts")) {
                 RaceAgent finishedKart = F.GetTopmostParentComponent<RaceAgent>(other.transform);
-                if (finishedKart != null)
-                {
-                    if (finishedKart.GetLapProgress() >= minLapCompletion)
-                    {
+                if (finishedKart != null) {
+                    if (finishedKart.GetLapProgress() >= minLapCompletion) {
                         finishedKart.IncrementLap(track != null ? track.startPoint : null);
                     }
                 }

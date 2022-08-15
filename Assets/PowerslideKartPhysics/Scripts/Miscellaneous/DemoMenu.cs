@@ -15,6 +15,7 @@ namespace PowerslideKartPhysics
         public KartGravityPreset antiGravPreset;
         bool useAntiGrav = false;
         public bool connectToRaceController;
+        public bool connectToBattleController;
 
         private void Awake() {
             // Hide UI when showing the menu
@@ -58,6 +59,14 @@ namespace PowerslideKartPhysics
                 if (rc != null)
                 {
                     rc.SpawnKarts(newKart.transform);
+                }
+            }
+
+            // Tells the battle controller to spawn karts and start a battle
+            if (connectToBattleController && newKart != null) {
+                BattleController bc = FindObjectOfType<BattleController>();
+                if (bc != null) {
+                    bc.SpawnKarts(newKart.transform);
                 }
             }
 

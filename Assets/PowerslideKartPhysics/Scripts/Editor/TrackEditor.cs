@@ -12,16 +12,13 @@ namespace PowerslideKartPhysics
     {
         Track targetTrack;
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             targetTrack = (Track)target;
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI() {
             // Button for calculating waypoint indices
-            if (GUILayout.Button("Calculate Waypoint Indices"))
-            {
+            if (GUILayout.Button("Calculate Waypoint Indices")) {
                 targetTrack.CalculateWaypointIndices();
                 EditorUtility.SetDirty(targetTrack);
             }

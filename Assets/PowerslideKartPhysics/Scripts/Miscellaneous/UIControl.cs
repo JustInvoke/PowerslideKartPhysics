@@ -14,6 +14,7 @@ namespace PowerslideKartPhysics
         ItemCaster caster;
         RaceAgent agent;
         RaceController raceController;
+        BattleController battleController;
         public GameObject hudContainer;
         public Slider boostMeter;
         public Image boostMeterFill;
@@ -48,6 +49,13 @@ namespace PowerslideKartPhysics
             {
                 raceController.countDownUpdate.AddListener(UpdateCountdownText);
                 raceController.raceEndEvent.AddListener(ShowRaceSummary);
+            }
+
+            // Connect battle events to UI updates
+            battleController = FindObjectOfType<BattleController>();
+            if (battleController != null) {
+                battleController.countDownUpdate.AddListener(UpdateCountdownText);
+                battleController.battleEndEvent.AddListener(ShowRaceSummary);
             }
 
             if (raceSummary != null)
