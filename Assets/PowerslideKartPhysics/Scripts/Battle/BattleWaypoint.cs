@@ -1,17 +1,18 @@
 ﻿// Copyright (c) 2022 Justin Couch / JustInvoke
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace PowerslideKartPhysics
 {
     // Waypoint class supporting connections to multiple waypoints for battle mode
-    public class BattleWaypoint : MonoBehaviour
+    public class BattleWaypoint : BasicWaypoint
     {
-        public float radius = 1.0f;
         public List<BattleWaypoint> connectedPoints = new List<BattleWaypoint>(); // Points that this one is connected to
 
         private void Awake() {
+            connectedPoints = FindObjectsOfType<BattleWaypoint>().Where(p => p != this).ToList();
             ValidateConnections();
         }
 
@@ -24,11 +25,11 @@ namespace PowerslideKartPhysics
             }
         }
 
-        public BattleWaypoint GetRandomPoint() {
+        public override BasicWaypoint GetNextPoint() {
             return connectedPoints[Random.Range(0, connectedPoints.Count)];
         }
 
-        protected void OnDrawGizmos() {
+        protected override void OnDrawGizmos() {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, radius);
             // Draws lines to connected points

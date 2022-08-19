@@ -11,6 +11,7 @@ namespace PowerslideKartPhysics
         public BasicWaypoint nextPoint;
         public float radius = 1.0f;
         public int index = 0;
+        public float groundSnapOffset = 1.0f;
 
         // Returns the next waypoint in the path
         public virtual BasicWaypoint GetNextPoint()
@@ -26,6 +27,13 @@ namespace PowerslideKartPhysics
             if (nextPoint != null) {
                 Gizmos.color = Color.green;
                 Gizmos.DrawLine(transform.position, nextPoint.transform.position);
+            }
+        }
+
+        public void SnapToGround() {
+            RaycastHit hit = new RaycastHit();
+            if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out hit, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore)) {
+                transform.position = hit.point + Vector3.up * groundSnapOffset;
             }
         }
     }

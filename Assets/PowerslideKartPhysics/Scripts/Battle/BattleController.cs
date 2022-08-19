@@ -107,6 +107,7 @@ namespace PowerslideKartPhysics
                     ki.enabled = true;
                     if (ki is BattleWaypointFollower) {
                         ((BattleWaypointFollower)ki).targetPoint = ba.currentPoint;
+                        ((BattleWaypointFollower)ki).Initialize();
                     }
                 }
             }
