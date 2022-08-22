@@ -8,11 +8,11 @@ namespace PowerslideKartPhysics
     // Kart input class for following waypoints
     public class BasicWaypointFollowerDrift : KartInput
     {
-        Transform tr;
+        protected Transform tr;
         Rigidbody rb;
         Kart kart;
         public BasicWaypoint targetPoint;
-        BasicWaypoint nextPoint;
+        protected BasicWaypoint nextPoint;
         public float steerAmount = 10f;
         public float maxBrake = 0.2f;
         public float minAccel = 0.5f;
@@ -38,31 +38,30 @@ namespace PowerslideKartPhysics
             Initialize();
         }
 
-        public void Initialize()
-        {
-            if (targetPoint != null)
-            {
+        public void Initialize() {
+            if (targetPoint != null) {
                 nextPoint = targetPoint.GetNextPoint();
             }
         }
 
-        public override void Update() {
+        protected virtual void CheckPointOverlap() {
+            if (targetPoint == null) { return; }
+
+            // Setting next point upon touching point
+            if ((targetPoint.transform.position - tr.position).sqrMagnitude <= targetPoint.radius * targetPoint.radius) {
+                targetPoint = targetPoint.GetNextPoint();
+                if (targetPoint != null) {
+                    nextPoint = targetPoint.GetNextPoint();
+                }
+            }
+        }
+
+        protected virtual void ProcessInput() {
             if (targetPoint == null || nextPoint == null || theKart == null) { return; }
             if (theKart.rotator == null) { return; }
 
             Vector3 targetPos = Vector3.Lerp(targetPoint.transform.position, nextPoint.transform.position, 1.0f - Mathf.Clamp01(Vector3.Distance(tr.position, targetPoint.transform.position) * distanceAdvanceFactor));
-
-            // Setting next point upon touching point
             Vector3 targetDir = targetPos - tr.position;
-            if ((targetPoint.transform.position - tr.position).sqrMagnitude <= targetPoint.radius * targetPoint.radius)
-            {
-                targetPoint = targetPoint.GetNextPoint();
-                if (targetPoint != null)
-                {
-                    nextPoint = targetPoint.GetNextPoint();
-                }
-            }
-
             float forwardDot = Vector3.Dot(targetDir.normalized, theKart.rotator.forward);
             float rightDot = Vector3.Dot(targetDir.normalized, theKart.rotator.right);
 
@@ -106,6 +105,7 @@ namespace PowerslideKartPhysics
                 if (reverseTime > reverseDuration) {
                     reversing = false;
                     reverseTime = 0.0f;
+                    StopReversing();
                 }
 
                 // Setting reverse input
@@ -114,7 +114,13 @@ namespace PowerslideKartPhysics
                 targetSteer = reverseSteer;
                 drifting = false;
             }
+        }
 
+        protected virtual void StopReversing() { }
+
+        public override void Update() {
+            CheckPointOverlap();
+            ProcessInput();
             base.Update();
         }
     }

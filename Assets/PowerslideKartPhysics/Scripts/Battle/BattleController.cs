@@ -36,6 +36,26 @@ namespace PowerslideKartPhysics
             allWaypoints = FindObjectsOfType<BattleWaypoint>();
         }
 
+        public void CalculateWaypointConnections() {
+            if (allWaypoints == null || !Application.isPlaying) {
+                allWaypoints = FindObjectsOfType<BattleWaypoint>();
+            }
+
+            foreach (BattleWaypoint waypoint in allWaypoints) {
+                waypoint.CalculateConnections(allWaypoints);
+            }
+        }
+
+        public void SnapWaypointsToGround() {
+            if (allWaypoints == null || !Application.isPlaying) {
+                allWaypoints = FindObjectsOfType<BattleWaypoint>();
+            }
+
+            foreach (BattleWaypoint waypoint in allWaypoints) {
+                waypoint.SnapToGround();
+            }
+        }
+
         // Finds all karts and adds them to the appropriate lists
         public void FetchAllKarts() {
             allKarts = FindObjectsOfType<BattleAgent>();
@@ -49,9 +69,10 @@ namespace PowerslideKartPhysics
             if (availablePoints.Count > 0) {
                 // Spawn the player kart
                 int spawnPointIndex = Random.Range(0, availablePoints.Count);
+                BattleWaypoint spawnPoint = availablePoints[spawnPointIndex];
                 if (playerKart != null) {
-                    playerKart.position = availablePoints[spawnPointIndex].transform.position;
-                    playerKart.rotation = Quaternion.LookRotation(new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(-1.0f, 1.0f)), Vector3.up);
+                    playerKart.position = spawnPoint.transform.position;
+                    playerKart.rotation = Quaternion.LookRotation((spawnPoint.GetNextPoint().transform.position - spawnPoint.transform.position).normalized, Vector3.up);
                     KartInput ki = playerKart.GetComponent<KartInput>();
                     if (ki != null) {
                         ki.enabled = false;
@@ -59,7 +80,7 @@ namespace PowerslideKartPhysics
 
                     BattleAgent ba = playerKart.GetComponent<BattleAgent>();
                     if (ba != null) {
-                        ba.currentPoint = availablePoints[spawnPointIndex];
+                        ba.currentPoint = spawnPoint;
                     }
 
                     playerAgent = playerKart.GetComponent<BattleAgent>();
@@ -70,10 +91,11 @@ namespace PowerslideKartPhysics
                 int spawnedKarts = 0;
                 while (spawnedKarts < aiKartsToSpawn.Length && availablePoints.Count > 0) {
                     spawnPointIndex = Random.Range(0, availablePoints.Count);
-                    GameObject newKart = Instantiate(aiKartsToSpawn[spawnedKarts], availablePoints[spawnPointIndex].transform.position, Quaternion.LookRotation(new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(-1.0f, 1.0f)), Vector3.up));
+                    spawnPoint = availablePoints[spawnPointIndex];
+                    GameObject newKart = Instantiate(aiKartsToSpawn[spawnedKarts], spawnPoint.transform.position, Quaternion.LookRotation((spawnPoint.GetNextPoint().transform.position - spawnPoint.transform.position).normalized, Vector3.up));
                     BattleAgent ba = newKart.GetComponent<BattleAgent>();
                     if (ba != null) {
-                        ba.currentPoint = availablePoints[spawnPointIndex];
+                        ba.currentPoint = spawnPoint;
                     }
 
                     KartInput ki = newKart.GetComponent<KartInput>();
@@ -106,7 +128,7 @@ namespace PowerslideKartPhysics
                 if (ki != null && ba != null) {
                     ki.enabled = true;
                     if (ki is BattleWaypointFollower) {
-                        ((BattleWaypointFollower)ki).targetPoint = ba.currentPoint;
+                        ((BattleWaypointFollower)ki).targetPoint = ba.currentPoint.GetNextPoint();
                         ((BattleWaypointFollower)ki).Initialize();
                     }
                 }

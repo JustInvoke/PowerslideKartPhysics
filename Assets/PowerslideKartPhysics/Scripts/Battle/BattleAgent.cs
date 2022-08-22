@@ -35,21 +35,11 @@ namespace PowerslideKartPhysics
             }
         }
 
-        private void FixedUpdate() {
-            if (currentPoint != null) {
-                // Check to see if the kart is overlapping a succeeding waypoint
-                foreach (BattleWaypoint waypoint in currentPoint.connectedPoints) {
-                    if (CheckWaypointOverlap(waypoint)) {
-                        currentPoint = waypoint;
-                    }
-                }
+        private void OnTriggerEnter(Collider other) {
+            BattleWaypoint point = other.GetComponent<BattleWaypoint>();
+            if (point != null) {
+                currentPoint = point;
             }
-        }
-
-        // Checks to see if the kart is within the range of the given waypoint
-        bool CheckWaypointOverlap(BattleWaypoint point) {
-            if (point == null || tr == null) { return false; }
-            return (tr.position - point.transform.position).sqrMagnitude <= point.radius * point.radius;
         }
 
         // Respawns the kart by moving it to the last touched waypoint

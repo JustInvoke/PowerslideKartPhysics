@@ -1000,8 +1000,7 @@ namespace PowerslideKartPhysics
         }
 
         // End drift state
-        public void CancelDrift()
-        {
+        public void CancelDrift() {
             drifting = false;
             driftDir = 0;
             driftSwingTime = 0.0f;
@@ -1040,22 +1039,19 @@ namespace PowerslideKartPhysics
         }
 
         // Ending drift auto boost
-        public void CancelDriftBoost(bool failed)
-        {
+        public void CancelDriftBoost(bool failed) {
             boostTime = 0.0f;
             boostFailed = failed;
             boostCount = 0;
         }
 
         // Remove current boost amount being used
-        public void EmptyBoostReserve()
-        {
+        public void EmptyBoostReserve() {
             boostReserve = 0.0f;
         }
 
         // Cancels jumping state to stop the air time boost from being rewarded upon landing
-        public void CancelJump()
-        {
+        public void CancelJump() {
             jumped = false;
         }
 

@@ -65,5 +65,9 @@ namespace PowerslideKartPhysics
         {
             return Mathf.Floor(time / 60).ToString("00") + ":" + Mathf.Floor(time % 60).ToString("00") + "." + (time * 100 % 100).ToString("00");
         }
+
+        public static Vector3 Flat(this Vector3 v) {
+            return new Vector3(v.x, 0.0f, v.z);
+        }
     }
 }
