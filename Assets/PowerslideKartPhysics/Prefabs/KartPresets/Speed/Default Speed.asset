@@ -21,5 +21,6 @@ MonoBehaviour:
   airDriveFriction: 0
   autoStopSpeed: 1
   autoStopForce: 5
+  autoStopNormalDotLimit: 0.9
   maxFallSpeed: 40
   spinDecel: 1

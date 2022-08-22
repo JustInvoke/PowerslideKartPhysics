@@ -17,6 +17,7 @@ namespace PowerslideKartPhysics
         public float airDriveFriction = 0.0f;
         public float autoStopSpeed = 1.0f;
         public float autoStopForce = 1.0f;
+        public float autoStopNormalDotLimit = 0.9f;
         public float maxFallSpeed = 30f;
         public float spinDecel = 1.0f;
     }

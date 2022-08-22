@@ -65,6 +65,7 @@ namespace PowerslideKartPhysics
         public float velMag;
         public float autoStopSpeed = 1.0f;
         public float autoStopForce = 1.0f;
+        public float autoStopNormalDotLimit = 0.9f;
         float targetInput = 0.0f;
         public float maxFallSpeed = 30f;
         float maxGroundFriction = 1.0f;
@@ -420,13 +421,14 @@ namespace PowerslideKartPhysics
                         * Mathf.Clamp01(1.0f + slopeFriction - Vector3.Dot(forwardDir * Mathf.Sign(targetSpeed), currentGravityDir)), ForceMode.Acceleration);
 
                     // Staying parked at low speed
-                    if (Mathf.Abs(targetInput) < 0.001f && velMag < autoStopSpeed) {
+                    if (Mathf.Abs(targetInput) < 0.001f && velMag < autoStopSpeed && Vector3.Dot(groundNormal, currentGravityDir) > autoStopNormalDotLimit) {
                         rb.AddForce(-rb.velocity * autoStopForce, ForceMode.Acceleration);
+                        rb.AddForce(-Vector3.ProjectOnPlane((rb.useGravity ? Physics.gravity : Vector3.zero) + currentGravityDir * gravityAdd, groundNormal), ForceMode.Acceleration); // Canceling out sliding on slopes due to gravity
                     }
                 }
 
                 // Land event invocation
-                if (!wasGrounded && Time.timeSinceLevelLoad - lastLandTime >= 0.2f) {
+                if (!wasGrounded && Time.timeSinceLevelLoad - lastLandTime >= 0.2f && localVel.y < -1.0f) {
                     lastLandTime = Time.timeSinceLevelLoad;
                     landEvent.Invoke();
                 }
@@ -699,14 +701,11 @@ namespace PowerslideKartPhysics
                 airGrounded = false;
             }
 
-            // Clear ground hits
-            for (int i = 0; i < groundHits.Length; i++) {
-                groundHits[i] = new RaycastHit();
-            }
             RaycastHit hit = new RaycastHit();
 
             // Asynchronous wheel raycasting (visual)
             if (oneWheelCastPerFrame) {
+                ClearGroundHits();
                 KartWheel curWheel = wheels[curWheelCast];
                 bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
@@ -744,6 +743,7 @@ namespace PowerslideKartPhysics
             else // Simultaneous wheel raycasting (visual)
             {
                 for (int i = 0; i < wheels.Length; i++) {
+                    ClearGroundHits();
                     KartWheel curWheel = wheels[i];
                     bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
@@ -780,16 +780,13 @@ namespace PowerslideKartPhysics
                 }
             }
 
-            // Clear ground hits
-            for (int i = 0; i < groundHits.Length; i++) {
-                groundHits[i] = new RaycastHit();
-            }
             groundVel = Vector3.zero;
             groundAngVel = Vector3.zero;
             int groundedWheels = 0;
 
             // Asynchronous wheel raycasting (physics/stable points)
             if (oneWheelCastPerFrame) {
+                ClearGroundHits();
                 KartWheel curWheel = wheels[curWheelCast];
                 bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[curWheelCast]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
@@ -817,6 +814,7 @@ namespace PowerslideKartPhysics
             else // Simultaneous wheel raycasting (physics/stable points)
             {
                 for (int i = 0; i < wheels.Length; i++) {
+                    ClearGroundHits();
                     KartWheel curWheel = wheels[i];
                     bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[i]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
@@ -853,13 +851,10 @@ namespace PowerslideKartPhysics
 
             // If not grounded, check for air grounded state with corner raycasts
             if (!grounded) {
-                // Clear ground hits
-                for (int i = 0; i < groundHits.Length; i++) {
-                    groundHits[i] = new RaycastHit();
-                }
 
                 // Asynchronous corner raycasting
                 if (oneCornerCastPerFrame) {
+                    ClearGroundHits();
                     bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[curCornerCast], -upDir, groundHits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                     if (cornerHit) {
@@ -877,6 +872,7 @@ namespace PowerslideKartPhysics
                 else // Simultaneous corner raycasting
                 {
                     for (int i = 0; i < cornerCastPoints.Length; i++) {
+                        ClearGroundHits();
                         bool cornerHit = Physics.RaycastNonAlloc(cornerCastPoints[i], -upDir, groundHits, cornerCastDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                         if (cornerHit) {
@@ -926,16 +922,23 @@ namespace PowerslideKartPhysics
             hit = new RaycastHit();
             if (hits == null) { return false; }
 
+            bool hitted = false;
+            float minDist = Mathf.Infinity;
             for (int i = 0; i < hits.Length; i++) {
-                if (hits[i].collider != null) {
-                    if (!hits[i].collider.transform.IsChildOf(tr)) {
-                        hit = hits[i];
-                        return true;
-                    }
+                if (hits[i].collider != null && !hits[i].collider.transform.IsChildOf(tr) && (hits[i].distance < minDist || !hitted)) {
+                    hit = hits[i];
+                    minDist = hits[i].distance;
+                    hitted = true;
                 }
             }
+            return hitted;
+        }
 
-            return false;
+        // Clears the ground hits so no old hits are used for different wheels
+        void ClearGroundHits() {
+            for (int i = 0; i < groundHits.Length; i++) {
+                groundHits[i] = new RaycastHit();
+            }
         }
 
         Vector3 nearestSurfacePoint = Vector3.zero;

@@ -96,6 +96,7 @@ namespace PowerslideKartPhysics
             kart.airDriveFriction = preset.airDriveFriction;
             kart.autoStopSpeed = preset.autoStopSpeed;
             kart.autoStopForce = preset.autoStopForce;
+            kart.autoStopNormalDotLimit = preset.autoStopNormalDotLimit;
             kart.maxFallSpeed = preset.maxFallSpeed;
             kart.spinDecel = preset.spinDecel;
         }
@@ -113,6 +114,7 @@ namespace PowerslideKartPhysics
             preset.airDriveFriction = kart.airDriveFriction;
             preset.autoStopSpeed = kart.autoStopSpeed;
             preset.autoStopForce = kart.autoStopForce;
+            preset.autoStopNormalDotLimit = kart.autoStopNormalDotLimit;
             preset.maxFallSpeed = kart.maxFallSpeed;
             preset.spinDecel = kart.spinDecel;
             SaveAssets(preset);
