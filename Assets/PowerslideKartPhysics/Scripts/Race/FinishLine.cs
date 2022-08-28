@@ -15,7 +15,7 @@ namespace PowerslideKartPhysics
 
         // When a kart touches the trigger, this class evaluates whether it has completed a valid lap
         private void OnTriggerEnter(Collider other) {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Karts")) {
+            if (other.gameObject.layer == LayerInfo.KartLayer) {
                 RaceAgent finishedKart = F.GetTopmostParentComponent<RaceAgent>(other.transform);
                 if (finishedKart != null) {
                     if (finishedKart.GetLapProgress() >= minLapCompletion) {

@@ -12,6 +12,7 @@ namespace PowerslideKartPhysics
         public float radius = 1.0f;
         public int index = 0;
         public float groundSnapOffset = 1.0f;
+        public float maxGroundSnapSteps = 1000;
 
         // Returns the next waypoint in the path
         public virtual BasicWaypoint GetNextPoint() {
@@ -29,9 +30,16 @@ namespace PowerslideKartPhysics
         }
 
         public void SnapToGround() {
-            RaycastHit hit = new RaycastHit();
-            if (Physics.Raycast(transform.position + Vector3.up * 5.0f, Vector3.down, out hit, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore)) {
-                transform.position = hit.point + Vector3.up * groundSnapOffset;
+            int stepCount = 0;
+            Vector3 castStart = transform.position + Vector3.up * 5.0f;
+            while (stepCount < maxGroundSnapSteps) {
+                RaycastHit hit = new RaycastHit();
+                if (Physics.Raycast(castStart, Vector3.down, out hit, Mathf.Infinity, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                    transform.position = hit.point + Vector3.up * groundSnapOffset;
+                    break;
+                }
+                castStart += Vector3.up;
+                stepCount++;
             }
         }
     }

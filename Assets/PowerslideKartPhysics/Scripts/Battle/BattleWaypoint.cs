@@ -1,4 +1,5 @@
 ﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace PowerslideKartPhysics
     public class BattleWaypoint : BasicWaypoint
     {
         public List<BattleWaypoint> connectedPoints = new List<BattleWaypoint>(); // Points that this one is connected to
+        public float maxConnectionSteepness = 0.5f;
+        public float connectionStepDistance = 1.0f;
+        public int maxConnectionSteps = 1000;
+        public float similarConnectionAngleDotLimit = 0.9f;
+        public bool showDebugConnections;
 
         public void CalculateConnections(BattleWaypoint[] suppliedPoints = null) {
             if (suppliedPoints == null) {
@@ -24,50 +30,25 @@ namespace PowerslideKartPhysics
 
         public void PurgeInvalidConnections() {
             List<BattleWaypoint> purgedPoints = new List<BattleWaypoint>();
+            CheckAllWaypoints(connectedPoints, (point) => { purgedPoints.Add(point); }, null);
+
+            foreach (BattleWaypoint point in purgedPoints) {
+                connectedPoints.Remove(point);
+            }
+
+            purgedPoints.Clear();
+
             foreach (BattleWaypoint point in connectedPoints) {
-                if (point != null && point != this) {
-                    Vector3 startToEnd = (point.transform.position - transform.position).Flat().normalized;
-                    float maxSteepness = 0.5f;
-                    float stepDistance = 1.0f;
-                    Vector3 curCheckPoint = transform.position;
-                    int loopCount = 0;
-                    while (Vector3.Distance(curCheckPoint.Flat(), point.transform.position.Flat()) > point.radius * 0.5f) {
-                        if (Vector3.Distance(curCheckPoint, point.transform.position) < point.radius && !Physics.Linecast(curCheckPoint, point.transform.position, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                            break;
+                foreach (BattleWaypoint point2 in connectedPoints) {
+                    Vector3 toPoint = (point.transform.position - transform.position);
+                    Vector3 toPoint2 = (point2.transform.position - transform.position);
+                    if (point != point2 && Vector3.Dot(toPoint.normalized, toPoint2.normalized) > similarConnectionAngleDotLimit && !purgedPoints.Contains(point) && !purgedPoints.Contains(point2)) {
+                        if (toPoint.sqrMagnitude < toPoint2.sqrMagnitude) {
+                            purgedPoints.Add(point2);
                         }
-
-                        RaycastHit hit = new RaycastHit();
-                        if (Physics.Raycast(curCheckPoint, startToEnd, out hit, stepDistance, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                            if (Vector3.Dot(hit.normal, Vector3.up) < 1.0f - maxSteepness) {
-                                purgedPoints.Add(point);
-                                break;
-                            }
-                            curCheckPoint += Vector3.ProjectOnPlane(startToEnd, hit.normal).normalized * stepDistance + hit.normal * 0.1f;
-                        }
-                        else if (Physics.Raycast(curCheckPoint, Vector3.down, out hit, Mathf.Infinity, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                            RaycastHit hit2 = new RaycastHit();
-                            if (Physics.Raycast(hit.point + hit.normal * 0.1f, Vector3.ProjectOnPlane(startToEnd, hit.normal).normalized, out hit2, stepDistance, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                                curCheckPoint = hit2.point + hit2.normal * 0.1f;
-                            }
-                            else {
-                                curCheckPoint = hit.point + Vector3.ProjectOnPlane(startToEnd, hit.normal).normalized * stepDistance + hit.normal * 0.1f;
-                            }
-                        }
-                        else {
+                        else if (toPoint.sqrMagnitude >= toPoint2.sqrMagnitude) {
                             purgedPoints.Add(point);
-                            break;
-                            //curCheckPoint += startToEnd * stepDistance;
                         }
-
-                        loopCount++;
-                        if (loopCount > 1000) {
-                            purgedPoints.Add(point);
-                            break;
-                        }
-                    }
-
-                    if (Physics.Linecast(curCheckPoint, point.transform.position, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                        purgedPoints.Add(point);
                     }
                 }
             }
@@ -78,7 +59,90 @@ namespace PowerslideKartPhysics
         }
 
         public override BasicWaypoint GetNextPoint() {
-            return connectedPoints[Random.Range(0, connectedPoints.Count)];
+            return connectedPoints[UnityEngine.Random.Range(0, connectedPoints.Count)];
+        }
+
+        private void CheckAllWaypoints(List<BattleWaypoint> suppliedPoints, Action<BattleWaypoint> connectionFailed, Action<BattleWaypoint> connectionSucceeded, Action<Vector3, Vector3> postCheck = null) {
+            foreach (BattleWaypoint point in suppliedPoints) {
+                if (point != null && point != this) {
+                    Vector3 startToEnd = (point.transform.position - transform.position).Flat().normalized;
+                    Vector3 curCheckPoint = transform.position;
+                    Vector3 prevCheckPoint;
+                    int stepCount = 0;
+                    while (Vector3.Distance(curCheckPoint.Flat(), point.transform.position.Flat()) > point.radius * 0.5f) {
+                        if (Vector3.Distance(curCheckPoint, point.transform.position) < point.radius && !Physics.Linecast(curCheckPoint, point.transform.position, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                            connectionSucceeded?.Invoke(point);
+                            break;
+                        }
+
+                        prevCheckPoint = curCheckPoint;
+                        RaycastHit hit = new RaycastHit();
+                        if (Physics.Raycast(curCheckPoint, startToEnd, out hit, connectionStepDistance, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                            if (SteepnessCheck(hit)) {
+                                connectionFailed?.Invoke(point);
+                                break;
+                            }
+                            curCheckPoint += StraightProjection(startToEnd, hit.normal).normalized * connectionStepDistance + Vector3.up * 0.1f;
+                        }
+                        else if (Physics.Raycast(curCheckPoint, Vector3.down, out hit, Mathf.Infinity, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                            if (SteepnessCheck(hit)) {
+                                connectionFailed?.Invoke(point);
+                                break;
+                            }
+
+                            RaycastHit hit2 = new RaycastHit();
+                            if (Physics.Raycast(hit.point + Vector3.up * 0.1f, StraightProjection(startToEnd, hit.normal).normalized, out hit2, connectionStepDistance, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                                if (SteepnessCheck(hit2)) {
+                                    connectionFailed?.Invoke(point);
+                                    break;
+                                }
+
+                                curCheckPoint = hit2.point + Vector3.up * 0.1f;
+                            }
+                            else {
+                                curCheckPoint = hit.point + StraightProjection(startToEnd, hit.normal).normalized * connectionStepDistance + Vector3.up * 0.1f;
+                            }
+                        }
+                        else {
+                            connectionFailed?.Invoke(point);
+                            break;
+                        }
+
+                        postCheck?.Invoke(prevCheckPoint, curCheckPoint);
+
+                        stepCount++;
+                        if (stepCount > maxConnectionSteps) {
+                            break;
+                        }
+                    }
+
+                    if (Physics.Linecast(curCheckPoint, point.transform.position, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                        connectionFailed?.Invoke(point);
+                    }
+                }
+            }
+
+            bool SteepnessCheck(RaycastHit hit) {
+                return Vector3.Dot(hit.normal, Vector3.up) < 1.0f - maxConnectionSteepness;
+            }
+        }
+
+        private Vector3 StraightProjection(Vector3 vector, Vector3 planeNormal) {
+            return new Vector3(vector.x, vector.magnitude * Mathf.Tan(Vector3.Angle(planeNormal, Vector3.up) * Mathf.Deg2Rad), vector.z);
+        }
+
+        Vector3 InterpolateSine(Vector3 start, Vector3 end, float t, float sineAmpAdd = 0.0f) {
+            float sine = Mathf.Sin(t * Mathf.PI);
+            return Vector3.Lerp(start, end, t) + Vector3.Cross(end - start, Vector3.up).normalized * (sine * Mathf.Sqrt(Vector3.Distance(start, end) + sineAmpAdd)) + Vector3.up * sine * 10f;
+        }
+
+        private void DrawConnectionArc(Vector3 start, Vector3 end) {
+            for (float i = 0.0f; i <= 0.8f; i += 0.2f) {
+                Gizmos.color = new Color(0.0f, Mathf.Pow(i + 0.05f, 0.1f), Mathf.Pow(1.0f - i, 0.4f));
+                Gizmos.DrawLine(InterpolateSine(start, end, i), InterpolateSine(start, end, i + 0.2f));
+                Gizmos.DrawLine(InterpolateSine(start, end, i, 30f), InterpolateSine(start, end, i + 0.05f));
+                Gizmos.DrawLine(InterpolateSine(start, end, i, -30f), InterpolateSine(start, end, i + 0.05f));
+            }
         }
 
         protected override void OnDrawGizmos() {
@@ -88,68 +152,24 @@ namespace PowerslideKartPhysics
             // Draw lines to connected points
             foreach (BattleWaypoint point in connectedPoints) {
                 if (point != null && point != this) {
-                    for (float i = 0.0f; i <= 0.8f; i += 0.2f) {
-                        //break;
-                        Gizmos.color = new Color(0.0f, Mathf.Pow(i + 0.05f, 0.1f), Mathf.Pow(1.0f - i, 0.4f));
-                        Gizmos.DrawLine(InterpolateSine(transform.position, point.transform.position, i), InterpolateSine(transform.position, point.transform.position, i + 0.2f));
-                        Gizmos.DrawLine(InterpolateSine(transform.position, point.transform.position, i, 30f), InterpolateSine(transform.position, point.transform.position, i + 0.05f));
-                        Gizmos.DrawLine(InterpolateSine(transform.position, point.transform.position, i, -30f), InterpolateSine(transform.position, point.transform.position, i + 0.05f));
-                    }
-                    continue;
-                    Gizmos.color = Color.red;
-                    Vector3 startToEnd = (point.transform.position - transform.position).Flat().normalized;
-                    float maxSteepness = 0.5f;
-                    float stepDistance = 2.0f;
-                    Vector3 curCheckPoint = transform.position;
-                    Vector3 prevCheckPoint;
-                    int loopCount = 0;
-                    while (Vector3.Distance(curCheckPoint.Flat(), point.transform.position.Flat()) > point.radius * 0.5f) {
-                        if (Vector3.Distance(curCheckPoint, point.transform.position) < point.radius && !Physics.Linecast(curCheckPoint, point.transform.position, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                            Gizmos.color = Color.green;
-                            for (float i = 0.0f; i < 0.9f; i += 0.1f) {
-                                Gizmos.color = new Color(0.0f, Mathf.Pow(i + 0.05f, 0.1f), Mathf.Pow(1.0f - i, 0.4f));
-                                Gizmos.DrawLine(InterpolateSine(transform.position, point.transform.position, i), InterpolateSine(transform.position, point.transform.position, i + 0.1f));
-                                Gizmos.DrawLine(InterpolateSine(transform.position, point.transform.position, i, 30f), InterpolateSine(transform.position, point.transform.position, i + 0.05f));
-                                Gizmos.DrawLine(InterpolateSine(transform.position, point.transform.position, i, -30f), InterpolateSine(transform.position, point.transform.position, i + 0.05f));
-                            }
-                            break;
-                        }
-
-                        prevCheckPoint = curCheckPoint;
-                        RaycastHit hit = new RaycastHit();
-                        if (Physics.Raycast(curCheckPoint, startToEnd, out hit, stepDistance, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                            if (Vector3.Dot(hit.normal, Vector3.up) < 1.0f - maxSteepness) {
-                                break;
-                            }
-                            curCheckPoint += Vector3.ProjectOnPlane(startToEnd, hit.normal).normalized * stepDistance + hit.normal * 0.1f;
-                        }
-                        else if (Physics.Raycast(curCheckPoint, Vector3.down, out hit, Mathf.Infinity, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                            RaycastHit hit2 = new RaycastHit();
-                            if (Physics.Raycast(hit.point + hit.normal * 0.1f, Vector3.ProjectOnPlane(startToEnd, hit.normal).normalized, out hit2, stepDistance, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
-                                curCheckPoint = hit2.point + hit2.normal * 0.1f;
-                            }
-                            else {
-                                curCheckPoint = hit.point + Vector3.ProjectOnPlane(startToEnd, hit.normal).normalized * stepDistance + hit.normal * 0.1f;
-                            }
-                        }
-                        else {
-                            break;
-                            //curCheckPoint += startToEnd * stepDistance;
-                        }
-                        Gizmos.DrawLine(prevCheckPoint, curCheckPoint);
-                        Gizmos.DrawWireSphere(curCheckPoint, 0.2f);
-
-                        loopCount++;
-                        if (loopCount > 200) {
-                            //Debug.Log("ouch");
-                            break;
-                        }
-                    }
+                    DrawConnectionArc(transform.position, point.transform.position);
                 }
             }
+        }
 
-            Vector3 InterpolateSine(Vector3 start, Vector3 end, float t, float sineAmpAdd = 0.0f) {
-                return Vector3.Lerp(start, end, t) + Vector3.Cross(end - start, Vector3.up).normalized * (Mathf.Sin(t * Mathf.PI) * Mathf.Sqrt(Vector3.Distance(start, end) + sineAmpAdd));
+        private void OnDrawGizmosSelected() {
+            if (showDebugConnections) {
+                CheckAllWaypoints(
+                    FindObjectsOfType<BattleWaypoint>().Where(wp => wp != this).ToList(),
+                    null,
+                    (point) => {
+                        DrawConnectionArc(transform.position, point.transform.position);
+                    },
+                    (prevPoint, curPoint) => {
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawLine(prevPoint, curPoint);
+                        Gizmos.DrawWireSphere(curPoint, 0.2f);
+                    });
             }
         }
     }

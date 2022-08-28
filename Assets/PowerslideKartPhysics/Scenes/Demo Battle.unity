@@ -122,6 +122,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18787027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 18787028}
+  - component: {fileID: 18787030}
+  - component: {fileID: 18787029}
+  m_Layer: 12
+  m_Name: Waypoint (73)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &18787028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18787027}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.500006, y: 20.414106, z: -74.00001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 75
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &18787029
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18787027}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &18787030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18787027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 8
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1496964910}
+  - {fileID: 84707197}
+  - {fileID: 504616029}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &65707245
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,30 +228,20 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 1471385302}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 625032566}
   - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
-  - {fileID: 641656375}
-  - {fileID: 1689924234}
-  - {fileID: 1375654717}
-  - {fileID: 1724835004}
-  - {fileID: 1596492106}
-  - {fileID: 793056114}
+  - {fileID: 714482862}
   - {fileID: 1085966658}
+  - {fileID: 1375654717}
+  - {fileID: 1596492106}
+  - {fileID: 1689924234}
+  - {fileID: 1724835004}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &65707247
 Transform:
   m_ObjectHideFlags: 0
@@ -188,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65707245}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -66.90009, y: 10.143954, z: -211.10022}
+  m_LocalPosition: {x: -66.90026, y: 10.143962, z: -211.10062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -299,6 +361,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &77399596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77399599}
+  - component: {fileID: 77399597}
+  - component: {fileID: 77399598}
+  m_Layer: 12
+  m_Name: Waypoint (38)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &77399597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77399596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 828421062}
+  - {fileID: 1427353408}
+  - {fileID: 2011939799}
+  - {fileID: 659623609}
+  - {fileID: 1211025322}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &77399598
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77399596}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &77399599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77399596}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -477.7007, y: -0.5559113, z: -167.10034}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 40
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &84707196
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,13 +468,20 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
+  - {fileID: 303455159}
+  - {fileID: 1120443959}
+  - {fileID: 504616029}
+  - {fileID: 748542208}
   - {fileID: 1057982702}
   - {fileID: 2082520092}
   - {fileID: 2102274412}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &84707198
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -361,7 +503,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84707196}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 76.00004, y: 1.0709465, z: -36.90004}
+  m_LocalPosition: {x: 76.00004, y: 1.0709426, z: -36.90016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -479,6 +621,228 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &139290075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 139290078}
+  - component: {fileID: 139290076}
+  - component: {fileID: 139290077}
+  m_Layer: 12
+  m_Name: Waypoint (70)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &139290076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139290075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 454896814}
+  - {fileID: 2069113802}
+  - {fileID: 303455159}
+  - {fileID: 441189266}
+  - {fileID: 504616029}
+  - {fileID: 2082520092}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &139290077
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139290075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &139290078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139290075}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -39.200024, y: 15.339482, z: -91.40007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 72
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &145905113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 145905116}
+  - component: {fileID: 145905114}
+  - component: {fileID: 145905115}
+  m_Layer: 12
+  m_Name: Waypoint (39)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &145905114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145905113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 15
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 828421062}
+  - {fileID: 2011939799}
+  - {fileID: 77399597}
+  - {fileID: 659623609}
+  - {fileID: 1211025322}
+  - {fileID: 1028725399}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &145905115
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145905113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &145905116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145905113}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -365.40048, y: 7.152133, z: -203.30025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 41
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &194085227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194085230}
+  - component: {fileID: 194085228}
+  - component: {fileID: 194085229}
+  m_Layer: 12
+  m_Name: Waypoint (57)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &194085228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194085227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1595365483}
+  - {fileID: 549661411}
+  - {fileID: 1704572295}
+  - {fileID: 1456647340}
+  - {fileID: 2011939799}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &194085229
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194085227}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &194085230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194085227}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -275.20035, y: -1.0797417, z: 66.80008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 59
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &299925933
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299925933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -82.80009, y: 4.815646, z: -167.30014}
+  m_LocalPosition: {x: -82.800255, y: 4.8156233, z: -167.30048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -540,17 +904,95 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 441189266}
-  - {fileID: 1471385302}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 625032566}
-  - {fileID: 341827385}
-  - {fileID: 1724835004}
+  - {fileID: 1120443959}
   - {fileID: 65707246}
+  - {fileID: 714482862}
+  - {fileID: 1942694292}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &303455158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 303455161}
+  - component: {fileID: 303455159}
+  - component: {fileID: 303455160}
+  m_Layer: 12
+  m_Name: Waypoint (61)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &303455159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303455158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 637549105}
+  - {fileID: 1905795510}
+  - {fileID: 1394944104}
+  - {fileID: 1120443959}
+  - {fileID: 949786113}
+  - {fileID: 817954130}
+  - {fileID: 84707197}
+  - {fileID: 1057982702}
+  - {fileID: 2082520092}
+  - {fileID: 2102274412}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &303455160
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303455158}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &303455161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303455158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 44.90003, y: 3.702975, z: 49.40004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 63
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341827384
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,10 +1027,15 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1811369538}
-  - {fileID: 1816743840}
   - {fileID: 641656375}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &341827386
 Transform:
   m_ObjectHideFlags: 0
@@ -597,7 +1044,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341827384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -45.800102, y: -0.6351807, z: -291.8006}
+  m_LocalPosition: {x: -45.800377, y: -0.6351807, z: -291.80164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -642,7 +1089,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342353659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.0999694, y: -0.33917546, z: -129.70015}
+  m_LocalPosition: {x: -3.0999694, y: -0.33919072, z: -129.70032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -677,12 +1124,16 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 748542208}
   - {fileID: 504616029}
+  - {fileID: 2082520092}
+  - {fileID: 2102274412}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &379396421
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +1199,47 @@ Transform:
   - {fileID: 2082520094}
   - {fileID: 1057982700}
   - {fileID: 1383122734}
+  - {fileID: 1211025320}
+  - {fileID: 1234593993}
+  - {fileID: 659623611}
+  - {fileID: 77399599}
+  - {fileID: 145905116}
+  - {fileID: 668018545}
+  - {fileID: 2011939801}
+  - {fileID: 1427353410}
+  - {fileID: 1456647342}
+  - {fileID: 810746437}
+  - {fileID: 1704572297}
+  - {fileID: 549661413}
+  - {fileID: 460322099}
+  - {fileID: 1095629682}
+  - {fileID: 817954132}
+  - {fileID: 1707340638}
+  - {fileID: 949786115}
+  - {fileID: 1120443961}
+  - {fileID: 1595365485}
+  - {fileID: 1122090842}
+  - {fileID: 1394944106}
+  - {fileID: 1056425416}
+  - {fileID: 194085230}
+  - {fileID: 1905795512}
+  - {fileID: 1146133148}
+  - {fileID: 705894761}
+  - {fileID: 303455161}
+  - {fileID: 637549107}
+  - {fileID: 981820995}
+  - {fileID: 1795172776}
+  - {fileID: 734661900}
+  - {fileID: 1919904926}
+  - {fileID: 997998728}
+  - {fileID: 575365284}
+  - {fileID: 2069113804}
+  - {fileID: 139290078}
+  - {fileID: 454896812}
+  - {fileID: 1496964912}
+  - {fileID: 18787028}
+  - {fileID: 1416089100}
+  - {fileID: 828421060}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1175,7 +1667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441189263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -69.20002, y: 2.9406345, z: -34.600006}
+  m_LocalPosition: {x: -69.20027, y: 2.9406393, z: -34.60009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1210,15 +1702,169 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
+  - {fileID: 454896814}
+  - {fileID: 139290076}
+  - {fileID: 1905795510}
+  - {fileID: 1704572295}
+  - {fileID: 1057982702}
   - {fileID: 1383122736}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &454896811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 454896812}
+  - component: {fileID: 454896814}
+  - component: {fileID: 454896813}
+  m_Layer: 12
+  m_Name: Waypoint (71)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &454896812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454896811}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -39.20003, y: 3.6443965, z: -42.300037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 73
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &454896813
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454896811}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &454896814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454896811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 139290076}
+  - {fileID: 1905795510}
+  - {fileID: 1707340636}
+  - {fileID: 84707197}
+  - {fileID: 342353662}
+  - {fileID: 441189266}
   - {fileID: 1057982702}
   - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 1576260568}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &460322096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 460322099}
+  - component: {fileID: 460322097}
+  - component: {fileID: 460322098}
+  m_Layer: 12
+  m_Name: Waypoint (47)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &460322097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460322096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1122090840}
+  - {fileID: 1595365483}
+  - {fileID: 1095629680}
+  - {fileID: 549661411}
+  - {fileID: 810746435}
+  - {fileID: 2082520092}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &460322098
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460322096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &460322099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460322096}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -266.4003, y: 11.143262, z: 296.40033}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 49
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &504616026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,7 +1891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504616026}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71.70005, y: -0.22928166, z: -123.30018}
+  m_LocalPosition: {x: 71.70005, y: -0.22928166, z: -123.300316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1280,13 +1926,93 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
   - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 748542208}
   - {fileID: 342353662}
+  - {fileID: 748542208}
+  - {fileID: 2082520092}
+  - {fileID: 2102274412}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &549661410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549661413}
+  - component: {fileID: 549661411}
+  - component: {fileID: 549661412}
+  m_Layer: 12
+  m_Name: Waypoint (46)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &549661411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549661410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 194085228}
+  - {fileID: 1122090840}
+  - {fileID: 1595365483}
+  - {fileID: 1095629680}
+  - {fileID: 460322097}
+  - {fileID: 1704572295}
+  - {fileID: 1456647340}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &549661412
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549661410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &549661413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549661410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -247.0003, y: 4.3498964, z: 194.30026}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 48
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &556336124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,7 +2039,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556336124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -116.80012, y: -1.2732356, z: -73.00001}
+  m_LocalPosition: {x: -259.90036, y: 2.805045, z: -131.60017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1330,7 +2056,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &556336127
 MonoBehaviour:
@@ -1345,13 +2071,96 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPoint: {fileID: 0}
+  radius: 15
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1416089098}
+  - {fileID: 705894759}
+  - {fileID: 1427353408}
+  - {fileID: 668018547}
+  - {fileID: 145905114}
+  - {fileID: 1309445960}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &575365281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 575365284}
+  - component: {fileID: 575365282}
+  - component: {fileID: 575365283}
+  m_Layer: 12
+  m_Name: Waypoint (68)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &575365282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575365281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 441189266}
-  - {fileID: 1028725399}
-  - {fileID: 625032566}
+  - {fileID: 2069113802}
+  - {fileID: 997998726}
+  - {fileID: 504616029}
+  - {fileID: 748542208}
+  - {fileID: 2082520092}
+  - {fileID: 2102274412}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &575365283
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575365281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &575365284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575365281}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 41.000034, y: 40.961624, z: -96.400085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 70
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607881583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4410894842221401078, guid: d9550c631858cd24a8963f4aebe706d0,
@@ -1400,7 +2209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625032563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -117.20011, y: -2.773969, z: -167.30014}
+  m_LocalPosition: {x: -158.70036, y: 10.143924, z: -211.20049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1417,7 +2226,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &625032566
 MonoBehaviour:
@@ -1432,18 +2241,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPoint: {fileID: 0}
-  radius: 12
+  radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 556336127}
+  - {fileID: 1211025322}
+  - {fileID: 714482862}
   - {fileID: 1028725399}
+  - {fileID: 1767828970}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &631067087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8326319701834907564, guid: 866ad654544f7114dae405e8dba2936c,
     type: 3}
   m_PrefabInstance: {fileID: 89980326}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &637549104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637549107}
+  - component: {fileID: 637549105}
+  - component: {fileID: 637549106}
+  m_Layer: 12
+  m_Name: Waypoint (62)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &637549105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637549104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 981820993}
+  - {fileID: 303455159}
+  - {fileID: 1905795510}
+  - {fileID: 1056425414}
+  - {fileID: 1120443959}
+  - {fileID: 949786113}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &637549106
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637549104}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &637549107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637549104}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 45.200024, y: 15.684339, z: 99.20005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 64
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &641656373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,7 +2364,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641656373}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34.500008, y: -0.6351807, z: -289.90054}
+  m_LocalPosition: {x: 34.500008, y: -0.6351502, z: -289.90152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1492,10 +2386,15 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1811369538}
   - {fileID: 341827385}
-  - {fileID: 1816743840}
+  - {fileID: 1811369538}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &641656376
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1509,6 +2408,77 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &659623608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659623611}
+  - component: {fileID: 659623609}
+  - component: {fileID: 659623610}
+  m_Layer: 12
+  m_Name: Waypoint (37)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &659623609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659623608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 145905114}
+  - {fileID: 77399597}
+  - {fileID: 1211025322}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &659623610
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659623608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &659623611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659623608}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -477.7007, y: -0.6351502, z: -276.5009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 39
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &661409863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +2513,156 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &668018544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668018545}
+  - component: {fileID: 668018547}
+  - component: {fileID: 668018546}
+  m_Layer: 12
+  m_Name: Waypoint (40)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &668018545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668018544}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -363.4005, y: 9.546195, z: -131.1001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 42
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &668018546
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668018544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &668018547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668018544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 15
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 828421062}
+  - {fileID: 1456647340}
+  - {fileID: 1427353408}
+  - {fileID: 2011939799}
+  - {fileID: 77399597}
+  - {fileID: 659623609}
+  - {fileID: 556336127}
+  - {fileID: 1028725399}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &705894758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705894761}
+  - component: {fileID: 705894759}
+  - component: {fileID: 705894760}
+  m_Layer: 12
+  m_Name: Waypoint (60)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &705894759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705894758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 15
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1146133146}
+  - {fileID: 194085228}
+  - {fileID: 1595365483}
+  - {fileID: 1704572295}
+  - {fileID: 1456647340}
+  - {fileID: 1427353408}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &705894760
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705894758}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &705894761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705894758}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -280.40027, y: 3.3052528, z: 9.600019}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 62
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &714482859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +2689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714482859}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -108.60012, y: 10.15031, z: -239.80016}
+  m_LocalPosition: {x: -108.6004, y: 10.15031, z: -239.80046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1604,28 +2724,20 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 441189266}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 1811369538}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
-  - {fileID: 641656375}
-  - {fileID: 1689924234}
-  - {fileID: 1375654717}
-  - {fileID: 1493500389}
-  - {fileID: 1724835004}
-  - {fileID: 1596492106}
+  - {fileID: 1211025322}
   - {fileID: 65707246}
+  - {fileID: 299925936}
+  - {fileID: 341827385}
+  - {fileID: 625032566}
+  - {fileID: 1724835004}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &720998735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8326319701834907564, guid: 866ad654544f7114dae405e8dba2936c,
@@ -1658,7 +2770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732133118}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2999969, y: 2.2332866, z: -211.10031}
+  m_LocalPosition: {x: -2.3000426, y: 2.2332942, z: -211.10104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1680,13 +2792,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 342353662}
+  - {fileID: 1704572295}
+  - {fileID: 341827385}
   - {fileID: 641656375}
-  - {fileID: 1689924234}
   - {fileID: 1596492106}
+  - {fileID: 1689924234}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &732133121
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1700,6 +2817,82 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &734661897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 734661900}
+  - component: {fileID: 734661898}
+  - component: {fileID: 734661899}
+  m_Layer: 12
+  m_Name: Waypoint (65)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &734661898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734661897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1919904924}
+  - {fileID: 1795172774}
+  - {fileID: 1905795510}
+  - {fileID: 949786113}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  - {fileID: 1456647340}
+  - {fileID: 1576260568}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &734661899
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734661897}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &734661900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734661897}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -39.000023, y: 22.586884, z: 50.900032}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 67
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &748542205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,7 +2919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748542205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 138.80017, y: -0.16240239, z: -127.30027}
+  m_LocalPosition: {x: 138.80032, y: -0.16238713, z: -127.30033}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1761,18 +2954,18 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
   - {fileID: 84707197}
-  - {fileID: 2102274412}
   - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
-  - {fileID: 641656375}
-  - {fileID: 1493500389}
   - {fileID: 793056114}
+  - {fileID: 2102274412}
+  - {fileID: 2135350435}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1001 &763017007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1882,27 +3075,21 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
   - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
-  - {fileID: 641656375}
-  - {fileID: 1689924234}
-  - {fileID: 2041384313}
+  - {fileID: 1085966658}
   - {fileID: 1493500389}
   - {fileID: 1596492106}
-  - {fileID: 1085966658}
-  - {fileID: 65707246}
+  - {fileID: 1689924234}
+  - {fileID: 1811369538}
+  - {fileID: 2041384313}
+  - {fileID: 2135350435}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &793056115
 Transform:
   m_ObjectHideFlags: 0
@@ -1911,7 +3098,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793056113}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 80.70018, y: 5.147403, z: -211.10028}
+  m_LocalPosition: {x: 80.700455, y: 5.1473646, z: -211.10086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1930,6 +3117,458 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &810746434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 810746437}
+  - component: {fileID: 810746435}
+  - component: {fileID: 810746436}
+  m_Layer: 12
+  m_Name: Waypoint (44)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &810746435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810746434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 194085228}
+  - {fileID: 1595365483}
+  - {fileID: 817954130}
+  - {fileID: 460322097}
+  - {fileID: 549661411}
+  - {fileID: 1456647340}
+  - {fileID: 1427353408}
+  - {fileID: 2011939799}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &810746436
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810746434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &810746437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810746434}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -344.00034, y: 3.1014068, z: 118.70012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 46
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &817954129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817954132}
+  - component: {fileID: 817954130}
+  - component: {fileID: 817954131}
+  m_Layer: 12
+  m_Name: Waypoint (49)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &817954130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817954129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1905795510}
+  - {fileID: 1394944104}
+  - {fileID: 949786113}
+  - {fileID: 1707340636}
+  - {fileID: 1704572295}
+  - {fileID: 84707197}
+  - {fileID: 1383122736}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &817954131
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817954129}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &817954132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817954129}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -103.60018, y: -3.4218934, z: 90.40007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 51
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &828421059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828421060}
+  - component: {fileID: 828421062}
+  - component: {fileID: 828421061}
+  m_Layer: 12
+  m_Name: Waypoint (75)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &828421060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828421059}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -363.60007, y: 2.2356822, z: -167.30048}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 77
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &828421061
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828421059}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &828421062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828421059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1416089098}
+  - {fileID: 2011939799}
+  - {fileID: 668018547}
+  - {fileID: 145905114}
+  - {fileID: 77399597}
+  - {fileID: 659623609}
+  - {fileID: 1211025322}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &949786112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 949786115}
+  - component: {fileID: 949786113}
+  - component: {fileID: 949786114}
+  m_Layer: 12
+  m_Name: Waypoint (51)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &949786113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949786112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1905795510}
+  - {fileID: 1056425414}
+  - {fileID: 1120443959}
+  - {fileID: 1707340636}
+  - {fileID: 1704572295}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &949786114
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949786112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &949786115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949786112}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 126.10017, y: 9.8336, z: 149.90018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 53
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &981820992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981820995}
+  - component: {fileID: 981820993}
+  - component: {fileID: 981820994}
+  m_Layer: 12
+  m_Name: Waypoint (63)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &981820993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981820992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1795172774}
+  - {fileID: 637549105}
+  - {fileID: 1905795510}
+  - {fileID: 1056425414}
+  - {fileID: 1394944104}
+  - {fileID: 949786113}
+  - {fileID: 1707340636}
+  - {fileID: 1704572295}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &981820994
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981820992}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &981820995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981820992}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.2999988, y: 37.913002, z: 120.60008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 65
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &997998725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997998728}
+  - component: {fileID: 997998726}
+  - component: {fileID: 997998727}
+  m_Layer: 12
+  m_Name: Waypoint (67)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &997998726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997998725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 575365282}
+  - {fileID: 1919904924}
+  - {fileID: 303455159}
+  - {fileID: 1120443959}
+  - {fileID: 84707197}
+  - {fileID: 504616029}
+  - {fileID: 748542208}
+  - {fileID: 2082520092}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &997998727
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997998725}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &997998728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997998725}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 45.40003, y: 22.760792, z: -44.90006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 69
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1001301228 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7059167496440590125, guid: 591921df556a74242b44ad9617d52b1a,
@@ -1962,7 +3601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028725396}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -116.70011, y: 2.5419261, z: -198.40015}
+  m_LocalPosition: {x: -258.70056, y: -0.3609593, z: -209.60045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -1979,7 +3618,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1028725399
 MonoBehaviour:
@@ -1994,12 +3633,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPoint: {fileID: 0}
-  radius: 12
+  radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 556336127}
+  - {fileID: 1416089098}
+  - {fileID: 1427353408}
+  - {fileID: 145905114}
+  - {fileID: 1211025322}
   - {fileID: 625032566}
+  - {fileID: 1309445960}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1032947970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,7 +3676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032947970}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -145.20016, y: 13.809346, z: -70.49999}
+  m_LocalPosition: {x: -145.20053, y: 13.809346, z: -70.49999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2061,16 +3711,16 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
   - {fileID: 1383122736}
-  - {fileID: 1057982702}
   - {fileID: 1576260568}
-  - {fileID: 556336127}
-  - {fileID: 1309445960}
-  - {fileID: 1028725399}
   - {fileID: 1767828970}
-  - {fileID: 625032566}
-  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1034002088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,6 +3902,78 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1041624526}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1056425413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1056425416}
+  - component: {fileID: 1056425414}
+  - component: {fileID: 1056425415}
+  m_Layer: 12
+  m_Name: Waypoint (56)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1056425414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056425413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1394944104}
+  - {fileID: 949786113}
+  - {fileID: 1707340636}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1056425415
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056425413}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1056425416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056425413}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 89.49998, y: 10.463849, z: 231.70026}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 58
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1057982699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,7 +4000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057982699}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6000037, y: -0.4441445, z: -8.900017}
+  m_LocalPosition: {x: 6.330003, y: -0.9911339, z: 6.519989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2313,16 +4035,21 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
+  - {fileID: 454896814}
+  - {fileID: 303455159}
+  - {fileID: 1905795510}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  - {fileID: 84707197}
   - {fileID: 1383122736}
   - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 441189266}
-  - {fileID: 1576260568}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1082251303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,23 +4184,23 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 84707197}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
-  - {fileID: 1816743840}
-  - {fileID: 641656375}
-  - {fileID: 2041384313}
-  - {fileID: 1493500389}
-  - {fileID: 1724835004}
-  - {fileID: 1596492106}
-  - {fileID: 793056114}
+  - {fileID: 1496964910}
   - {fileID: 65707246}
+  - {fileID: 299925936}
+  - {fileID: 341827385}
+  - {fileID: 793056114}
+  - {fileID: 1471385302}
+  - {fileID: 1493500389}
+  - {fileID: 1596492106}
+  - {fileID: 1724835004}
+  - {fileID: 2041384313}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &1085966659
 Transform:
   m_ObjectHideFlags: 0
@@ -2482,7 +4209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085966657}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2999892, y: 23.390604, z: -211.10025}
+  m_LocalPosition: {x: -2.299951, y: 23.390604, z: -211.10074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2501,6 +4228,369 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1095629679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095629682}
+  - component: {fileID: 1095629680}
+  - component: {fileID: 1095629681}
+  m_Layer: 12
+  m_Name: Waypoint (48)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1095629680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095629679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1394944104}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  - {fileID: 549661411}
+  - {fileID: 1704572295}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1095629681
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095629679}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1095629682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095629679}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -142.80023, y: 4.4100466, z: 233.60028}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 50
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1120443958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1120443961}
+  - component: {fileID: 1120443959}
+  - component: {fileID: 1120443960}
+  m_Layer: 12
+  m_Name: Waypoint (52)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1120443959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120443958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 303455159}
+  - {fileID: 1056425414}
+  - {fileID: 1707340636}
+  - {fileID: 84707197}
+  - {fileID: 1057982702}
+  - {fileID: 2102274412}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1120443960
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120443958}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1120443961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120443958}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 97.10001, y: 3.5864646, z: 47.900024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 54
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1122090839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122090842}
+  - component: {fileID: 1122090840}
+  - component: {fileID: 1122090841}
+  m_Layer: 12
+  m_Name: Waypoint (54)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1122090840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122090839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1595365483}
+  - {fileID: 460322097}
+  - {fileID: 549661411}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1122090841
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122090839}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1122090842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122090839}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -368.80045, y: 9.5253725, z: 331.70047}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 56
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1146133145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146133148}
+  - component: {fileID: 1146133146}
+  - component: {fileID: 1146133147}
+  m_Layer: 12
+  m_Name: Waypoint (59)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1146133146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146133145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 15
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 705894759}
+  - {fileID: 194085228}
+  - {fileID: 817954130}
+  - {fileID: 1704572295}
+  - {fileID: 1383122736}
+  - {fileID: 1576260568}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1146133147
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146133145}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1146133148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146133145}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -158.60013, y: 3.9978397, z: 9.30002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 61
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1211025319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1211025320}
+  - component: {fileID: 1211025322}
+  - component: {fileID: 1211025321}
+  m_Layer: 12
+  m_Name: Waypoint (35)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1211025320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211025319}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -257.6008, y: -0.6351807, z: -276.50098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1211025321
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211025319}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1211025322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211025319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 659623609}
+  - {fileID: 1028725399}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1222979532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,6 +4657,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1234593990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234593993}
+  - component: {fileID: 1234593991}
+  - component: {fileID: 1234593992}
+  m_Layer: 12
+  m_Name: Waypoint (36)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1234593991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234593990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 10
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1704572295}
+  - {fileID: 1028725399}
+  - {fileID: 1032947973}
+  - {fileID: 1309445960}
+  - {fileID: 1383122736}
+  - {fileID: 1576260568}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1234593992
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234593990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1234593993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234593990}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -172.50021, y: 28.230412, z: -67.50001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1309445957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,7 +4757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309445957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150.10016, y: 11.914119, z: -135.00008}
+  m_LocalPosition: {x: -173.4003, y: 11.705855, z: -130.80016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2628,15 +4792,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1383122736}
-  - {fileID: 441189266}
-  - {fileID: 1032947973}
+  - {fileID: 1234593991}
   - {fileID: 556336127}
   - {fileID: 1028725399}
+  - {fileID: 1032947973}
   - {fileID: 1767828970}
-  - {fileID: 625032566}
-  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1336652067 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -593638388042604026, guid: d9550c631858cd24a8963f4aebe706d0,
@@ -2682,7 +4849,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375654715}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.800095, y: 10.153132, z: -170.80017}
+  m_LocalPosition: {x: -48.800262, y: 10.153132, z: -170.8005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2704,26 +4871,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1383122736}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 1471385302}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 1816743840}
-  - {fileID: 1689924234}
-  - {fileID: 2041384313}
-  - {fileID: 732133120}
   - {fileID: 65707246}
+  - {fileID: 342353662}
+  - {fileID: 732133120}
+  - {fileID: 1689924234}
+  - {fileID: 1942694292}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &1375654718
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2763,7 +4922,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383122733}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -118.20003, y: 3.3052604, z: -36.100006}
+  m_LocalPosition: {x: -118.200356, y: 3.3052604, z: -36.10009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2798,18 +4957,313 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
+  - {fileID: 1905795510}
+  - {fileID: 817954130}
   - {fileID: 441189266}
-  - {fileID: 1576260568}
-  - {fileID: 556336127}
-  - {fileID: 1028725399}
-  - {fileID: 625032566}
-  - {fileID: 748542208}
   - {fileID: 504616029}
+  - {fileID: 1576260568}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!1 &1394944103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394944106}
+  - component: {fileID: 1394944104}
+  - component: {fileID: 1394944105}
+  m_Layer: 12
+  m_Name: Waypoint (55)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1394944104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394944103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1056425414}
+  - {fileID: 1122090840}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  - {fileID: 1095629680}
+  - {fileID: 1704572295}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1394944105
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394944103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1394944106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394944103}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -54.900063, y: 1.6466949, z: 255.30035}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 57
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1416089097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416089100}
+  - component: {fileID: 1416089098}
+  - component: {fileID: 1416089099}
+  m_Layer: 12
+  m_Name: Waypoint (74)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1416089098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416089097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 828421062}
+  - {fileID: 1427353408}
+  - {fileID: 659623609}
+  - {fileID: 556336127}
+  - {fileID: 1309445960}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1416089099
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416089097}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1416089100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416089097}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -258.90005, y: -4.512639, z: -167.30048}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 76
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1427353407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1427353410}
+  - component: {fileID: 1427353408}
+  - component: {fileID: 1427353409}
+  m_Layer: 12
+  m_Name: Waypoint (42)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1427353408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427353407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 705894759}
+  - {fileID: 810746435}
+  - {fileID: 1456647340}
+  - {fileID: 2011939799}
+  - {fileID: 77399597}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1427353409
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427353407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1427353410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427353407}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -354.30045, y: 3.9469726, z: -55.900085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 44
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1456647339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1456647342}
+  - component: {fileID: 1456647340}
+  - component: {fileID: 1456647341}
+  m_Layer: 12
+  m_Name: Waypoint (43)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1456647340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456647339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1595365483}
+  - {fileID: 810746435}
+  - {fileID: 1427353408}
+  - {fileID: 2011939799}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1456647341
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456647339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1456647342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456647339}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -450.60046, y: 2.872403, z: 79.900055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471385299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,7 +5290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471385299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -84.600075, y: 13.809346, z: -73.20001}
+  m_LocalPosition: {x: -84.60024, y: 13.809346, z: -73.200035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2871,24 +5325,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1383122736}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 441189266}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
   - {fileID: 342353662}
-  - {fileID: 641656375}
-  - {fileID: 1375654717}
-  - {fileID: 732133120}
-  - {fileID: 65707246}
+  - {fileID: 441189266}
+  - {fileID: 1383122736}
+  - {fileID: 1942694292}
+  - {fileID: 2082520092}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1493500388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,21 +5371,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 714482862}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
   - {fileID: 641656375}
-  - {fileID: 2041384313}
-  - {fileID: 1724835004}
-  - {fileID: 1596492106}
   - {fileID: 793056114}
+  - {fileID: 1596492106}
+  - {fileID: 1811369538}
+  - {fileID: 2135350435}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &1493500390
 Transform:
   m_ObjectHideFlags: 0
@@ -2946,7 +5391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493500388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 73.100174, y: 6.2131453, z: -248.70021}
+  m_LocalPosition: {x: 73.10051, y: 6.2130995, z: -248.70058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -2965,6 +5410,79 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1496964909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1496964912}
+  - component: {fileID: 1496964910}
+  - component: {fileID: 1496964911}
+  m_Layer: 12
+  m_Name: Waypoint (72)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1496964910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496964909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 8
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 18787030}
+  - {fileID: 84707197}
+  - {fileID: 504616029}
+  - {fileID: 714482862}
+  - {fileID: 1085966658}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1496964911
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496964909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1496964912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496964909}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.6, y: 20.409037, z: -147.80003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 74
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1531506714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,13 +5623,17 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
+  - {fileID: 1146133146}
+  - {fileID: 194085228}
+  - {fileID: 1704572295}
   - {fileID: 1383122736}
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 441189266}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &1576260569
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3133,11 +5655,84 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576260567}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -175.80003, y: 4.1861353, z: -34.90001}
+  m_LocalPosition: {x: -175.80048, y: 4.1862, z: -34.900093}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
   m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1595365482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1595365485}
+  - component: {fileID: 1595365483}
+  - component: {fileID: 1595365484}
+  m_Layer: 12
+  m_Name: Waypoint (53)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1595365483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595365482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1122090840}
+  - {fileID: 460322097}
+  - {fileID: 549661411}
+  - {fileID: 810746435}
+  - {fileID: 1456647340}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1595365484
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595365482}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1595365485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595365482}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -387.10046, y: 6.0080233, z: 224.40027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1596492105
 GameObject:
@@ -3173,20 +5768,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
   - {fileID: 341827385}
-  - {fileID: 1816743840}
   - {fileID: 641656375}
-  - {fileID: 1689924234}
+  - {fileID: 732133120}
   - {fileID: 1493500389}
   - {fileID: 1724835004}
-  - {fileID: 732133120}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &1596492107
 Transform:
   m_ObjectHideFlags: 0
@@ -3195,7 +5788,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596492105}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2999969, y: 9.675197, z: -250.60036}
+  m_LocalPosition: {x: -3.2999969, y: 9.675197, z: -250.601}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3240,7 +5833,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689924232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2999816, y: 9.711688, z: -168.90018}
+  m_LocalPosition: {x: -3.2999816, y: 9.711696, z: -168.90051}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3262,23 +5855,19 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
   - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1375654717}
-  - {fileID: 2041384313}
+  - {fileID: 504616029}
   - {fileID: 732133120}
-  - {fileID: 1596492106}
+  - {fileID: 1375654717}
+  - {fileID: 1942694292}
+  - {fileID: 2041384313}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &1689924235
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3292,6 +5881,155 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1704572294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1704572297}
+  - component: {fileID: 1704572295}
+  - component: {fileID: 1704572296}
+  m_Layer: 12
+  m_Name: Waypoint (45)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1704572295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704572294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 194085228}
+  - {fileID: 1595365483}
+  - {fileID: 817954130}
+  - {fileID: 1095629680}
+  - {fileID: 549661411}
+  - {fileID: 441189266}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1704572296
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704572294}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1704572297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704572294}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -190.80023, y: 2.820172, z: 109.00012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 47
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1707340635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1707340638}
+  - component: {fileID: 1707340636}
+  - component: {fileID: 1707340637}
+  m_Layer: 12
+  m_Name: Waypoint (50)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1707340636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707340635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1056425414}
+  - {fileID: 1394944104}
+  - {fileID: 1120443959}
+  - {fileID: 949786113}
+  - {fileID: 817954130}
+  - {fileID: 549661411}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1707340637
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707340635}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1707340638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707340635}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.1999574, y: 5.868375, z: 201.9002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 52
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724835002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3318,7 +6056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724835002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -59.80008, y: 10.151225, z: -248.30023}
+  m_LocalPosition: {x: -59.800213, y: 10.15124, z: -248.30055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3340,22 +6078,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1471385302}
-  - {fileID: 556336127}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 1811369538}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
-  - {fileID: 641656375}
-  - {fileID: 1375654717}
-  - {fileID: 1493500389}
-  - {fileID: 1596492106}
   - {fileID: 65707246}
+  - {fileID: 341827385}
+  - {fileID: 714482862}
+  - {fileID: 1596492106}
+  - {fileID: 1816743840}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &1724835005
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3395,7 +6129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767828967}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150.10016, y: 4.815646, z: -167.30014}
+  m_LocalPosition: {x: -150.1005, y: 4.8156233, z: -167.30048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3430,13 +6164,18 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1032947973}
-  - {fileID: 556336127}
-  - {fileID: 1309445960}
-  - {fileID: 1028725399}
+  - {fileID: 1416089098}
+  - {fileID: 1211025322}
   - {fileID: 625032566}
-  - {fileID: 1816743840}
+  - {fileID: 1032947973}
+  - {fileID: 1309445960}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1768492243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6175307669712771283, guid: d9550c631858cd24a8963f4aebe706d0,
@@ -3468,6 +6207,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f42b98d53abe640a5ff2f38f4f2467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1795172773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1795172776}
+  - component: {fileID: 1795172774}
+  - component: {fileID: 1795172775}
+  m_Layer: 12
+  m_Name: Waypoint (64)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1795172774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795172773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 734661898}
+  - {fileID: 981820993}
+  - {fileID: 1394944104}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  - {fileID: 549661411}
+  - {fileID: 1456647340}
+  - {fileID: 84707197}
+  - {fileID: 1383122736}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1795172775
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795172773}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1795172776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795172773}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -37.300026, y: 39.618736, z: 99.60006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 66
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811369536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3494,7 +6310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811369536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 138.10016, y: -0.6351807, z: -287.80048}
+  m_LocalPosition: {x: 140.10028, y: -0.6351807, z: -289.30063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3516,18 +6332,16 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 2135350435}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
   - {fileID: 641656375}
-  - {fileID: 2041384313}
+  - {fileID: 793056114}
+  - {fileID: 2135350435}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &1811369539
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3575,10 +6389,15 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1811369538}
+  - {fileID: 1211025322}
   - {fileID: 341827385}
-  - {fileID: 641656375}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &1816743841
 Transform:
   m_ObjectHideFlags: 0
@@ -3587,7 +6406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816743839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -139.60023, y: -0.6351807, z: -289.50052}
+  m_LocalPosition: {x: -139.60077, y: -0.6351807, z: -289.5015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3606,6 +6425,159 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1905795509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905795512}
+  - component: {fileID: 1905795510}
+  - component: {fileID: 1905795511}
+  m_Layer: 12
+  m_Name: Waypoint (58)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1905795510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905795509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 454896814}
+  - {fileID: 1707340636}
+  - {fileID: 817954130}
+  - {fileID: 1704572295}
+  - {fileID: 1456647340}
+  - {fileID: 441189266}
+  - {fileID: 1057982702}
+  - {fileID: 1383122736}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1905795511
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905795509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1905795512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905795509}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -66.40009, y: -0.52072406, z: 17.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 60
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1919904923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1919904926}
+  - component: {fileID: 1919904924}
+  - component: {fileID: 1919904925}
+  m_Layer: 12
+  m_Name: Waypoint (66)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1919904924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919904923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 454896814}
+  - {fileID: 997998726}
+  - {fileID: 734661898}
+  - {fileID: 303455159}
+  - {fileID: 1905795510}
+  - {fileID: 1707340636}
+  - {fileID: 1383122736}
+  - {fileID: 2082520092}
+  - {fileID: 2102274412}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &1919904925
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919904923}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1919904926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919904923}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.3000004, y: 20.452429, z: 2.9999886}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 68
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1942694289
 GameObject:
   m_ObjectHideFlags: 0
@@ -3632,7 +6604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942694289}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -78.600075, y: 11.914119, z: -135.00008}
+  m_LocalPosition: {x: -78.60019, y: 11.9141035, z: -135.00024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3667,26 +6639,19 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 441189266}
-  - {fileID: 1471385302}
-  - {fileID: 556336127}
-  - {fileID: 1028725399}
-  - {fileID: 714482862}
-  - {fileID: 625032566}
   - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
   - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1689924234}
   - {fileID: 1375654717}
-  - {fileID: 1724835004}
-  - {fileID: 732133120}
-  - {fileID: 65707246}
+  - {fileID: 1471385302}
+  - {fileID: 1689924234}
+  - {fileID: 2082520092}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!1 &1987179605 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -226013890491898067, guid: d9550c631858cd24a8963f4aebe706d0,
@@ -3709,6 +6674,78 @@ MonoBehaviour:
   boostForce: 5
   delayInterval: 1
   continuous: 0
+--- !u!1 &2011939798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2011939801}
+  - component: {fileID: 2011939799}
+  - component: {fileID: 2011939800}
+  m_Layer: 12
+  m_Name: Waypoint (41)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2011939799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011939798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 25
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 1456647340}
+  - {fileID: 1427353408}
+  - {fileID: 668018547}
+  - {fileID: 77399597}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &2011939800
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011939798}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2011939801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011939798}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -491.30063, y: 4.828679, z: -61.70009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 43
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2041384312
 GameObject:
   m_ObjectHideFlags: 0
@@ -3743,22 +6780,21 @@ MonoBehaviour:
   radius: 12
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 625032566}
-  - {fileID: 299925936}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
   - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
-  - {fileID: 1689924234}
-  - {fileID: 1375654717}
-  - {fileID: 1493500389}
+  - {fileID: 504616029}
+  - {fileID: 748542208}
   - {fileID: 793056114}
+  - {fileID: 1689924234}
+  - {fileID: 2082520092}
+  - {fileID: 2102274412}
+  - {fileID: 2135350435}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!4 &2041384314
 Transform:
   m_ObjectHideFlags: 0
@@ -3767,7 +6803,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041384312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 74.50017, y: 6.0465956, z: -170.8002}
+  m_LocalPosition: {x: 74.5005, y: 6.04655, z: -170.80054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3786,6 +6822,81 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2069113801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2069113804}
+  - component: {fileID: 2069113802}
+  - component: {fileID: 2069113803}
+  m_Layer: 12
+  m_Name: Waypoint (69)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2069113802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069113801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22fa5473a9b6c14bb71268a1818239b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPoint: {fileID: 0}
+  radius: 12
+  index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
+  connectedPoints:
+  - {fileID: 18787030}
+  - {fileID: 1496964910}
+  - {fileID: 139290076}
+  - {fileID: 575365282}
+  - {fileID: 1704572295}
+  - {fileID: 84707197}
+  - {fileID: 504616029}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
+--- !u!135 &2069113803
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069113801}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2069113804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069113801}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.6000042, y: 36.089394, z: -114.10014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 379396422}
+  m_RootOrder: 71
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2082520091
 GameObject:
   m_ObjectHideFlags: 0
@@ -3820,13 +6931,17 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
   - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 748542208}
-  - {fileID: 504616029}
   - {fileID: 342353662}
+  - {fileID: 504616029}
+  - {fileID: 1057982702}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &2082520093
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3848,7 +6963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082520091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.199957, y: 0.7833984, z: -73.40007}
+  m_LocalPosition: {x: 14.199957, y: 0.7833984, z: -73.400345}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3888,15 +7003,17 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
+  - {fileID: 1120443959}
   - {fileID: 84707197}
-  - {fileID: 748542208}
   - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 2135350435}
-  - {fileID: 1811369538}
+  - {fileID: 748542208}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &2102274413
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3918,7 +7035,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102274411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 139.20004, y: 1.5486534, z: -39.30004}
+  m_LocalPosition: {x: 139.20041, y: 1.5486495, z: -39.300247}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3950,7 +7067,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135350433}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 140.60013, y: -0.6315644, z: -210.70023}
+  m_LocalPosition: {x: 140.60046, y: -0.6315949, z: -210.70084}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 379396422}
@@ -3972,28 +7089,18 @@ MonoBehaviour:
   radius: 15
   index: 0
   groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   connectedPoints:
-  - {fileID: 1057982702}
-  - {fileID: 2082520092}
-  - {fileID: 84707197}
-  - {fileID: 2102274412}
-  - {fileID: 1942694292}
-  - {fileID: 1028725399}
   - {fileID: 748542208}
-  - {fileID: 504616029}
-  - {fileID: 342353662}
-  - {fileID: 1811369538}
-  - {fileID: 341827385}
-  - {fileID: 1816743840}
-  - {fileID: 641656375}
-  - {fileID: 1689924234}
-  - {fileID: 1375654717}
-  - {fileID: 2041384313}
-  - {fileID: 1493500389}
-  - {fileID: 1596492106}
   - {fileID: 793056114}
-  - {fileID: 1085966658}
-  - {fileID: 65707246}
+  - {fileID: 1493500389}
+  - {fileID: 1811369538}
+  - {fileID: 2041384313}
+  maxConnectionSteepness: 0.5
+  connectionStepDistance: 1
+  maxConnectionSteps: 1000
+  similarConnectionAngleDotLimit: 0.9
+  showDebugConnections: 0
 --- !u!135 &2135350436
 SphereCollider:
   m_ObjectHideFlags: 0

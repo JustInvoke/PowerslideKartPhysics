@@ -27,9 +27,9 @@ namespace PowerslideKartPhysics
             int loopCount = 0;
             float overlapRadius = 50f;
             while (!foundPoint && loopCount < 100) {
-                Collider[] cols = Physics.OverlapSphere(tr.position, overlapRadius, 1 << LayerMask.NameToLayer("Waypoints"), QueryTriggerInteraction.Collide);
+                Collider[] cols = Physics.OverlapSphere(tr.position, overlapRadius, LayerInfo.WaypointLayer, QueryTriggerInteraction.Collide);
                 foreach (Collider col in cols) {
-                    if (!Physics.Linecast(tr.position, col.transform.position, ~((1 << LayerMask.NameToLayer("Karts")) | (1 << LayerMask.NameToLayer("Kart Box Collider"))), QueryTriggerInteraction.Ignore)) {
+                    if (!Physics.Linecast(tr.position, col.transform.position,  LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
                         BattleWaypoint point = col.GetComponent<BattleWaypoint>();
                         if (point != null) {
                             targetPoint = point.GetNextPoint();
