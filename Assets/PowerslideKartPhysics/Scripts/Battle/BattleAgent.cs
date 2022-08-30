@@ -2,37 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace PowerslideKartPhysics
 {
     // Class attached to a kart that participates in a battle
     [DisallowMultipleComponent]
-    public class BattleAgent : MonoBehaviour
+    public class BattleAgent : ModeAgent
     {
-        Transform tr;
-        Rigidbody rb;
-        Kart kart;
         BattleController bc;
-        public BattleWaypoint currentPoint; // The last waypoint touched
         [System.NonSerialized]
         public int health = -1;
         public int points; // Current battle point score
         [System.NonSerialized]
         public bool finishedBattle = false; // True if the kart has reached the maximum points or run out of health
-        public float respawnHeight = 1.0f; // Height above waypoints to respawn at
 
-        private void Awake() {
-            tr = transform;
-            rb = GetComponent<Rigidbody>();
-            kart = GetComponent<Kart>();
+        protected override void Awake() {
+            base.Awake();
             bc = FindObjectOfType<BattleController>();
-        }
-
-        private void Start() {
-            if (bc != null) {
-                bc.FetchAllKarts(); // Find all active karts
-            }
         }
 
         private void OnTriggerEnter(Collider other) {
@@ -43,22 +29,14 @@ namespace PowerslideKartPhysics
         }
 
         // Respawns the kart by moving it to the last touched waypoint
-        public void Respawn() {
-            if (currentPoint != null) {
-                tr.position = currentPoint.transform.position + Vector3.up * respawnHeight;
-                if (kart != null) {
-                    if (kart.rotator != null) {
-                        kart.rotator.rotation = Quaternion.LookRotation(new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(-1.0f, 1.0f)), Vector3.up);
-                        kart.CancelDrift();
-                        kart.EmptyBoostReserve();
-                        kart.CancelDriftBoost(false);
-                        kart.CancelJump();
-                    }
+        public override void Respawn() {
+            base.Respawn();
+            if (kart != null && kart.rotator != null) {
+                kart.rotator.rotation = Quaternion.LookRotation(new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, Random.Range(-1.0f, 1.0f)), Vector3.up);
+            }
 
-                    if (rb != null) {
-                        rb.velocity = Vector3.zero;
-                    }
-                }
+            if (health > 0) {
+                health--;
             }
         }
 

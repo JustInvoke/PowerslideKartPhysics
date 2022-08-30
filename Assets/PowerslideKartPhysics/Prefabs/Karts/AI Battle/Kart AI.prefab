@@ -19,6 +19,11 @@ MonoBehaviour:
   reverseSpeedLimit: 5
   reverseTimeThreshold: 3
   reverseDuration: 1
+  driftStartThreshold: 1
+  driftEndThreshold: 0.2
+  driftSpeedMultiplier: 0.02
+  driftSpeedMultiplierCap: 2
+  distanceAdvanceFactor: 0.05
 --- !u!1001 &3630716374143490820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,6 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2972459663597386111, guid: e3a4b51f834dd8b4bad73af72b704252, type: 3}
+    - {fileID: -1756671685938507569, guid: e3a4b51f834dd8b4bad73af72b704252, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e3a4b51f834dd8b4bad73af72b704252, type: 3}
 --- !u!1 &3033707988441234987 stripped
 GameObject:

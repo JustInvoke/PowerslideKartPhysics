@@ -2,20 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace PowerslideKartPhysics
 {
     // Class attached to a kart that participates in a race
     [DisallowMultipleComponent]
-    public class RaceAgent : MonoBehaviour
+    public class RaceAgent : ModeAgent
     {
-        Transform tr;
-        Rigidbody rb;
-        Kart kart;
         Track track;
         RaceController rc;
-        public BasicWaypoint currentPoint; // The last waypoint touched
         [System.NonSerialized]
         public int lap = 1; // Current lap of the race
         [System.NonSerialized]
@@ -23,20 +18,11 @@ namespace PowerslideKartPhysics
         public Events.IntRaceAgent lapCompletedEvent; // Event invoked when a lap is completed
         [System.NonSerialized]
         public bool finishedRace = false; // True if the kart has crossed the finish line after completing all laps
-        public float respawnHeight = 1.0f; // Height above waypoints to respawn at
 
-        private void Awake() {
-            tr = transform;
-            rb = GetComponent<Rigidbody>();
-            kart = GetComponent<Kart>();
+        protected override void Awake() {
+            base.Awake();
             track = FindObjectOfType<Track>();
             rc = FindObjectOfType<RaceController>();
-        }
-
-        private void Start() {
-            if (rc != null) {
-                rc.FetchAllKarts(); // Find all active karts
-            }
         }
 
         private void FixedUpdate() {
@@ -106,24 +92,10 @@ namespace PowerslideKartPhysics
         }
 
         // Respawns the kart by moving it to the last touched waypoint
-        public void Respawn() {
-            if (currentPoint != null) {
-                tr.position = currentPoint.transform.position + Vector3.up * respawnHeight;
-                if (currentPoint.nextPoint != null) {
-                    if (kart != null) {
-                        if (kart.rotator != null) {
-                            kart.rotator.rotation = Quaternion.LookRotation(currentPoint.nextPoint.transform.position - currentPoint.transform.position, Vector3.up);
-                            kart.CancelDrift();
-                            kart.EmptyBoostReserve();
-                            kart.CancelDriftBoost(false);
-                            kart.CancelJump();
-                        }
-                    }
-
-                    if (rb != null) {
-                        rb.velocity = Vector3.zero;
-                    }
-                }
+        public override void Respawn() {
+            base.Respawn();
+            if (currentPoint != null && currentPoint.nextPoint != null && kart != null && kart.rotator != null) {
+                kart.rotator.rotation = Quaternion.LookRotation(currentPoint.nextPoint.transform.position - currentPoint.transform.position, Vector3.up);
             }
         }
 
