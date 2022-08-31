@@ -140,8 +140,10 @@ namespace PowerslideKartPhysics
             for (float i = 0.0f; i <= 0.8f; i += 0.2f) {
                 Gizmos.color = new Color(0.0f, Mathf.Pow(i + 0.05f, 0.1f), Mathf.Pow(1.0f - i, 0.4f));
                 Gizmos.DrawLine(InterpolateSine(start, end, i), InterpolateSine(start, end, i + 0.2f));
-                Gizmos.DrawLine(InterpolateSine(start, end, i, 30f), InterpolateSine(start, end, i + 0.05f));
-                Gizmos.DrawLine(InterpolateSine(start, end, i, -30f), InterpolateSine(start, end, i + 0.05f));
+                if (i > 0) {
+                    Gizmos.DrawLine(InterpolateSine(start, end, i - 0.05f, 30f), InterpolateSine(start, end, i));
+                    Gizmos.DrawLine(InterpolateSine(start, end, i - 0.05f, -30f), InterpolateSine(start, end, i));
+                }
             }
         }
 
