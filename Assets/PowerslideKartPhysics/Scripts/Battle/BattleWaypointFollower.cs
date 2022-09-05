@@ -8,6 +8,10 @@ namespace PowerslideKartPhysics
     // Kart input class for following battle waypoints
     public class BattleWaypointFollower : BasicWaypointFollowerDrift
     {
+        public float minTimeToUseItem = 0.5f;
+        public float maxTimeToUseItem = 5.0f;
+        float timeToUseItem = -1.0f;
+
         protected override void CheckPointOverlap() { }
 
         private void OnTriggerEnter(Collider other) {
@@ -21,6 +25,23 @@ namespace PowerslideKartPhysics
             }
         }
 
+        protected override void ProcessInput() {
+            base.ProcessInput();
+
+            if (caster != null && caster.item != null) {
+                if (timeToUseItem < 0) {
+                    timeToUseItem = Random.Range(minTimeToUseItem, maxTimeToUseItem);
+                }
+                else {
+                    timeToUseItem -= Time.deltaTime;
+                    if (timeToUseItem <= 0) {
+                        timeToUseItem = -1.0f;
+                        PressItem();
+                    }
+                }
+            }
+        }
+
         protected override void StopReversing() {
             base.StopReversing();
             bool foundPoint = false;
@@ -29,7 +50,7 @@ namespace PowerslideKartPhysics
             while (!foundPoint && loopCount < 100) {
                 Collider[] cols = Physics.OverlapSphere(tr.position, overlapRadius, LayerInfo.WaypointLayer, QueryTriggerInteraction.Collide);
                 foreach (Collider col in cols) {
-                    if (!Physics.Linecast(tr.position, col.transform.position,  LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                    if (!Physics.Linecast(tr.position, col.transform.position, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
                         BattleWaypoint point = col.GetComponent<BattleWaypoint>();
                         if (point != null) {
                             targetPoint = point.GetNextPoint();

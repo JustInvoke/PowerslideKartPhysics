@@ -81,6 +81,7 @@ namespace PowerslideKartPhysics
                     BattleAgent ba = playerKart.GetComponent<BattleAgent>();
                     if (ba != null) {
                         ba.currentPoint = spawnPoint;
+                        ba.health = maxHealth;
                     }
 
                     playerAgent = playerKart.GetComponent<BattleAgent>();
@@ -96,6 +97,7 @@ namespace PowerslideKartPhysics
                     BattleAgent ba = newKart.GetComponent<BattleAgent>();
                     if (ba != null) {
                         ba.currentPoint = spawnPoint;
+                        ba.health = maxHealth;
                     }
 
                     KartInput ki = newKart.GetComponent<KartInput>();

@@ -6,12 +6,12 @@ using UnityEngine;
 namespace PowerslideKartPhysics
 {
     // Class attached to a kart that participates in a battle
-    [DisallowMultipleComponent]
     public class BattleAgent : ModeAgent
     {
         BattleController bc;
         [System.NonSerialized]
         public int health = -1;
+        [System.NonSerialized]
         public int points; // Current battle point score
         [System.NonSerialized]
         public bool finishedBattle = false; // True if the kart has reached the maximum points or run out of health
@@ -19,12 +19,21 @@ namespace PowerslideKartPhysics
         protected override void Awake() {
             base.Awake();
             bc = FindObjectOfType<BattleController>();
+            if (kart != null) {
+                kart.spinOutEvent.AddListener(() => { if (health > 0) health--; });
+            }
         }
 
         private void OnTriggerEnter(Collider other) {
             BattleWaypoint point = other.GetComponent<BattleWaypoint>();
             if (point != null) {
                 currentPoint = point;
+            }
+        }
+
+        private void Update() {
+            if (health == 0 && kart != null) {
+                kart.active = false;
             }
         }
 

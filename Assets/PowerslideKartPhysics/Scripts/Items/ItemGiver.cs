@@ -16,6 +16,8 @@ namespace PowerslideKartPhysics
         public int ammo = 1;
         public float cooldown = 1.0f;
         float offTime = 0.0f;
+        public float groundSnapOffset = 2.0f;
+        public float maxGroundSnapSteps = 1000;
 
         private void Awake() {
             manager = FindObjectOfType<ItemManager>();
@@ -45,6 +47,20 @@ namespace PowerslideKartPhysics
                         string.IsNullOrEmpty(itemName) ? manager.GetRandomItem() : manager.GetItem(itemName),
                         ammo, false);
                 }
+            }
+        }
+
+        public void SnapToGround() {
+            int stepCount = 0;
+            Vector3 castStart = transform.position + Vector3.up * 5.0f;
+            while (stepCount < maxGroundSnapSteps) {
+                RaycastHit hit = new RaycastHit();
+                if (Physics.Raycast(castStart, Vector3.down, out hit, Mathf.Infinity, LayerInfo.AllExcludingKarts, QueryTriggerInteraction.Ignore)) {
+                    transform.position = hit.point + Vector3.up * groundSnapOffset;
+                    break;
+                }
+                castStart += Vector3.up;
+                stepCount++;
             }
         }
     }
