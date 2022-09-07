@@ -154,6 +154,8 @@ MonoBehaviour:
   nextPoint: {fileID: 131646374}
   radius: 16
   index: 0
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 131646374}
@@ -383,6 +385,8 @@ MonoBehaviour:
   nextPoint: {fileID: 873106180}
   radius: 8.07
   index: 4
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 877885300}
@@ -464,6 +468,8 @@ MonoBehaviour:
   nextPoint: {fileID: 269361273}
   radius: 16
   index: 1
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 269361273}
@@ -518,6 +524,8 @@ MonoBehaviour:
   nextPoint: {fileID: 407986309}
   radius: 16
   index: 10
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 407986309}
@@ -569,6 +577,8 @@ MonoBehaviour:
   nextPoint: {fileID: 354050890}
   radius: 16
   index: 2
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 354050890}
@@ -623,6 +633,8 @@ MonoBehaviour:
   nextPoint: {fileID: 1661380950}
   radius: 16
   index: 3
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints:
   - {fileID: 110030184}
   validPoints:
@@ -722,8 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855dd0415120469428bb7a65c140c7fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLaps: 3
-  startPoint: {fileID: 65707246}
   aiKartsToSpawn:
   - {fileID: 3033707988441234987, guid: c61b5a6534f01444e8dd62df28a948b9, type: 3}
   - {fileID: 6978573119976805550, guid: df3f5d29f0499e1458baadfb9f772be3, type: 3}
@@ -732,21 +742,23 @@ MonoBehaviour:
   - {fileID: 6978573119976805550, guid: df3f5d29f0499e1458baadfb9f772be3, type: 3}
   - {fileID: 5890541102680690712, guid: 84297cb1c91f97844a3ede3983eaaf01, type: 3}
   - {fileID: 3033707988441234987, guid: c61b5a6534f01444e8dd62df28a948b9, type: 3}
-  startingGrid: {fileID: 1046840347}
-  startingGridSize: {x: 24.92, y: 13.6}
-  kartsPerRow: 4
   countdownDuration: 3
-  raceEndDuration: 300
-  raceStartEvent:
+  modeStartEvent:
     m_PersistentCalls:
       m_Calls: []
-  raceEndEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  raceTimeoutEvent:
+  modeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   countDownUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  maxLaps: 3
+  startPoint: {fileID: 65707246}
+  startingGrid: {fileID: 1046840347}
+  startingGridSize: {x: 24.92, y: 13.6}
+  kartsPerRow: 4
+  raceEndDuration: 300
+  raceTimeoutEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &407986308
@@ -781,6 +793,8 @@ MonoBehaviour:
   nextPoint: {fileID: 1657183280}
   radius: 16
   index: 11
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 1657183280}
@@ -1259,6 +1273,8 @@ MonoBehaviour:
   nextPoint: {fileID: 168789132}
   radius: 16
   index: 9
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 168789132}
@@ -1386,6 +1402,8 @@ MonoBehaviour:
   nextPoint: {fileID: 873106180}
   radius: 16
   index: 6
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 873106180}
@@ -1438,6 +1456,8 @@ MonoBehaviour:
   nextPoint: {fileID: 1457512766}
   radius: 16
   index: 7
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 1457512766}
@@ -1490,6 +1510,8 @@ MonoBehaviour:
   nextPoint: {fileID: 768868636}
   radius: 16
   index: 5
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 768868636}
@@ -1549,6 +1571,8 @@ MonoBehaviour:
   nextPoint: {fileID: 65707246}
   radius: 16
   index: 13
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints: []
 --- !u!4 &1031281427
@@ -2100,6 +2124,8 @@ MonoBehaviour:
   nextPoint: {fileID: 747739871}
   radius: 16
   index: 8
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 747739871}
@@ -2259,6 +2285,8 @@ MonoBehaviour:
   nextPoint: {fileID: 1031281426}
   radius: 16
   index: 12
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 1031281426}
@@ -2308,6 +2336,8 @@ MonoBehaviour:
   nextPoint: {fileID: 877885300}
   radius: 16
   index: 4
+  groundSnapOffset: 1
+  maxGroundSnapSteps: 1000
   alternatePoints: []
   validPoints:
   - {fileID: 877885300}
@@ -2409,6 +2439,11 @@ PrefabInstance:
     - target: {fileID: 419768107676231852, guid: f0c904c7f8c0d8f4f80445923e2f9d82,
         type: 3}
       propertyPath: connectToRaceController
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 419768107676231852, guid: f0c904c7f8c0d8f4f80445923e2f9d82,
+        type: 3}
+      propertyPath: connectToModeController
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1081735935356565392, guid: f0c904c7f8c0d8f4f80445923e2f9d82,

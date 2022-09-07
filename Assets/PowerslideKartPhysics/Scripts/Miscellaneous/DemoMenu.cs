@@ -14,8 +14,7 @@ namespace PowerslideKartPhysics
         public KartCamera kartCam;
         public KartGravityPreset antiGravPreset;
         bool useAntiGrav = false;
-        public bool connectToRaceController;
-        public bool connectToBattleController;
+        public bool connectToModeController;
 
         private void Awake() {
             // Hide UI when showing the menu
@@ -52,21 +51,13 @@ namespace PowerslideKartPhysics
                 kartCam.Initialize(newKart);
             }
 
-            // Tells the race controller to spawn karts and start a race
-            if (connectToRaceController && newKart != null)
+            // Tells the mode controller to spawn karts and start a mode
+            if (connectToModeController && newKart != null)
             {
-                RaceController rc = FindObjectOfType<RaceController>();
-                if (rc != null)
+                ModeController mc = FindObjectOfType<ModeController>();
+                if (mc != null)
                 {
-                    rc.SpawnKarts(newKart.transform);
-                }
-            }
-
-            // Tells the battle controller to spawn karts and start a battle
-            if (connectToBattleController && newKart != null) {
-                BattleController bc = FindObjectOfType<BattleController>();
-                if (bc != null) {
-                    bc.SpawnKarts(newKart.transform);
+                    mc.SpawnKarts(newKart.transform);
                 }
             }
 

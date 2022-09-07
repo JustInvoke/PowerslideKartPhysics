@@ -9,7 +9,6 @@ namespace PowerslideKartPhysics
     public class RaceAgent : ModeAgent
     {
         Track track;
-        RaceController rc;
         [System.NonSerialized]
         public int lap = 1; // Current lap of the race
         [System.NonSerialized]
@@ -21,7 +20,6 @@ namespace PowerslideKartPhysics
         protected override void Awake() {
             base.Awake();
             track = FindObjectOfType<Track>();
-            rc = FindObjectOfType<RaceController>();
         }
 
         private void FixedUpdate() {
@@ -82,14 +80,6 @@ namespace PowerslideKartPhysics
             }
         }
 
-        // Returns the current position of the kart
-        public int GetRacePosition() {
-            if (rc != null) {
-                return rc.GetPositionOfKart(this);
-            }
-            return -1;
-        }
-
         // Respawns the kart by moving it to the last touched waypoint
         public override void Respawn() {
             base.Respawn();
@@ -99,7 +89,7 @@ namespace PowerslideKartPhysics
         }
 
         // Comparer for sorting karts by their position in the race
-        public class RaceAgentComparer : IComparer<RaceAgent>
+        public class RaceAgentComparer : ModeAgentComparer
         {
             public int Compare(RaceAgent x, RaceAgent y) {
                 if (x == null || y == null) { return 0; }

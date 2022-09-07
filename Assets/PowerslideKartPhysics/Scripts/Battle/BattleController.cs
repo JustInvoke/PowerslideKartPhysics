@@ -7,32 +7,18 @@ using UnityEngine.Events;
 
 namespace PowerslideKartPhysics
 {
-    // Class for controlling a race with its logic and events
-    [DisallowMultipleComponent]
-    public class BattleController : MonoBehaviour
+    // Class for controlling a battle with its logic and events
+    public class BattleController : ModeController
     {
-        [System.NonSerialized]
-        public BattleAgent[] allKarts = new BattleAgent[0]; // All karts in the scene
-        List<BattleAgent> activeKarts = new List<BattleAgent>(); // Karts actively participating in the battle
-        List<BattleAgent> finishedKarts = new List<BattleAgent>(); // Karts that have been eliminated
-        BattleAgent playerAgent; // The player's kart
         public int maxHealth = 3; // Number of hit points to start with, -1 for infinite health
         public int maxPoints = -1; // Number of hit points needed to win, -1 to disable
         public float timeLimit = -1.0f; // Maximum time limit for battle, -1 to disable
         float battleTimer = 0.0f;
         BattleWaypoint[] allWaypoints; // All battle waypoints
 
-        public GameObject[] aiKartsToSpawn = new GameObject[0]; // AI karts that will be spawned
-        public int countdownDuration = 3; // Duration in seconds for the battle starting countdown
-
-        public UnityEvent battleStartEvent; // Event invoked when the battle is started
-        public UnityEvent battleEndEvent; // Event invoked when the battle ends
-        [System.NonSerialized]
-        public bool battleActive = false; // Whether a battle is in progress (true if the player kart has not finished)
-        public Events.SingleString countDownUpdate; // Event invoked for changing the countdown text
-
-        private void Awake() {
-            FetchAllKarts();
+        protected override void Awake() {
+            base.Awake();
+            kartComparer = new BattleAgent.BattleAgentComparer();
             allWaypoints = FindObjectsOfType<BattleWaypoint>();
         }
 
@@ -56,15 +42,8 @@ namespace PowerslideKartPhysics
             }
         }
 
-        // Finds all karts and adds them to the appropriate lists
-        public void FetchAllKarts() {
-            allKarts = FindObjectsOfType<BattleAgent>();
-            activeKarts.Clear();
-            activeKarts.AddRange(allKarts);
-        }
-
         // Spawns the player and AI karts on the starting grid
-        public void SpawnKarts(Transform playerKart) {
+        public override void SpawnKarts(Transform playerKart) {
             List<BattleWaypoint> availablePoints = allWaypoints.ToList();
             if (availablePoints.Count > 0) {
                 // Spawn the player kart
@@ -82,9 +61,10 @@ namespace PowerslideKartPhysics
                     if (ba != null) {
                         ba.currentPoint = spawnPoint;
                         ba.health = maxHealth;
+                        ba.mc = this;
                     }
 
-                    playerAgent = playerKart.GetComponent<BattleAgent>();
+                    playerAgent = ba;
                     availablePoints.RemoveAt(spawnPointIndex);
                 }
 
@@ -95,34 +75,25 @@ namespace PowerslideKartPhysics
                     spawnPoint = availablePoints[spawnPointIndex];
                     GameObject newKart = Instantiate(aiKartsToSpawn[spawnedKarts], spawnPoint.transform.position, Quaternion.LookRotation((spawnPoint.GetNextPoint().transform.position - spawnPoint.transform.position).normalized, Vector3.up));
                     BattleAgent ba = newKart.GetComponent<BattleAgent>();
-                    if (ba != null) {
-                        ba.currentPoint = spawnPoint;
-                        ba.health = maxHealth;
-                    }
-
                     KartInput ki = newKart.GetComponent<KartInput>();
                     if (ki != null) {
                         ki.enabled = false;
+                    }
+
+                    if (ba != null) {
+                        ba.currentPoint = spawnPoint;
+                        ba.health = maxHealth;
+                        ba.mc = this;
                     }
                     availablePoints.RemoveAt(spawnPointIndex);
                     spawnedKarts++;
                 }
             }
 
-            GlobalManager.FetchAllKarts();
-            FetchAllKarts();
-            StartCoroutine(StartCountdown()); // Start the battle countdown
+            base.SpawnKarts(playerKart);
         }
 
-        // Coroutine for the battle start countdown
-        IEnumerator StartCountdown() {
-            // Update text with numbers counting down
-            for (int i = countdownDuration; i > 0; i--) {
-                countDownUpdate.Invoke(i.ToString());
-                yield return new WaitForSeconds(1.0f);
-            }
-            countDownUpdate.Invoke("Go!");
-
+        protected override void StartCountdownCompleted() {
             // Activate all karts so they can drive
             for (int i = 0; i < activeKarts.Count; i++) {
                 BattleAgent ba = activeKarts[i].GetComponent<BattleAgent>();
@@ -136,57 +107,26 @@ namespace PowerslideKartPhysics
                 }
             }
 
-            // Start the actual battle
-            battleActive = true;
             battleTimer = timeLimit;
-            battleStartEvent.Invoke();
-
-            // Remove the go! text from the countdown UI after the race has started
-            yield return new WaitForSeconds(1.0f);
-            countDownUpdate.Invoke("");
+            base.StartCountdownCompleted();
         }
 
-        //if (activeKarts.Contains(agent)) {
-        //    activeKarts.Remove(agent);
-        //}
-        //finishedKarts.Add(agent);
+        protected override void Update() {
+            base.Update();
 
-        // Returns the position of the given kart in a race
-        public int GetPositionOfKart(BattleAgent kart) {
-            if (activeKarts.Contains(kart)) {
-                return activeKarts.IndexOf(kart) + finishedKarts.Count;
-            }
-            if (finishedKarts.Contains(kart)) {
-                return finishedKarts.IndexOf(kart);
-            }
-            return -1;
-        }
-
-        // Returns all karts sorted by their positions
-        public BattleAgent[] GetAllKarts() {
-            List<BattleAgent> agents = new List<BattleAgent>();
-            agents.AddRange(finishedKarts);
-            agents.AddRange(activeKarts);
-            return agents.ToArray();
-        }
-
-        private void Update() {
-            // Sorts the karts by their battle positions
-            activeKarts.Sort(new BattleAgent.BattleAgentComparer());
-
-            if (battleActive) {
+            if (modeActive) {
                 if (timeLimit > 0 && battleTimer > 0) {
                     timeLimit -= Time.deltaTime;
                 }
                 else if ((timeLimit > 0 && battleTimer <= 0) || activeKarts.Count == 0) {
                     for (int i = 0; i < activeKarts.Count; i++) {
-                        activeKarts[i].finishedBattle = true;
+                        activeKarts[i].finishedMode = true;
                         finishedKarts.Add(activeKarts[i]);
 
                         // Player-specific logic
                         if (activeKarts[i] == playerAgent) {
-                            battleActive = false;
-                            battleEndEvent.Invoke();
+                            modeActive = false;
+                            modeEndEvent.Invoke();
                         }
                     }
                     activeKarts.Clear();

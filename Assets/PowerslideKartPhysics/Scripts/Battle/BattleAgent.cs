@@ -8,17 +8,13 @@ namespace PowerslideKartPhysics
     // Class attached to a kart that participates in a battle
     public class BattleAgent : ModeAgent
     {
-        BattleController bc;
         [System.NonSerialized]
         public int health = -1;
         [System.NonSerialized]
         public int points; // Current battle point score
-        [System.NonSerialized]
-        public bool finishedBattle = false; // True if the kart has reached the maximum points or run out of health
 
         protected override void Awake() {
             base.Awake();
-            bc = FindObjectOfType<BattleController>();
             if (kart != null) {
                 kart.spinOutEvent.AddListener(() => { if (health > 0) health--; });
             }
@@ -50,7 +46,7 @@ namespace PowerslideKartPhysics
         }
 
         // Comparer for sorting karts by their position in the race
-        public class BattleAgentComparer : IComparer<BattleAgent>
+        public class BattleAgentComparer : ModeAgentComparer
         {
             public int Compare(BattleAgent x, BattleAgent y) {
                 if (x == null || y == null || x.points == y.points) { return 0; }

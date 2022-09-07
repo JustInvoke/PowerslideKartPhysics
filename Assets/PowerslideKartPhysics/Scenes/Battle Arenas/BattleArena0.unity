@@ -752,9 +752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c8723304d7d3441ac0300a1d56081c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  maxPoints: -1
-  timeLimit: -1
   aiKartsToSpawn:
   - {fileID: 5890541102680690712, guid: e9a2b22bb632e024f97021f1037abd33, type: 3}
   - {fileID: 6978573119976805550, guid: d51b99258a0759349858d6c9d90a119f, type: 3}
@@ -769,15 +766,18 @@ MonoBehaviour:
   - {fileID: 6978573119976805550, guid: d51b99258a0759349858d6c9d90a119f, type: 3}
   - {fileID: 3033707988441234987, guid: af8476d36c4194f4087bccebfe42b059, type: 3}
   countdownDuration: 3
-  battleStartEvent:
+  modeStartEvent:
     m_PersistentCalls:
       m_Calls: []
-  battleEndEvent:
+  modeEndEvent:
     m_PersistentCalls:
       m_Calls: []
   countDownUpdate:
     m_PersistentCalls:
       m_Calls: []
+  maxHealth: 3
+  maxPoints: -1
+  timeLimit: -1
 --- !u!1001 &424432036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3286,6 +3286,11 @@ PrefabInstance:
     - target: {fileID: 419768107676231852, guid: f0c904c7f8c0d8f4f80445923e2f9d82,
         type: 3}
       propertyPath: connectToBattleController
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 419768107676231852, guid: f0c904c7f8c0d8f4f80445923e2f9d82,
+        type: 3}
+      propertyPath: connectToModeController
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1081735935356565392, guid: f0c904c7f8c0d8f4f80445923e2f9d82,
