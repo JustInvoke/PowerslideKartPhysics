@@ -24028,7 +24028,7 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 9603ca4e35dff8a418303affec7b8fc2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: -1
   m_Mesh: {fileID: 2722753680525900406, guid: 7b916aacce6d63248a4314d6933ca8c6, type: 3}
@@ -24049,7 +24049,6 @@ GameObject:
   - component: {fileID: 7452113816631832033}
   - component: {fileID: 4113863002305737392}
   - component: {fileID: 4134834876178738455}
-  - component: {fileID: 1119027121342535488}
   m_Layer: 8
   m_Name: Bike Drift Auto
   m_TagString: Untagged
@@ -24127,6 +24126,7 @@ MonoBehaviour:
   airDriveFriction: 0
   autoStopSpeed: 1
   autoStopForce: 5
+  autoStopNormalDotLimit: 0.9
   maxFallSpeed: 40
   spinDecel: 1
   steerRate: 1
@@ -24497,25 +24497,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPoint: {fileID: 0}
+  respawnHeight: 2
   lapCompletedEvent:
     m_PersistentCalls:
       m_Calls: []
-  respawnHeight: 2
---- !u!114 &1119027121342535488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3383327082568396878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acb13a404af4e1c47990b070c875e432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPoint: {fileID: 0}
-  points: 0
-  respawnHeight: 2
 --- !u!1 &3383327083145185487
 GameObject:
   m_ObjectHideFlags: 0

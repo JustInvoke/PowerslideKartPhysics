@@ -52,13 +52,5 @@ namespace PowerslideKartPhysics
             }
             return -1;
         }
-
-        // Comparer for sorting karts by their position in a mode
-        public abstract class ModeAgentComparer : IComparer<ModeAgent>
-        {
-            public int Compare(ModeAgent x, ModeAgent y) {
-                return 0;
-            }
-        }
     }
 }

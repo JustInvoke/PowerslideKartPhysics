@@ -18,7 +18,6 @@ namespace PowerslideKartPhysics
 
         protected override void Awake() {
             base.Awake();
-            kartComparer = new BattleAgent.BattleAgentComparer();
             allWaypoints = FindObjectsOfType<BattleWaypoint>();
         }
 
@@ -132,6 +131,12 @@ namespace PowerslideKartPhysics
                     activeKarts.Clear();
                 }
             }
+        }
+
+        protected override void SortKarts() {
+            List<BattleAgent> battleAgents = activeKarts.OfType<BattleAgent>().ToList();
+            battleAgents.Sort(new BattleAgent.BattleAgentComparer());
+            activeKarts = battleAgents.OfType<ModeAgent>().ToList();
         }
     }
 }

@@ -14,7 +14,6 @@ namespace PowerslideKartPhysics
         protected List<ModeAgent> activeKarts = new List<ModeAgent>(); // Karts actively participating in the mode
         protected List<ModeAgent> finishedKarts = new List<ModeAgent>(); // Karts that have finished the mode
         protected ModeAgent playerAgent; // The player's kart
-        protected ModeAgent.ModeAgentComparer kartComparer;
 
         public GameObject[] aiKartsToSpawn = new GameObject[0]; // AI karts that will be spawned
         public int countdownDuration = 3; // Duration in seconds for the mode starting countdown
@@ -86,8 +85,10 @@ namespace PowerslideKartPhysics
         }
 
         protected virtual void Update() {
-            // Sorts the karts by their mode positions
-            activeKarts.Sort(kartComparer);
+            SortKarts();
         }
+
+        // Sorts the karts by their mode positions
+        protected abstract void SortKarts();
     }
 }

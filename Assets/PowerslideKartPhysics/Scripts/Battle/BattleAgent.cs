@@ -46,7 +46,7 @@ namespace PowerslideKartPhysics
         }
 
         // Comparer for sorting karts by their position in the race
-        public class BattleAgentComparer : ModeAgentComparer
+        public class BattleAgentComparer : IComparer<BattleAgent>
         {
             public int Compare(BattleAgent x, BattleAgent y) {
                 if (x == null || y == null || x.points == y.points) { return 0; }

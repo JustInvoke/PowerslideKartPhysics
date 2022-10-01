@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2022 Justin Couch / JustInvoke
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,7 +31,6 @@ namespace PowerslideKartPhysics
 
         protected override void Awake() {
             base.Awake();
-            kartComparer = new RaceAgent.RaceAgentComparer();
         }
 
         // Finds all karts and adds them to the appropriate lists
@@ -145,7 +145,10 @@ namespace PowerslideKartPhysics
                 if (activeKarts.Contains(agent)) {
                     activeKarts.Remove(agent);
                 }
-                finishedKarts.Add(agent);
+
+                if (!finishedKarts.Contains(agent)) {
+                    finishedKarts.Add(agent);
+                }
             }
         }
 
@@ -205,6 +208,12 @@ namespace PowerslideKartPhysics
                 activeKarts.Clear();
                 raceTimeoutEvent.Invoke();
             }
+        }
+
+        protected override void SortKarts() {
+            List<RaceAgent> raceAgents = activeKarts.OfType<RaceAgent>().ToList();
+            raceAgents.Sort(new RaceAgent.RaceAgentComparer());
+            activeKarts = raceAgents.OfType<ModeAgent>().ToList();
         }
 
         private void OnDrawGizmos() {
