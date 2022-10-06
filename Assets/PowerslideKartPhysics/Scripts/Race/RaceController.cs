@@ -35,7 +35,9 @@ namespace PowerslideKartPhysics
 
         // Finds all karts and adds them to the appropriate lists
         public override void FetchAllKarts() {
-            base.FetchAllKarts();
+            allKarts = FindObjectsOfType<RaceAgent>();
+            activeKarts.Clear();
+            activeKarts.AddRange(allKarts);
             for (int i = 0; i < allKarts.Length; i++) {
                 RaceAgent ra = allKarts[i].GetComponent<RaceAgent>();
                 if (ra != null) {

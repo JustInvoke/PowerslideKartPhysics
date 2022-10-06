@@ -21,6 +21,13 @@ namespace PowerslideKartPhysics
             allWaypoints = FindObjectsOfType<BattleWaypoint>();
         }
 
+        // Finds all karts and adds them to the appropriate lists
+        public override void FetchAllKarts() {
+            allKarts = FindObjectsOfType<BattleAgent>();
+            activeKarts.Clear();
+            activeKarts.AddRange(allKarts);
+        }
+
         public void CalculateWaypointConnections() {
             if (allWaypoints == null || !Application.isPlaying) {
                 allWaypoints = FindObjectsOfType<BattleWaypoint>();

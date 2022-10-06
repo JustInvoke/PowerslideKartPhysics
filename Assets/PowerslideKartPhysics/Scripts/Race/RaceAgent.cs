@@ -6,6 +6,7 @@ using UnityEngine;
 namespace PowerslideKartPhysics
 {
     // Class attached to a kart that participates in a race
+    [DisallowMultipleComponent]
     public class RaceAgent : ModeAgent
     {
         Track track;

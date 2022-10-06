@@ -6,7 +6,7 @@ using UnityEngine;
 namespace PowerslideKartPhysics
 {
     // Class attached to a kart that participates in a race
-    [DisallowMultipleComponent]
+    //[DisallowMultipleComponent]
     public abstract class ModeAgent : MonoBehaviour
     {
         protected Transform tr;

@@ -53252,6 +53252,7 @@ GameObject:
   - component: {fileID: 777888532}
   - component: {fileID: 777888533}
   - component: {fileID: 463646978833874792}
+  - component: {fileID: 4280505777979866487}
   m_Layer: 8
   m_Name: 3 Wheeler Drift Auto
   m_TagString: Untagged
@@ -53705,6 +53706,20 @@ MonoBehaviour:
   lapCompletedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4280505777979866487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196949148641620721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb13a404af4e1c47990b070c875e432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPoint: {fileID: 0}
+  respawnHeight: 1
 --- !u!1 &1196949149790043253
 GameObject:
   m_ObjectHideFlags: 0
