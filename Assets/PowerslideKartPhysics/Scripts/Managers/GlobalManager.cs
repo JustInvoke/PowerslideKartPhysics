@@ -14,6 +14,9 @@ namespace PowerslideKartPhysics
                 if (_instance == null) {
                     _instance = FindObjectOfType<GlobalManager>();
                 }
+                if (_instance == null) {
+                    _instance = new GameObject("GlobalManager").AddComponent<GlobalManager>();
+                }
                 return _instance;
             }
         }
