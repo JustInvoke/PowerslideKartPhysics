@@ -243,7 +243,7 @@ namespace PowerslideKartPhysics
 
         // Returns a string of an integer with an ordinal suffix appended
         public string IntToOrdinal(int n) {
-            switch (n) {
+            switch (n % 10) {
                 case 1:
                     return n.ToString() + "st";
                 case 2:
