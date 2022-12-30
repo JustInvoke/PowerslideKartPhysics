@@ -18,6 +18,10 @@ namespace PowerslideKartPhysics
         public Rigidbody rb;
         public Transform rotator;
         public Transform visualHolder;
+        Transform visualHolderParent;
+        Vector3 visualHolderLocalPos;
+        Quaternion visualHolderLocalRot;
+        Quaternion visualHolderParentRotSmooth;
 
         // Dimensions
         public float rotationRateFactor = 10f;
@@ -271,6 +275,13 @@ namespace PowerslideKartPhysics
             stableWheelPoints = new Vector3[wheels.Length]; // Stable raycast points not susceptible to tilting
             for (int i = 0; i < stableWheelPoints.Length; i++) {
                 stableWheelPoints[i] = rotator.InverseTransformPoint(wheels[i].transform.position);
+            }
+
+            if (visualHolder != null) {
+                visualHolderParent = visualHolder.parent;
+                visualHolderParentRotSmooth = visualHolderParent.rotation;
+                visualHolder.name += $" ({visualHolder.root.name})";
+                visualHolder.SetParent(null);
             }
 
             wallDetector = WallCollision.CreateFromType(wallCollisionProps.wallDetectionType); // Set up wall collision detection
@@ -553,31 +564,10 @@ namespace PowerslideKartPhysics
             targetForward = new Vector3(targetForward.x, targetForward.y + forwardTilt, targetForward.z);
 
             if (spinningOut) {
-                // Visual rotation while spinning out
-                visualHolder.localRotation = Quaternion.Lerp(visualHolder.localRotation, Quaternion.LookRotation(spinForward, spinUp), 20f * Time.fixedDeltaTime);
-                visualHolder.localPosition = Vector3.Lerp(visualHolder.localPosition, Vector3.zero + spinOffset, 20f * Time.fixedDeltaTime);
-                rb.AddForce(new Vector3(-rb.velocity.x, 0.0f, -rb.velocity.z) * spinDecel, ForceMode.Acceleration); // Slow down while spinning out
+                // Slow down while spinning out
+                rb.AddForce(new Vector3(-rb.velocity.x, 0.0f, -rb.velocity.z) * spinDecel, ForceMode.Acceleration);
             }
             else {
-                // Visual rotation while driving
-                visualHolder.localRotation = Quaternion.Lerp(visualHolder.localRotation, Quaternion.LookRotation(targetForward, Vector3.up) * Quaternion.AngleAxis(-sideTilt, Vector3.forward), visualRotationRate * 100f * Time.fixedDeltaTime);
-
-                // Calculations for local offset based on rotation
-                Vector3 localVisForward = visualHolder.localRotation * Vector3.forward;
-                localVisForward = new Vector3(0.0f, localVisForward.y, localVisForward.z).normalized;
-                Vector3 localVisRight = visualHolder.localRotation * Vector3.right;
-                float forwardAngle = Mathf.Atan2(localVisForward.y, localVisForward.z);
-                float sideAngle = Mathf.Atan2(localVisRight.y, localVisRight.x);
-                float forwardHeightOffset = Mathf.Tan(forwardAngle) * (forwardAngle > 0 ? backLength : frontLength);
-                float sideHeightOffset = Mathf.Tan(sideAngle) * sideWidth * 0.5f;
-
-                // Visual offset
-                visualHolder.localPosition = Vector3.up * (Mathf.Abs(forwardHeightOffset) + Mathf.Abs(sideHeightOffset) * (invertTurnTiltHeightOffset ? -1.0f : 1.0f))
-                    - Vector3.right * sideHeightOffset * 2.0f * turnTiltSideOffsetFactor * Mathf.Abs(targetForward.z)
-                    - Vector3.forward * forwardHeightOffset;
-
-                visualHolder.position -= visualHolder.up * Mathf.Abs(sideHeightOffset) * localTiltOffsetCompensation;
-
                 // Rotate kart based on steering and wall collision
                 rotator.Rotate(Vector3.up, (targetTurnSpeed + wallBounceTurn) * 100f * Time.fixedDeltaTime, Space.Self);
             }
@@ -679,6 +669,51 @@ namespace PowerslideKartPhysics
                     boostStartEvent.Invoke();
                 }
             }
+
+            // Visual holder position and rotation
+            if (visualHolder != null && visualHolderParent != null) {
+                if (spinningOut) {
+                    // Visual rotation while spinning out
+                    visualHolderLocalRot = Quaternion.Lerp(visualHolderLocalRot, Quaternion.LookRotation(spinForward, spinUp), 20f * Time.deltaTime);
+                    visualHolderLocalPos = Vector3.Lerp(visualHolderLocalPos, Vector3.zero + spinOffset, 20f * Time.deltaTime);
+                    UpdateVisualHolder();
+                }
+                else {
+                    // Visual rotation while driving
+                    visualHolderLocalRot = Quaternion.Lerp(visualHolderLocalRot, Quaternion.LookRotation(targetForward, Vector3.up) * Quaternion.AngleAxis(-sideTilt, Vector3.forward), visualRotationRate * 100f * Time.deltaTime);
+
+                    // Calculations for local offset based on rotation
+                    Vector3 localVisForward = visualHolderLocalRot * Vector3.forward;
+                    localVisForward = new Vector3(0.0f, localVisForward.y, localVisForward.z).normalized;
+                    Vector3 localVisRight = visualHolderLocalRot * Vector3.right;
+                    float forwardAngle = Mathf.Atan2(localVisForward.y, localVisForward.z);
+                    float sideAngle = Mathf.Atan2(localVisRight.y, localVisRight.x);
+                    float forwardHeightOffset = Mathf.Tan(forwardAngle) * (forwardAngle > 0 ? backLength : frontLength);
+                    float sideHeightOffset = Mathf.Tan(sideAngle) * sideWidth * 0.5f;
+
+                    // Visual offset
+                    visualHolderLocalPos = Vector3.up * (Mathf.Abs(forwardHeightOffset) + Mathf.Abs(sideHeightOffset) * (invertTurnTiltHeightOffset ? -1.0f : 1.0f))
+                        - Vector3.right * sideHeightOffset * 2.0f * turnTiltSideOffsetFactor * Mathf.Abs(targetForward.z)
+                        - Vector3.forward * forwardHeightOffset;
+
+                    UpdateVisualHolder();
+                    visualHolder.position -= visualHolder.up * Mathf.Abs(sideHeightOffset) * localTiltOffsetCompensation;
+                }
+
+                void UpdateVisualHolder() {
+                    if (Time.deltaTime < Time.fixedDeltaTime) {
+                        Quaternion rotationDelta = Quaternion.Inverse(visualHolderParentRotSmooth) * visualHolderParent.rotation;
+                        visualHolderParentRotSmooth *= Quaternion.Slerp(Quaternion.identity, rotationDelta, Time.deltaTime / Time.fixedDeltaTime);
+                    }
+                    else {
+                        visualHolderParentRotSmooth = visualHolderParent.rotation;
+                    }
+
+                    visualHolder.SetPositionAndRotation(
+                        visualHolderParent.TransformPoint(visualHolderLocalPos),
+                        visualHolderParentRotSmooth * visualHolderLocalRot);
+                }
+            }
         }
 
         // Checking to see if kart is on ground
@@ -746,6 +781,7 @@ namespace PowerslideKartPhysics
                     ClearGroundHits();
                     KartWheel curWheel = wheels[i];
                     bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                    Debug.DrawRay(curWheel.transform.position, -curWheel.transform.up * curWheel.suspensionDistance, Color.black);
 
                     if (wheelHit) {
                         wheelHit = EvaluateGroundHits(groundHits, out hit);
@@ -1308,6 +1344,13 @@ namespace PowerslideKartPhysics
                     }
                 }
 
+                Gizmos.color = Color.cyan;
+                if (groundHits != null) {
+                    for (int i = 0; i < groundHits.Length; i++) {
+                        Gizmos.DrawRay(rotator.TransformPoint(groundHits[i].point), -rotator.up * wheels[i].suspensionDistance);
+                    }
+                }
+
                 // Visualize gravity sphere casts for finding nearest surface
                 if (drawGravityCastGizmos) {
                     float segAngle = Mathf.PI * 2.0f / gravityCastSegments; // Angle between segments
@@ -1338,6 +1381,12 @@ namespace PowerslideKartPhysics
                     Gizmos.DrawWireSphere(point, gravityCastRadius);
                     GizmosExtra.DrawWireCylinder(rotator.position + diff * 0.5f, diff.normalized, gravityCastRadius, diff.magnitude);
                 }
+            }
+        }
+
+        private void OnDestroy() {
+            if (visualHolder != null) {
+                Destroy(visualHolder);
             }
         }
     }

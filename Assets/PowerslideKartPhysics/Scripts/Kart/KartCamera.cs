@@ -45,12 +45,6 @@ namespace PowerslideKartPhysics
 
         private void Awake() {
             cam = GetComponent<Camera>();
-
-            if (GetComponent<AudioListener>() != null) {
-                // Change velocity update mode because the camera moves in FixedUpdate
-                GetComponent<AudioListener>().velocityUpdateMode = AudioVelocityUpdateMode.Fixed;
-            }
-
             Initialize(targetKart);
         }
 
@@ -98,16 +92,16 @@ namespace PowerslideKartPhysics
             }
         }
 
-        private void FixedUpdate() {
+        private void Update() {
             if (cam == null || targetKart == null || targetBody == null) { return; }
 
             // Movement calculations
-            smoothVel = Vector3.Lerp(smoothVel, targetKart.localVel, smoothRate * Time.fixedDeltaTime);
+            smoothVel = Vector3.Lerp(smoothVel, targetKart.localVel, smoothRate * Time.deltaTime);
             distance = initialDist + Mathf.Min(maxVelDist, new Vector3(smoothVel.x, 0.0f, smoothVel.z).magnitude * 0.1f);
             height = initialHeight - Mathf.Clamp(smoothVel.y * 0.1f, -maxVelDist, maxVelDist);
 
             smoothObj.position = targetKart.rotator.position - targetKart.rotator.right * Mathf.Clamp(smoothVel.x * 0.1f, -maxVelDist, maxVelDist);
-            smoothObj.rotation = Quaternion.Lerp(smoothObj.rotation, targetKart.rotator.rotation, smoothRate * Time.fixedDeltaTime);
+            smoothObj.rotation = Quaternion.Lerp(smoothObj.rotation, targetKart.rotator.rotation, smoothRate * Time.deltaTime);
 
             // Getting legacy input
             if (useLegacyInput) {
@@ -123,7 +117,7 @@ namespace PowerslideKartPhysics
 
             // Calculate target rotation
             if (rollWithKart) {
-                upDirBlend = Mathf.Lerp(upDirBlend, Mathf.Clamp01(Vector3.Dot(targetKart.rotator.up, Vector3.up)), rollSmoothRate * Time.fixedDeltaTime);
+                upDirBlend = Mathf.Lerp(upDirBlend, Mathf.Clamp01(Vector3.Dot(targetKart.rotator.up, Vector3.up)), rollSmoothRate * Time.deltaTime);
             }
             else {
                 upDirBlend = 1.0f;
@@ -146,15 +140,14 @@ namespace PowerslideKartPhysics
                 castDist = 1.0f - lineHit.distance / Mathf.Max(Vector3.Distance(highPoint, tempRot.position), 0.001f);
             }
             else {
-                castDist = Mathf.Lerp(castDist, 0.0f, smoothRate * Time.fixedDeltaTime);
+                castDist = Mathf.Lerp(castDist, 0.0f, smoothRate * Time.deltaTime);
             }
 
             // Set final position and rotation of camera
             targetPos = tempRot.position + (highPoint - tempRot.position) * castDist;
             targetRot = Quaternion.LookRotation(tempRot.rotation * Vector3.forward * (lookBack ? -1.0f : 1.0f), tempRot.rotation * Vector3.up);
 
-            transform.position = targetPos;
-            transform.rotation = targetRot;
+            transform.SetPositionAndRotation(targetPos, targetRot);
         }
 
         private void OnDestroy() {

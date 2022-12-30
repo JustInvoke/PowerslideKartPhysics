@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -156,6 +157,7 @@ MonoBehaviour:
   forwardFriction: 20
   sideFriction: 20
   maxFallSpeed: 30
+  fallSpeedDecel: 10
   wallBounceReflect: 1
   itemBounceReflect: 1
   bounceReflectForce: 0.5
@@ -202,6 +204,6 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
