@@ -1,6 +1,4 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
-using System.Collections;
-using System.Collections.Generic;
+﻿// Copyright (c) 2023 Justin Couch / JustInvoke
 using UnityEngine;
 
 namespace PowerslideKartPhysics

@@ -1,9 +1,8 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+﻿// Copyright (c) 2023 Justin Couch / JustInvoke
 using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
-using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem.Controls;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace PowerslideKartPhysics
 {

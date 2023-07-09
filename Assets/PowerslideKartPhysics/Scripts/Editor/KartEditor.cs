@@ -1,7 +1,6 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+﻿// Copyright (c) 2023 Justin Couch / JustInvoke
 #if UNITY_EDITOR
 using UnityEngine;
-using System.Collections;
 using UnityEditor;
 
 namespace PowerslideKartPhysics

@@ -1,6 +1,5 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+﻿// Copyright (c) 2023 Justin Couch / JustInvoke
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

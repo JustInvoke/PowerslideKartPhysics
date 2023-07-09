@@ -1,6 +1,5 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+﻿// Copyright (c) 2023 Justin Couch / JustInvoke
 using UnityEngine;
-using System.Collections;
 
 namespace PowerslideKartPhysics
 {
@@ -142,10 +141,12 @@ namespace PowerslideKartPhysics
 
         // Returns what the visual wheel raycast distance should be based on the local tilt of the wheel, essentially how far to reach the same plane as going straight down
         public float GetVisualSuspensionDistance() {
+#if UNITY_EDITOR
             // For editor gizmos
             if (tr == null) {
                 tr = transform;
             }
+#endif
 
             if (transform.parent != null) {
                 return suspensionDistance / Mathf.Cos(Vector3.Angle(-tr.up, -tr.parent.up) * Mathf.Deg2Rad);
