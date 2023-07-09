@@ -704,8 +704,19 @@ namespace PowerslideKartPhysics
 
             // Asynchronous wheel raycasting (visual)
             if (oneWheelCastPerFrame) {
+                DoVisualWheelCheck(curWheelCast);
+            }
+            else // Simultaneous wheel raycasting (visual)
+            {
+                for (int i = 0; i < wheels.Length; i++) {
+                    DoVisualWheelCheck(i);
+                }
+            }
+
+            // Local nested function to do visual wheel raycasts
+            void DoVisualWheelCheck(int wheelIndex) {
                 ClearGroundHits();
-                KartWheel curWheel = wheels[curWheelCast];
+                KartWheel curWheel = wheels[wheelIndex];
                 bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.GetVisualSuspensionDistance(), wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                 if (wheelHit) {
@@ -739,45 +750,6 @@ namespace PowerslideKartPhysics
                     curWheel.SetSurface(null);
                 }
             }
-            else // Simultaneous wheel raycasting (visual)
-            {
-                for (int i = 0; i < wheels.Length; i++) {
-                    ClearGroundHits();
-                    KartWheel curWheel = wheels[i];
-                    bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.GetVisualSuspensionDistance(), wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
-
-                    if (wheelHit) {
-                        wheelHit = EvaluateGroundHits(groundHits, out hit);
-                    }
-
-                    // Setting ground hit info for visual wheel
-                    if (wheelHit) {
-                        curWheel.grounded = true;
-                        curWheel.localVel = curWheel.transform.InverseTransformDirection(rb.velocity);
-                        curWheel.contactPoint = hit.point;
-                        curWheel.contactNormal = hit.normal;
-                        curWheel.contactTr = hit.transform;
-                        curWheel.contactDistance = hit.distance;
-
-                        if (hit.rigidbody != null) {
-                            curWheel.localVel -= curWheel.transform.InverseTransformDirection(hit.rigidbody.GetPointVelocity(curWheel.transform.position));
-                        }
-
-                        GroundSurface surface = hit.collider.GetComponent<GroundSurface>();
-
-                        if (surface != null) {
-                            curWheel.SetSurface(surface);
-                        }
-                        else {
-                            curWheel.SetSurface(null);
-                        }
-                    }
-                    else {
-                        curWheel.grounded = false;
-                        curWheel.SetSurface(null);
-                    }
-                }
-            }
 
             groundVel = Vector3.zero;
             groundAngVel = Vector3.zero;
@@ -785,27 +757,21 @@ namespace PowerslideKartPhysics
 
             // Asynchronous wheel raycasting (physics/stable points)
             if (oneWheelCastPerFrame) {
-                ClearGroundHits();
-                KartWheel curWheel = wheels[curWheelCast];
-                bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[curWheelCast]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
-
-                if (wheelHit) {
-                    wheelHit = EvaluateGroundHits(groundHits, out hit);
-                }
+                var hitResult = DoStableWheelCheck(curWheelCast);
 
                 // Physical ground hit info
-                if (wheelHit) {
+                if (hitResult.Item2) {
                     grounded = true;
                     lastGroundedWheel = curWheelCast;
                     groundedWheels++;
-                    maxGroundFriction = curWheel.surfaceFriction;
-                    maxGroundSpeed = curWheel.surfaceSpeed;
+                    maxGroundFriction = hitResult.Item1.surfaceFriction;
+                    maxGroundSpeed = hitResult.Item1.surfaceSpeed;
                     if (hit.rigidbody != null) {
                         groundVel = hit.rigidbody.GetPointVelocity(rotator.position);
                         groundAngVel = hit.rigidbody.angularVelocity;
                     }
 
-                    compression += Mathf.Clamp01(hit.distance / Mathf.Max(curWheel.suspensionDistance, 0.01f));
+                    compression += Mathf.Clamp01(hit.distance / Mathf.Max(hitResult.Item1.suspensionDistance, 0.01f));
                     rawGroundNormal += hit.normal;
                 }
                 curWheelCast = (curWheelCast + 1) % wheels.Length;
@@ -813,33 +779,40 @@ namespace PowerslideKartPhysics
             else // Simultaneous wheel raycasting (physics/stable points)
             {
                 for (int i = 0; i < wheels.Length; i++) {
-                    ClearGroundHits();
-                    KartWheel curWheel = wheels[i];
-                    bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[i]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
-
-                    if (wheelHit) {
-                        wheelHit = EvaluateGroundHits(groundHits, out hit);
-                    }
+                    var hitResult = DoStableWheelCheck(i);
 
                     // Physical ground hit info
-                    if (wheelHit) {
+                    if (hitResult.Item2) {
                         grounded = true;
                         groundedWheels++;
                         if (i == 0) {
                             maxGroundFriction = 0.0f;
                             maxGroundSpeed = 0.0f;
                         }
-                        maxGroundFriction = Mathf.Max(maxGroundFriction, curWheel.surfaceFriction);
-                        maxGroundSpeed = Mathf.Max(maxGroundSpeed, curWheel.surfaceSpeed);
+                        maxGroundFriction = Mathf.Max(maxGroundFriction, hitResult.Item1.surfaceFriction);
+                        maxGroundSpeed = Mathf.Max(maxGroundSpeed, hitResult.Item1.surfaceSpeed);
                         if (hit.rigidbody != null) {
                             groundVel = hit.rigidbody.GetPointVelocity(rotator.position);
                             groundAngVel = hit.rigidbody.angularVelocity;
                         }
 
-                        compression += Mathf.Clamp01(hit.distance / Mathf.Max(curWheel.suspensionDistance, 0.01f));
+                        compression += Mathf.Clamp01(hit.distance / Mathf.Max(hitResult.Item1.suspensionDistance, 0.01f));
                         rawGroundNormal += hit.normal;
                     }
                 }
+            }
+
+            // Local nested function to do stable wheel raycasts
+            (KartWheel, bool) DoStableWheelCheck(int wheelIndex) {
+                ClearGroundHits();
+                KartWheel curWheel = wheels[wheelIndex];
+                bool wheelHit = Physics.RaycastNonAlloc(rotator.TransformPoint(stableWheelPoints[wheelIndex]), -upDir, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+
+                if (wheelHit) {
+                    wheelHit = EvaluateGroundHits(groundHits, out hit);
+                }
+
+                return (curWheel, wheelHit);
             }
 
             localVel -= rotator.InverseTransformDirection(groundVel); // Applying velocity of ground (if driving on rigidbody)
