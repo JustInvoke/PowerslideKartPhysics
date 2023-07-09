@@ -131,7 +131,6 @@ namespace PowerslideKartPhysics
 
         [System.NonSerialized]
         public bool grounded;
-        bool wasGrounded;
         [System.NonSerialized]
         public bool airGrounded;
         float compression;
@@ -707,7 +706,7 @@ namespace PowerslideKartPhysics
             if (oneWheelCastPerFrame) {
                 ClearGroundHits();
                 KartWheel curWheel = wheels[curWheelCast];
-                bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.GetVisualSuspensionDistance(), wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                 if (wheelHit) {
                     wheelHit = EvaluateGroundHits(groundHits, out hit);
@@ -745,7 +744,7 @@ namespace PowerslideKartPhysics
                 for (int i = 0; i < wheels.Length; i++) {
                     ClearGroundHits();
                     KartWheel curWheel = wheels[i];
-                    bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.suspensionDistance, wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
+                    bool wheelHit = Physics.RaycastNonAlloc(curWheel.transform.position, -curWheel.transform.up, groundHits, curWheel.GetVisualSuspensionDistance(), wheelCastMask, QueryTriggerInteraction.Ignore) > 0;
 
                     if (wheelHit) {
                         wheelHit = EvaluateGroundHits(groundHits, out hit);

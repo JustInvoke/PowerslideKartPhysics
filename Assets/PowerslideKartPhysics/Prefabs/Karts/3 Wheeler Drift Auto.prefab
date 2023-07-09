@@ -4705,6 +4705,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9458,6 +9459,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14465,6 +14467,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19403,6 +19406,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -24156,6 +24160,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -28909,6 +28914,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -28989,7 +28995,7 @@ Transform:
   - {fileID: 640024250}
   - {fileID: 369897932}
   m_Father: {fileID: 1196949148127726193}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1201096264
 GameObject:
@@ -33754,6 +33760,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -38507,6 +38514,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -43260,6 +43268,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -43347,7 +43356,7 @@ Transform:
   - {fileID: 1201096265}
   - {fileID: 951506560}
   m_Father: {fileID: 1196949148127726193}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1832915660
 GameObject:
@@ -48054,6 +48063,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -52807,6 +52817,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -53172,6 +53183,7 @@ Transform:
   - {fileID: 45330559117885424}
   - {fileID: 8292530997566306221}
   - {fileID: 5200233868415903937}
+  - {fileID: 6942328349938247533}
   - {fileID: 1181771750}
   - {fileID: 1790000719}
   m_Father: {fileID: 1196949149790043254}
@@ -53199,6 +53211,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -53304,6 +53317,7 @@ MonoBehaviour:
   cornerCastOffset: {x: 0, y: 0, z: 0.23}
   oneCornerCastPerFrame: 0
   cornerCastDistance: 1.2
+  maxCollisionContactPoints: 8
   spinRate: 15
   spinHeight: 1
   maxSpeed: 40
@@ -53315,6 +53329,7 @@ MonoBehaviour:
   airDriveFriction: 0
   autoStopSpeed: 1
   autoStopForce: 5
+  autoStopNormalDotLimit: 0.9
   maxFallSpeed: 40
   spinDecel: 1
   steerRate: 1
@@ -53327,13 +53342,13 @@ MonoBehaviour:
   dontInvertSteerReverseAccel: 1
   visualSteerRate: 0.1
   visualSteerSpeedLimit: 10
-  turnTiltAmount: 0
+  turnTiltAmount: -5
   turnTiltReferenceSpeed: 20
   turnTiltRate: 1
   turnTiltSideOffsetFactor: 1
   invertTurnTiltHeightOffset: 0
   localTiltOffsetCompensation: 0
-  accelTiltAmount: 0
+  accelTiltAmount: 0.1
   sidewaysFriction: 10
   airSidewaysFriction: 5
   brakeSlipAmount: 0
@@ -53370,6 +53385,7 @@ MonoBehaviour:
   gravityCastsPerFrame: 10
   drawGravityCastGizmos: 0
   canDrift: 1
+  canDriftInAir: 1
   minDriftAngle: 0.4
   maxDriftAngle: 1.5
   visualDriftFactor: 0.5
@@ -53715,7 +53731,7 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 9603ca4e35dff8a418303affec7b8fc2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: -1
   m_Mesh: {fileID: 8896084543664273402, guid: 7b916aacce6d63248a4314d6933ca8c6, type: 3}
@@ -53773,6 +53789,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -53851,6 +53868,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -53929,6 +53947,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -54032,6 +54051,102 @@ MonoBehaviour:
   markShadowCastMode: 0
   markLightProbeMode: 1
   markReflectionProbeMode: 1
+--- !u!1 &8108862296469393676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6942328349938247533}
+  - component: {fileID: 2247436467154639060}
+  - component: {fileID: 1741938423066889635}
+  - component: {fileID: 2580916472683161869}
+  m_Layer: 0
+  m_Name: SteeringWheel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6942328349938247533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108862296469393676}
+  m_LocalRotation: {x: 0.000000030022292, y: 0.94894624, z: 0.31543803, w: -0.000000014901159}
+  m_LocalPosition: {x: -0.000000019111308, y: 0.294, z: 0.18599999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1196949148127726193}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -143.225, y: -0.000015258789, z: 180}
+--- !u!33 &2247436467154639060
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108862296469393676}
+  m_Mesh: {fileID: -9147890462439599325, guid: 7b916aacce6d63248a4314d6933ca8c6, type: 3}
+--- !u!23 &1741938423066889635
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108862296469393676}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e49ded6271a448f47ab213c2870cba5e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &2580916472683161869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108862296469393676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5843d1aa479740d4fb16162fb28f8f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steerAmount: 60
+  rotateAxis: {x: 0, y: 0, z: 1}
+  angleOffset: 0
+  attachWheel: {fileID: 0}
 --- !u!1 &9183564776320761024
 GameObject:
   m_ObjectHideFlags: 0

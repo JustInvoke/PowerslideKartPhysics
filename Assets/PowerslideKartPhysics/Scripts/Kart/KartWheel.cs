@@ -30,6 +30,8 @@ namespace PowerslideKartPhysics
         public Vector3 localVel = Vector3.zero;
         [System.NonSerialized]
         public int flippedSideFactor = 1;
+        [System.NonSerialized]
+        public float visualSteerAngle = 0.0f;
 
         // This is for the sake of maintaining contact point information for staggered raycasting (not every frame)
         Vector3 localContactPoint = Vector3.zero;
@@ -44,7 +46,8 @@ namespace PowerslideKartPhysics
         }
 
         [System.NonSerialized]
-        public Vector3 contactNormal = Vector3.zero;
+        public Vector3 contactNormal = Vector3.up;
+        Vector3 smoothContactNormal = Vector3.up;
         [System.NonSerialized]
         public float contactDistance = 0.0f;
         [System.NonSerialized]
@@ -56,13 +59,12 @@ namespace PowerslideKartPhysics
         [System.NonSerialized]
         public float surfaceSpeed = 1.0f;
         float rotAngle = 0.0f;
-        Vector3 steerAngle = Vector3.zero;
         [System.NonSerialized]
         public bool sliding = false;
 
         void Awake() {
             tr = transform;
-            kartParent = tr.root.GetComponent<Kart>();
+            kartParent = tr.GetTopmostParentComponent<Kart>();
             flippedSideFactor = tr.localPosition.x > -0.01f ? 1 : -1;
         }
 
@@ -79,19 +81,27 @@ namespace PowerslideKartPhysics
 
             // Calculate rotation angle and suspension distance
             rotAngle = Mathf.Repeat(rotAngle - rotationRate * Time.deltaTime * flippedSideFactor, 360f);
-            steerAngle = tr.forward * kartParent.GetVisualSteer() * flippedSideFactor * -steerAmount;
-            extendDistance = grounded ? contactDistance : Mathf.Lerp(extendDistance, suspensionDistance, airExtendRate * Time.deltaTime);
+            float steerAngle = kartParent.GetVisualSteer() * flippedSideFactor * -steerAmount;
+            Vector3 steerDir = tr.forward * steerAngle;
+            float visualSuspensionDistance = GetVisualSuspensionDistance();
+            extendDistance = grounded ? contactDistance : Mathf.Lerp(extendDistance, visualSuspensionDistance, airExtendRate * Time.deltaTime);
 
             Vector3 groundPoint = grounded ? contactPoint : tr.TransformPoint(Vector3.down * extendDistance);
+            smoothContactNormal = Vector3.Lerp(smoothContactNormal, contactNormal, 20f * Time.deltaTime);
 
             // Set final position and rotation of the wheel
             if (visualWheel != null) {
                 float compression = 1.0f;
-                if (suspensionDistance > 0) {
-                    compression = Mathf.Clamp01(Vector3.Distance(tr.position, groundPoint) / Mathf.Max(suspensionDistance, 0.01f));
+                float tiltOffset = 1.0f;
+
+                if (visualSuspensionDistance > 0) {
+                    compression = Mathf.Clamp01(Vector3.Distance(tr.position, groundPoint) / Mathf.Max(visualSuspensionDistance, 0.01f));
+                    tiltOffset = Mathf.Lerp(Mathf.Cos(Vector3.Angle(-smoothContactNormal, -tr.up) * Mathf.Deg2Rad), 1.0f, Mathf.Pow(compression, 10f));
                 }
-                visualWheel.localPosition = Vector3.down * Mathf.Clamp(compression * suspensionDistance - radius, 0.0f, suspensionDistance) * Mathf.Clamp01(maxExtension);
-                visualWheel.rotation = Quaternion.LookRotation(tr.right * flippedSideFactor + tr.up * (0.5f - compression) * compressionTiltAmount + steerAngle, tr.TransformDirection(0.0f, Mathf.Sin(rotAngle * Mathf.Deg2Rad), Mathf.Cos(rotAngle * Mathf.Deg2Rad)));
+
+                visualWheel.localPosition = Vector3.down * Mathf.Clamp(compression * visualSuspensionDistance - radius / tiltOffset, 0.0f, visualSuspensionDistance) * Mathf.Clamp01(maxExtension);
+                visualWheel.rotation = Quaternion.LookRotation(tr.right * flippedSideFactor + tr.up * (0.5f - compression) * compressionTiltAmount + steerDir, tr.TransformDirection(0.0f, Mathf.Sin(rotAngle * Mathf.Deg2Rad), Mathf.Cos(rotAngle * Mathf.Deg2Rad)));
+                visualSteerAngle = visualWheel.localEulerAngles.y;
             }
 
             bool groundAlwaysSlide = false;
@@ -130,10 +140,31 @@ namespace PowerslideKartPhysics
             }
         }
 
+        // Returns what the visual wheel raycast distance should be based on the local tilt of the wheel, essentially how far to reach the same plane as going straight down
+        public float GetVisualSuspensionDistance() {
+            // For editor gizmos
+            if (tr == null) {
+                tr = transform;
+            }
+
+            if (transform.parent != null) {
+                return suspensionDistance / Mathf.Cos(Vector3.Angle(-tr.up, -tr.parent.up) * Mathf.Deg2Rad);
+            }
+            else {
+                return suspensionDistance;
+            }
+        }
+
         // Visualize the wheel size and suspension distance
         void OnDrawGizmosSelected() {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, -transform.up * GetVisualSuspensionDistance());
+
             Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, -transform.up * suspensionDistance);
+            if (transform.parent != null) {
+                Gizmos.DrawRay(transform.position, -transform.parent.up * suspensionDistance);
+            }
+
             if (visualWheel != null) {
                 GizmosExtra.DrawWireCylinder(transform.position, visualWheel.forward, radius, width);
             }
